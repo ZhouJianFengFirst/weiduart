@@ -42,4 +42,5 @@ public abstract class BaseFragment<T extends AppDelegate> extends Fragment {
         super.onActivityCreated(savedInstanceState);
         delegate.initData();
     }
+
 }
