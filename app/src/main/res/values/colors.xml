@@ -3,9 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <!--主题颜色-->
-
+    <!--主题颜色 渐变-->
+    <color name="colorLightPink">#F8B6CC</color>
+    <color name="colorDeepPink">#DF175C</color>
+    <color name="colorModena">#780E40</color>
     <!--其他颜色-->
+    <color name="colorPink">#EF5D8E</color>
+
     <color name="colorMintGreen">#22C5AA</color>
     <color name="colorGreen">#3c3</color>
     <color name="colorRed">#f00000</color>
