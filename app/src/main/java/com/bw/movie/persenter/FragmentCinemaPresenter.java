@@ -8,10 +8,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.entity.recommendBean;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.HttpHelper;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 作者：gaojiabao
@@ -63,7 +66,11 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         super.successString(data, type);
         switch (type){
             case 0:
-                Log.i("推荐影院",data);
+//                Log.i("推荐影院",data);
+                recommendBean recommendBean = new Gson().fromJson(data, recommendBean.class);
+                List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> nearbyCinemaList = recommendBean.getResult().getNearbyCinemaList();
+
+                //设置适配器
                 break;
             case 1:
 

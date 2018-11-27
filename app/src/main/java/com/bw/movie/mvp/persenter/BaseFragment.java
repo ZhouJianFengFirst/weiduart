@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bw.movie.mvp.view.AppDelegate;
+import com.bw.movie.utils.UltimateBar;
+
 /**
  * 作者：zhoujianfeng
  * 时间：2018/11/27
  * 作用：persenter(fragment基类)
- * */
+ */
 
 public abstract class BaseFragment<T extends AppDelegate> extends Fragment {
     protected T delegate;
@@ -35,6 +37,8 @@ public abstract class BaseFragment<T extends AppDelegate> extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        UltimateBar.newImmersionBuilder().applyNav(false)
+                .build(getActivity()).apply();
         delegate.initContext(getActivity());
         delegate.creat(inflater, null, savedInstanceState);
         View rootView = delegate.getRootView();
@@ -48,7 +52,7 @@ public abstract class BaseFragment<T extends AppDelegate> extends Fragment {
         delegate.initData();
     }
 
-    public void initData(){
+    public void initData() {
 
     }
 
