@@ -12,7 +12,11 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
-
+/**
+ * 作者：zhoujianfeng
+ * 时间：2018/11/27
+ * 作用：BaseService
+ * */
 public interface BaseService {
 
     @GET
