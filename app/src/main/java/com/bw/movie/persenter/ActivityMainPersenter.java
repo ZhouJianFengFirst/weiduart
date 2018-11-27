@@ -70,7 +70,7 @@ public    class ActivityMainPersenter  extends AppDelegate {
 
     private void setar() {
         UltimateBar.newColorBuilder()
-                .statusColor(Color.parseColor("#780E40"))
+               /* .statusColor(Color.parseColor("#780E40"))*/
                 .build((MainActivity) context)
                 .apply();
     }
