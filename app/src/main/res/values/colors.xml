@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!--主题颜色-->
+
+    <!--其他颜色-->
+    <color name="colorMintGreen">#22C5AA</color>
+    <color name="colorGreen">#3c3</color>
+    <color name="colorRed">#f00000</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGray">#6666</color>
+    <color name="colorLightGray">#e8e8e8</color>
 </resources>

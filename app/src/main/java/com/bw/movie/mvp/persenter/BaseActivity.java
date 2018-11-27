@@ -13,7 +13,7 @@ import com.bw.movie.mvp.view.AppDelegate;
  * */
 public abstract class BaseActivity<T extends AppDelegate> extends AppCompatActivity {
 
-    public T delegate;
+    protected T delegate;
 
     public abstract Class<T> getDelegateClass();
 
