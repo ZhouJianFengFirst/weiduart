@@ -11,16 +11,16 @@
         android:background="@drawable/headbackground">
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sdv_inform"
+            android:id="@+id/me_sdv_inform"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
             android:layout_marginLeft="@dimen/dp_24"
             android:layout_marginTop="@dimen/dp_24"
-            app:placeholderImage="@drawable/my_inform"
+            app:placeholderImage="@drawable/me_inform"
             app:roundAsCircle="true" />
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sdv_head"
+            android:id="@+id/me_sdv_head"
             android:layout_width="@dimen/dp_72"
             android:layout_height="@dimen/dp_72"
             android:layout_centerInParent="true"
@@ -28,14 +28,170 @@
             app:roundAsCircle="true" />
 
         <TextView
-            android:id="@+id/tv_nickname"
+            android:id="@+id/me_tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sdv_head"
+            android:layout_below="@+id/me_sdv_head"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dp_10"
             android:text="冬天来了"
             android:textColor="@color/colorWhite" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_86"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/my_item"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:id="@+id/me_liner_message"
+            >
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                app:placeholderImage="@drawable/me_message"
+                app:roundAsCircle="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的信息"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_86"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/my_item"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:id="@+id/me_Liner_attention"
+            >
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                app:placeholderImage="@drawable/me_attention"
+                app:roundAsCircle="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的关注"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_54"
+            android:layout_toRightOf="@+id/me_Liner_attention"
+            android:id="@+id/me_Liner_history"
+            >
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                app:placeholderImage="@drawable/me_history"
+                app:roundAsCircle="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="购票记录"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_86"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/my_item"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:id="@+id/me_Liner_opinion"
+            >
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                app:placeholderImage="@drawable/me_opinion"
+                app:roundAsCircle="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="意见反馈"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_54"
+            android:layout_toRightOf="@+id/me_Liner_opinion"
+            android:id="@+id/me_Liner_newest"
+            >
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                app:placeholderImage="@drawable/me_newest"
+                app:roundAsCircle="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最新版本"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 
