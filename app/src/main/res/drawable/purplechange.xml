@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle"
-    >
+    android:shape="rectangle">
     <!--angle：倾斜角度
 
     centerColor：中部颜色
@@ -14,10 +13,9 @@
 
     <gradient
         android:angle="0"
-        android:type="linear"
-        android:startColor="@color/colorLightPink"
         android:centerColor="@color/colorDeepPink"
         android:endColor="@color/colorModena"
-        />
+        android:startColor="@color/colorLightPink"
+        android:type="linear" />
 
 </shape>
