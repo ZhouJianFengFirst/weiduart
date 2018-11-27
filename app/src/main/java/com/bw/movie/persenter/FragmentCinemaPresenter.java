@@ -1,16 +1,15 @@
 package com.bw.movie.persenter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.adapter.RecommendAdapter;
 import com.bw.movie.entity.recommendBean;
 import com.bw.movie.mvp.view.AppDelegate;
-import com.bw.movie.net.HttpHelper;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
@@ -27,8 +26,9 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
     private TextView nearby;
     private FrameLayout frag;
     private ListView list1;
-    private String reurl="/movieApi/cinema/v1/findRecommendCinemas";
-    private String neurl="";
+    private String reurl = "/movieApi/cinema/v1/findRecommendCinemas";
+    private String neurl = "";
+    private RecommendAdapter recommendAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -45,31 +45,33 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         super.initData();
         initwidget();
         dohttp();
-
-
+        recommendAdapter = new RecommendAdapter(context);
+        list1.setAdapter(recommendAdapter);
     }
-   //请求网络
+
+    //请求网络
     private void dohttp() {
         HashMap map = new HashMap();
-        map.put("userId","18");
-        map.put("sessionId","15320748258726");
-        map.put("page","1");
-        map.put("count","20");
+        map.put("userId", "18");
+        map.put("sessionId", "15320748258726");
+        map.put("page", "1");
+        map.put("count", "20");
         //请求推荐
-        getString(reurl,0,map);
+        getString(reurl, 0, map);
         //请求附近
-        getString(neurl,1,null);
+        getString(neurl, 1, null);
     }
-   //请求成功返回
+
+    //请求成功返回
     @Override
     public void successString(String data, int type) {
         super.successString(data, type);
-        switch (type){
+        switch (type) {
             case 0:
 //                Log.i("推荐影院",data);
                 recommendBean recommendBean = new Gson().fromJson(data, recommendBean.class);
                 List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> nearbyCinemaList = recommendBean.getResult().getNearbyCinemaList();
-
+                recommendAdapter.setList(nearbyCinemaList);
                 //设置适配器
                 break;
             case 1:
@@ -85,7 +87,8 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         list1 = (ListView) getView(R.id.listview_cinema_list1);
         setClick(this, R.id.text_cinema_recommend, R.id.text_cinema_nearby);
     }
-//点击事件
+
+    //点击事件
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
