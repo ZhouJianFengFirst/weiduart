@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bw.movie.R;
+import com.bw.movie.net.BaseObserver;
+import com.bw.movie.net.HttpHelper;
 import com.tapadoo.alerter.Alerter;
-import com.xiangri.dongdong.R;
-import com.xiangri.dongdong.net.BaseObserver;
-import com.xiangri.dongdong.net.RetrofitHelper;
 
 import java.io.IOException;
 import java.util.Map;
@@ -72,7 +72,7 @@ public abstract class AppDelegate implements IDelegate {
                 failString(e.getMessage());
             }
         };
-        RetrofitHelper.getInstens().doGet(url, map,ob);
+        HttpHelper.getInstens().doGet(url, map,ob);
     }
 
 
@@ -101,7 +101,7 @@ public abstract class AppDelegate implements IDelegate {
                 failString(e.getMessage());
             }
         };
-        RetrofitHelper.getInstens().doPost(url, map,ob);
+        HttpHelper.getInstens().doPost(url, map,ob);
 
     }
 
