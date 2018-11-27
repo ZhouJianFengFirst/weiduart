@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--通用适配-->
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_10">10dp</dimen>
@@ -9,7 +10,6 @@
     <dimen name="dp_30">30dp</dimen>
     <dimen name="dp_40">40dp</dimen>
     <dimen name="dp_50">50dp</dimen>
-
     <dimen name="dp_80">80dp</dimen>
     <dimen name="dp_100">100dp</dimen>
     <dimen name="dp_150">150dp</dimen>
@@ -23,6 +23,9 @@
     <dimen name="sp_20">20sp</dimen>
     <!--影院页面需要dp-->
 
-
+    <!--我的页面需要文字适配-->
+    <dimen name="dp_24">24dp</dimen>
+    <dimen name="dp_72">72dp</dimen>
+    <dimen name="dp_220">220dp</dimen>
 
 </resources>
