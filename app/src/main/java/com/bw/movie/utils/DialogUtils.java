@@ -9,7 +9,7 @@ import android.view.View;
 import com.bw.movie.R;
 
 /**
- * author:AbnerMing
+ * author:周建峰
  * date:2018/10/21
  */
 public class DialogUtils extends Dialog {
