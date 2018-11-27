@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--引导页未选中的圆-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/dp_25" />
+    <solid android:color="@color/colorD8d8d8" />
+    <size
+        android:width="@dimen/dp_12"
+        android:height="@dimen/dp_12" />
+
+</shape>

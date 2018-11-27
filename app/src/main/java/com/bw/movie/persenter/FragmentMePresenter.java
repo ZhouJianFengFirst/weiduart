@@ -80,7 +80,7 @@ public    class FragmentMePresenter extends AppDelegate implements View.OnClickL
                 break;
             case R.id.me_Liner_attention:
                 //吐司这是我的关注
-                Toast.makeText(context,"这是我的关注信息",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"这是我的关注",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.me_Liner_history:
                 //吐司这是我的购票记录
@@ -89,6 +89,10 @@ public    class FragmentMePresenter extends AppDelegate implements View.OnClickL
             case R.id.me_Liner_opinion:
                 //吐司这是我的意见反馈
                 Toast.makeText(context,"这是我的意见反馈",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.me_Liner_newest:
+                //吐司这是我的最新版本
+                Toast.makeText(context,"这是我的最新版本",Toast.LENGTH_SHORT).show();
                 break;
         }
     }
