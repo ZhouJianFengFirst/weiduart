@@ -13,6 +13,7 @@ import com.bw.movie.R;
  * date:2018/10/21
  */
 public class DialogUtils extends Dialog {
+
     public DialogUtils(@NonNull Context context) {
         super(context);
         initView(context);
