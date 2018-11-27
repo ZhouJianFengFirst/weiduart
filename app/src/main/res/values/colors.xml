@@ -13,4 +13,6 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorGray">#6666</color>
     <color name="colorLightGray">#e8e8e8</color>
+    <color name="colorDeepYellow">#F88029</color>
+    <color name="colorYellow">#FAC957</color>
 </resources>
