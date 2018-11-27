@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bw.movie.mvp.view.AppDelegate;
-
+/**
+ * 作者：zhoujianfeng
+ * 时间：2018/11/27
+ * 作用：persenter(fragment基类)
+ * */
 
 public abstract class BaseFragment<T extends AppDelegate> extends Fragment {
     public T delegate;

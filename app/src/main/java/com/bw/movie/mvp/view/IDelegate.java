@@ -7,7 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.Map;
-
+/**
+ * 作者：zhoujianfeng
+ * 时间：2018/11/27
+ * 作用：View(接口)
+ * */
 public interface IDelegate {
 
     void initData();

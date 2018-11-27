@@ -18,7 +18,11 @@ import java.io.IOException;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
-
+/**
+ * 作者：zhoujianfeng
+ * 时间：2018/11/27
+ * 作用：View(实现接口)
+ * */
 public abstract class AppDelegate implements IDelegate {
 
     private Context mContext;

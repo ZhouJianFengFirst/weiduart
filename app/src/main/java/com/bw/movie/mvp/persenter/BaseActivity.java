@@ -6,7 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.bw.movie.mvp.view.AppDelegate;
 
-
+/**
+ * 作者：zhoujianfeng
+ * 时间：2018/11/27
+ * 作用：persenter(activity基类)
+ * */
 public abstract class BaseActivity<T extends AppDelegate> extends AppCompatActivity {
 
     public T delegate;
