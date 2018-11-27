@@ -42,15 +42,19 @@ public class ActivityGuidancePersenter extends AppDelegate {
     public void initData() {
         super.initData();
         initwidget();
-        boolean isfirst =(boolean) SpUtil.getInserter(mcontext).saveData("isFirst", false).commit();
+        boolean isfirst = (boolean) SpUtil.getInserter(mcontext).getSpData("isFirst", false);
         if (isfirst) {
             mcontext.startActivity(new Intent(mcontext, MainActivity.class));
             //销毁
-            ((ActivityGuidance)mcontext).finish();
-        }else{
+            ((ActivityGuidance) mcontext).finish();
+
+        } else {
+            SpUtil.getInserter(mcontext).saveData("isFirst", true).commit();
             StartAdapter startAdapter = new StartAdapter(imgs, mcontext);
             vpguidance.setAdapter(startAdapter);
             pointe(0);
+            //销毁
+
         }
     }
 
@@ -77,6 +81,8 @@ public class ActivityGuidancePersenter extends AppDelegate {
                             switch (v.getId()) {
                                 case R.id.gm_bt_jump:
                                     mcontext.startActivity(new Intent(mcontext, MainActivity.class));
+                                    ((ActivityGuidance) mcontext).finish();
+
                                     break;
                             }
                         }
