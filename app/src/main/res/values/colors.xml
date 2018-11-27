@@ -8,15 +8,15 @@
     <color name="colorDeepPink">#DF175C</color>
     <color name="colorModena">#780E40</color>
     <!--其他颜色-->
-    <color name="colorPink">#EF5D8E</color>
-
     <color name="colorMintGreen">#22C5AA</color>
     <color name="colorGreen">#3c3</color>
     <color name="colorRed">#f00000</color>
-    <color name="colorBlack">#000000</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorGray">#6666</color>
-    <color name="colorLightGray">#e8e8e8</color>
+    <color name="colorPink">#EF5D8E</color>
     <color name="colorDeepYellow">#F88029</color>
     <color name="colorYellow">#FAC957</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGray">#6666</color>
+    <color name="colorLightGray">#e8e8e8</color>
+    <color name="colorWhite">#ffffff</color>
+
 </resources>
