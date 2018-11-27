@@ -1,6 +1,7 @@
 package com.bw.movie.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -57,8 +58,9 @@ public class RecommendAdapter extends BaseAdapter {
         }else {
             myViewHolder = (MyViewHolder) view.getTag();
         }
-
-
+        myViewHolder.item_re_simp.setImageURI(Uri.parse(list.get(i).getLogo()));
+        myViewHolder.item_re_te1.setText(list.get(i).getName());
+        myViewHolder.item_re_te2.setText(list.get(i).getAddress());
         return view;
     }
 
