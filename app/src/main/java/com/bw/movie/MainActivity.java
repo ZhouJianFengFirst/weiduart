@@ -1,12 +1,14 @@
 package com.bw.movie;
 
-import com.bw.movie.mvp.persenter.BaseActivity;
-import com.bw.movie.persenter.ActivityMainPersenter;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-public class MainActivity extends BaseActivity<ActivityMainPersenter> {
+public class MainActivity extends AppCompatActivity {
 
     @Override
-    public Class<ActivityMainPersenter> getDelegateClass() {
-        return ActivityMainPersenter.class;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
     }
 }

@@ -12,9 +12,6 @@ import com.yanzhenjie.permission.Permission;
 
 import java.util.List;
 
-/**
- * 动态获取权限
- */
 public class PermissionUtils {
  
     public static void permission(final Context context, final PermissionListener listener) {
