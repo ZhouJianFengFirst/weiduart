@@ -14,4 +14,5 @@ public class MainActivity extends BaseActivity<ActivityMainPersenter> {
     public Class<ActivityMainPersenter> getDelegateClass() {
         return ActivityMainPersenter.class;
     }
+
 }
