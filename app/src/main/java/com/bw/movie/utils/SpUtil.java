@@ -2,25 +2,28 @@ package com.bw.movie.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+
 /**
  * 作者：zhoujianfeng
  * 时间：2018/11/27
  * 作用：SpUtil
- * */
+ */
+
 public class SpUtil {
- 
+
     private static volatile SpUtil inserter;
     private Context context;
     private static String SPCONFIG = "config";
     private static SharedPreferences sp;
-    private static SharedPreferences.Editor edit;
- 
+    private static Editor edit;
+
     private SpUtil(Context context) {
         this.context = context;
         sp = context.getSharedPreferences(SPCONFIG, context.MODE_PRIVATE);
         edit = sp.edit();
     }
- 
+
     public static SpUtil getInserter(Context con) {
         if (inserter == null) {
             synchronized (SpUtil.class) {
@@ -31,7 +34,7 @@ public class SpUtil {
         }
         return inserter;
     }
- 
+
     // 获取sharedpreferences中的数据
     public  Object getSpData( String key, Object value) {
         String type = value.getClass().getSimpleName();
@@ -48,8 +51,8 @@ public class SpUtil {
         }
         return null;
     }
- 
-    public SharedPreferences.Editor saveData(String key, Object value) {
+
+    public  Editor saveData( String key, Object value) {
         String type = value.getClass().getSimpleName();
         if ("Integer".equals(type)) {
             return edit.putInt(key, (Integer) value);
@@ -63,15 +66,10 @@ public class SpUtil {
             return edit.putString(key, (String) value);
         }
         return null;
- 
-    }
- 
-    public  boolean commit() {
-        return edit.commit();
+
     }
 
-    public SpUtil cancle(){
-        edit.clear();
-        return this;
+    public  boolean commit() {
+        return edit.commit();
     }
 }
