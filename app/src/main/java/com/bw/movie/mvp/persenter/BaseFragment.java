@@ -40,7 +40,12 @@ public abstract class BaseFragment<T extends AppDelegate> extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initData();
         delegate.initData();
+    }
+
+    public void initData(){
+
     }
 
 }
