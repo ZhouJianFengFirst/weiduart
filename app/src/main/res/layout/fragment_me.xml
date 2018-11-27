@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/sdv_head"
             android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_10"
             android:text="冬天来了"
             android:textColor="@color/colorWhite" />
 
