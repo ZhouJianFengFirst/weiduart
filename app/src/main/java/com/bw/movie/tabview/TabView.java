@@ -98,11 +98,11 @@ public class TabView extends RelativeLayout {
         mTabViewHeight = TabViewUtil.dp2px(context, 52);
         mImageViewTextViewMargin = TabViewUtil.dp2px(context, 2);
         mTextViewSize = TabViewUtil.sp2px(context, 12);
-        mImageViewWidth = TabViewUtil.dp2px(context, 25);
-        mImageViewHeight = TabViewUtil.dp2px(context, 25);
+        mImageViewWidth = TabViewUtil.dp2px(context, 40);
+        mImageViewHeight = TabViewUtil.dp2px(context, 40);
 
-        mImageViewWidth_ = TabViewUtil.dp2px(context, 20);
-        mImageViewHeight_ = TabViewUtil.dp2px(context, 20);
+        mImageViewWidth_ = TabViewUtil.dp2px(context, 35);
+        mImageViewHeight_ = TabViewUtil.dp2px(context, 35);
 
     }
 
