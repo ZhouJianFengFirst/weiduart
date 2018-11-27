@@ -17,7 +17,11 @@ import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+/**
+ * 作者：zhoujianfeng
+ * 时间：2018/11/27
+ * 作用：HttpHelper(连网工具类 retrofit+RxJava)
+ * */
 public class HttpHelper {
 
     private static HttpHelper retrofitHelper;

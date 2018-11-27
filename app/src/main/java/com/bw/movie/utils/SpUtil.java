@@ -2,7 +2,11 @@ package com.bw.movie.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
+/**
+ * 作者：zhoujianfeng
+ * 时间：2018/11/27
+ * 作用：SpUtil
+ * */
 public class SpUtil {
  
     private static volatile SpUtil inserter;
