@@ -16,7 +16,7 @@ import com.bw.movie.mvp.view.AppDelegate;
  * */
 
 public abstract class BaseFragment<T extends AppDelegate> extends Fragment {
-    public T delegate;
+    protected T delegate;
 
     public abstract Class<T> getDelegateClass();
 
