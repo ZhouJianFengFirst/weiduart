@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activitys.ActivityInform">
+    tools:context=".activitys.ActivityInform"
+    android:background="@color/colorLightGray"
+    >
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="我的通知页面"
-        android:textSize="@dimen/dp_70"
+        android:orientation="vertical"
+        >
+
+    <TextView
+        android:id="@+id/inform_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="系统消息(3条未读)"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/color333333"
+        android:layout_marginTop="@dimen/dp_30"
         />
-</LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginTop="10dp"
+        android:id="@+id/inform_rv"
+        ></android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:src="@drawable/left_return"
+        android:id="@+id/inform_cv_leftreturn"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

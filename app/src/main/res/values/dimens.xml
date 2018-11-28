@@ -62,6 +62,8 @@
     <dimen name="dp_48">48dp</dimen>
     <dimen name="dp_103">103dp</dimen>
     <dimen name="dp_128">128dp</dimen>
+    <dimen name="dp_77">77dp</dimen>
+    <dimen name="dp_28">28dp</dimen>
 
     <!--引导页需要sp-->
 
