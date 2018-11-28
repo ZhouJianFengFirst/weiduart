@@ -17,6 +17,8 @@ import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityCinemaDetails;
 import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.entity.CinemaDetailsBean;
+import com.bw.movie.fragments.FragmentCinemaLeft;
+import com.bw.movie.fragments.FragmentCinemaRight;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.utils.Logger;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -40,6 +42,8 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private FrameLayout fram;
     private View left, right;
     private FragmentManager supportFragmentManager;
+    private FragmentCinemaLeft fragmentCinemaLeft;
+    private FragmentCinemaRight fragmentCinemaRight;
 
     @Override
     protected int getLayoutId() {
@@ -60,10 +64,11 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
 //        toast(context, "影院id" + id);
         dohttp();//请求影院详情
         //实例化fragment
-
+          fragmentCinemaLeft = new FragmentCinemaLeft();
+          fragmentCinemaRight = new FragmentCinemaRight();
         //管理fragment
         supportFragmentManager = ((ActivityCinemaDetails) context).getSupportFragmentManager();
-        supportFragmentManager.beginTransaction().replace(R.id.fram_cinema,null).commit();
+        supportFragmentManager.beginTransaction().replace(R.id.fram_cinema,fragmentCinemaLeft).commit();
     }
 
     //网络请求影院详情
@@ -102,7 +107,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         fram = (FrameLayout) getView(R.id.fram_cinema);
         left = (View) getView(R.id.view_cinemadetails_left);
         right = (View) getView(R.id.view_cinemadetails_right);
-        setClick(this, R.id.image_cinemadetails_seat, R.id.image_cinemadetails_left, R.id.text_cinemadetails_name, R.id.text_cinemadetails_seat, R.id.simp_cinemadetails_simp, R.id.image_cinema_down);
+        setClick(this, R.id.image_cinemadetails_seat, R.id.image_cinemadetails_left, R.id.text_cinemadetails_name, R.id.text_cinemadetails_seat, R.id.simp_cinemadetails_simp, R.id.image_cinema_down,R.id.text_cinemadetails_pl,R.id.text_cinemadetails_xq);
     }
 
     //点击事件
@@ -127,10 +132,14 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
                 hintDetail();
                 break;
             case R.id.text_cinemadetails_xq://影院详情
-                supportFragmentManager.beginTransaction().replace(R.id.fram_cinema,null).commit();
+                left.setVisibility(View.VISIBLE);
+                right.setVisibility(View.GONE);
+                supportFragmentManager.beginTransaction().replace(R.id.fram_cinema,fragmentCinemaLeft).commit();
                 break;
             case R.id.text_cinemadetails_pl://影院评论
-                supportFragmentManager.beginTransaction().replace(R.id.fram_cinema,null).commit();
+                left.setVisibility(View.GONE);
+                right.setVisibility(View.VISIBLE);
+                supportFragmentManager.beginTransaction().replace(R.id.fram_cinema,fragmentCinemaRight).commit();
                 break;
 
         }
