@@ -7,4 +7,16 @@
     <string name="guidance_txt_title">一场电影</string>
     <string name="guidance_txt_desc">荡漾你的心灵</string>
     <string name="guidance_bt_jump">立即跳转</string>
+    <string name="login_ed_phone">手机号</string>
+    <string name="login_ed_pass">密码</string>
+    <string name="login_ck_repass">记住密码</string>
+    <string name="login_ck_smlogin">自动登录</string>
+    <string name="login_ck_justregister">快速注册</string>
+    <string name="login_bt_login">登录</string>
+    <string name="login_txt_third">第三方快速登录</string>
+    <string name="register_txt_sex">性别</string>
+    <string name="register_txt_date">出生日期</string>
+    <string name="register_txt_phone">手机号</string>
+    <string name="register_txt_emil">邮箱</string>
+    <string name="register_txt_name">昵称</string>
 </resources>

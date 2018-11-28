@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/lrbackground"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/px_126"
+    android:paddingRight="@dimen/px_126"
+    android:paddingTop="@dimen/px_126">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/register_icon_name" />
+
+        <EditText
+            android:id="@+id/register_ed_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_7"
+            android:background="@null"
+            android:hint="@string/register_txt_name"
+            android:textColorHint="@color/colorWhite" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@color/colorWhite" />
+
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/register_icon_sex" />
+
+        <EditText
+            android:id="@+id/register_ed_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_7"
+            android:background="@null"
+            android:hint="@string/register_txt_sex"
+            android:textColorHint="@color/colorWhite" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@color/colorWhite" />
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/register_icon_date" />
+
+        <EditText
+            android:id="@+id/register_ed_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_7"
+            android:background="@null"
+            android:hint="@string/register_txt_date"
+            android:textColorHint="@color/colorWhite" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@color/colorWhite" />
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/log_icon_phone" />
+
+        <EditText
+            android:id="@+id/register_ed_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_7"
+            android:background="@null"
+            android:hint="@string/login_ed_phone"
+            android:textColorHint="@color/colorWhite" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@color/colorWhite" />
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/register_icon_mail" />
+
+        <EditText
+            android:id="@+id/register_ed_emil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_7"
+            android:background="@null"
+            android:hint="@string/register_txt_emil"
+            android:textColorHint="@color/colorWhite" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@color/colorWhite" />
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/log_icon_lock" />
+
+        <EditText
+            android:id="@+id/register_ed_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_7"
+            android:background="@null"
+            android:hint="@string/login_ed_pass"
+            android:textColorHint="@color/colorWhite" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@color/colorWhite" />
+
+    <Button
+
+        android:id="@+id/register_bt_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_200"
+        android:background="@drawable/yellowchange"
+        android:text="@string/login_bt_login"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp_20" />
+
+
+</LinearLayout>
