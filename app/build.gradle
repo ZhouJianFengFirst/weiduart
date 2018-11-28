@@ -41,4 +41,5 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation project(':xlistviewlib')
+    implementation 'com.android.support:design:28.+'
 }

@@ -1,59 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/colorLightGray"
     tools:context=".activitys.ActivityCinemaDetails">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_200"
-        android:background="@mipmap/cinema_bag"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:layout_margin="@dimen/dp_20"
-            android:orientation="horizontal">
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_width="@dimen/dp_50"
-                android:layout_height="@dimen/dp_50"
-                app:actualImageResource="@mipmap/ic_launcher" />
+            android:layout_height="@dimen/dp_200"
+            android:background="@mipmap/cinema_bag"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="@dimen/dp_60"
+                android:layout_margin="@dimen/dp_24"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="影城"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/sp_14" />
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/simp_cinemadetails_simp"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    app:actualImageResource="@mipmap/ic_launcher" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="位置"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/sp_12" />
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_cinemadetails_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="影城"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/text_cinemadetails_seat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="位置"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/image_cinemadetails_seat"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:src="@mipmap/cinema_seat" />
+
             </LinearLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher" />
         </LinearLayout>
 
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyview_cinema_rescy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+            <ImageView
+                android:id="@+id/image_cinemadetails_left"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:src="@drawable/left_return" />
+        </RelativeLayout>
     </LinearLayout>
 
+    <!--弹出的详情和评论默认gong-->
+    <LinearLayout
+        android:id="@+id/lin_cinema_tan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/cinema_yuan"
+        android:orientation="vertical">
+<LinearLayout
+    android:layout_marginTop="@dimen/dp_21"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="@dimen/dp_40">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/text_cinemadetails_xq"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_cinema_xq"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_24"
+                android:text="详情"
+                android:textSize="@dimen/sp_18" />
+
+            <View
+                android:id="@+id/view_cinemadetails_left"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_3"
+                android:background="@drawable/square_purple" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/text_cinemadetails_pl"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_115"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_24"
+                android:text="评论"
+                android:textSize="@dimen/sp_18" />
+
+            <View
+                android:id="@+id/view_cinemadetails_right"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_3"
+                android:background="@drawable/square_purple"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/image_cinema_down"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="match_parent"
+        android:src="@mipmap/cinema_down"
+        android:layout_marginRight="@dimen/dp_10"/>
+
 </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fram_cinema"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_24"
+            android:layout_marginRight="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_10"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
