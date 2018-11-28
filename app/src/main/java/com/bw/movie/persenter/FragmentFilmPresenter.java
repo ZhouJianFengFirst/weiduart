@@ -3,8 +3,7 @@ package com.bw.movie.persenter;
 import android.content.Context;
 
 import com.bw.movie.R;
-import com.bw.movie.adapter.BasePageChangeListener;
-import com.bw.movie.adapter.MoviePageAdapter;
+import com.bw.movie.adapter.MovieRecyAdapter;
 import com.bw.movie.entity.HortMovieEntity;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
@@ -29,7 +28,7 @@ public class FragmentFilmPresenter extends AppDelegate {
     private PagerAdapter3D pagerAdapter3D;
     List<String> images = new ArrayList<>();
     private ListFilmView horMovie,hortShowing,upcoming;
-    private MoviePageAdapter upcomingAdapter,hortMovieAdapter,hortShowingAdapter;
+    private MovieRecyAdapter upcomingAdapter,hortMovieAdapter,hortShowingAdapter;
 
     @Override
     public void initContext(Context context) {
@@ -63,7 +62,7 @@ public class FragmentFilmPresenter extends AppDelegate {
         upcoming = (ListFilmView)getView(R.id.lf_upcoming);
         viewPage3D = (ViewPage3D) getView(R.id.viepage_3d);
         //初始化适配器
-        upcomingAdapter = new MoviePageAdapter(context);
+        upcomingAdapter = new MovieRecyAdapter(context);
         pagerAdapter3D = new PagerAdapter3D(context);
         viewPage3D.setAdapter(pagerAdapter3D);
         viewPage3D.setPageTransformer(new RotationPageTransformer(), 2, 8);

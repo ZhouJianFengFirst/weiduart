@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
  * 作者：xujiahui
@@ -43,9 +43,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public ViewHolder setImageUrl(int viewId, String url) {
-        ImageView imageView = (ImageView) getView(viewId);
-        Picasso.with(mContext).load(url).into(imageView);
+    public ViewHolder setSimpleDraweViewUrl(int viewId, String url) {
+        SimpleDraweeView simpleDraweeView = (SimpleDraweeView) getView(viewId);
+        simpleDraweeView.setImageURI(url);
         return this;
     }
 
