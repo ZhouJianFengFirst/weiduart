@@ -19,6 +19,12 @@ import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+/**
+ * 作者：mafuyan
+ * 时间：2018/11/28
+ * 作用：FragmentMePersenter(我的页面)
+ * */
+
 public    class FragmentMePresenter extends AppDelegate implements View.OnClickListener {
     private Context context;
     private SimpleDraweeView me_sdv_head;

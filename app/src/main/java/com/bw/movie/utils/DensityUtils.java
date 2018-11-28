@@ -4,8 +4,10 @@ import android.content.Context;
 import android.util.TypedValue;
 
 /**
- * 常用单位转换的辅助类
- */
+ * 作者：mafuyan
+ * 时间：2018/11/27
+ * 作用：常用单位转换的辅助类
+ * */
 public class DensityUtils {
 
     private DensityUtils() {
