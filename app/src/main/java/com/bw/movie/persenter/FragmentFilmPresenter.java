@@ -1,6 +1,8 @@
 package com.bw.movie.persenter;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.bw.movie.R;
 import com.bw.movie.adapter.MovieRecyAdapter;
@@ -27,8 +29,8 @@ public class FragmentFilmPresenter extends AppDelegate {
     private ViewPage3D viewPage3D;
     private PagerAdapter3D pagerAdapter3D;
     List<String> images = new ArrayList<>();
-    private ListFilmView horMovie,hortShowing,upcoming;
-    private MovieRecyAdapter upcomingAdapter,hortMovieAdapter,hortShowingAdapter;
+    private ListFilmView horMovie, hortShowing, upcoming;
+    private MovieRecyAdapter upcomingAdapter, hortMovieAdapter, hortShowingAdapter;
 
     @Override
     public void initContext(Context context) {
@@ -51,22 +53,24 @@ public class FragmentFilmPresenter extends AppDelegate {
         map.put("page", "1");
         map.put("count", "10");
         getString(Http.SOONMOVIELIST_URL, SOONMOVIELIST_CONTENT, map);
-        getString(Http.HOTMOVIELIST_URL,HOTMOVIELIST_CONTENT,map);
-        getString(Http.RELEAASEMOVIELIST_URL,RELEAASEMOVIELIST_CONTENT,map);
+        getString(Http.HOTMOVIELIST_URL, HOTMOVIELIST_CONTENT, map);
+        getString(Http.RELEAASEMOVIELIST_URL, RELEAASEMOVIELIST_CONTENT, map);
     }
 
     private void initWeght() {
         //初始化控件
-        horMovie = (ListFilmView)getView(R.id.lf_hortmovie);
+        horMovie = (ListFilmView) getView(R.id.lf_hortmovie);
         hortShowing = (ListFilmView) getView(R.id.lf_hortshowing);
-        upcoming = (ListFilmView)getView(R.id.lf_upcoming);
+        upcoming = (ListFilmView) getView(R.id.lf_upcoming);
         viewPage3D = (ViewPage3D) getView(R.id.viepage_3d);
         //初始化适配器
         upcomingAdapter = new MovieRecyAdapter(context);
         pagerAdapter3D = new PagerAdapter3D(context);
         viewPage3D.setAdapter(pagerAdapter3D);
         viewPage3D.setPageTransformer(new RotationPageTransformer(), 2, 8);
-        upcoming.setAdapter(upcomingAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        upcoming.setAdapter(upcomingAdapter, linearLayoutManager);
     }
 
     @Override
@@ -83,7 +87,7 @@ public class FragmentFilmPresenter extends AppDelegate {
                 setSoonMovieData(data);
                 break;
             case HOTMOVIELIST_CONTENT:
-               /* setSoonMovieData(data);*/
+                /* setSoonMovieData(data);*/
                 break;
             case RELEAASEMOVIELIST_CONTENT:
                 /*setSoonMovieData(data);*/
@@ -94,7 +98,7 @@ public class FragmentFilmPresenter extends AppDelegate {
     @Override
     public void failString(String msg) {
         super.failString(msg);
-        toast(context,"请检查网络");
+        toast(context, "请检查网络");
     }
 
     public void setSoonMovieData(String data) {
