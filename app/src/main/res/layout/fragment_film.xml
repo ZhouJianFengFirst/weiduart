@@ -1,19 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/backgrpound_image"
+    <ImageView
+        android:id="@+id/backimage"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_300"
         android:scaleType="centerCrop"
-        android:layout_height="@dimen/dp_200" />
+        android:src="@drawable/backmovie" />
 
-    <com.bw.movie.view.ViewPage3D
-        android:id="@+id/viepage_3d"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_200"></com.bw.movie.view.ViewPage3D>
+    <RelativeLayout
+        android:id="@+id/relayout_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        android:layout_marginTop="@dimen/dp_100"
+        android:clipChildren="false"
+        android:padding="@dimen/dp_20">
 
+        <com.bw.movie.view.ViewPage3D
+            android:id="@+id/viepage_3d"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_200"
+            android:layout_centerHorizontal="true"></com.bw.movie.view.ViewPage3D>
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relayout_view"
+        android:layout_marginTop="@dimen/dp_20">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.bw.movie.view.ListFilmView
+                android:id="@+id/lf_hortmovie"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_180"
+                app:Title="热门电影"></com.bw.movie.view.ListFilmView>
+
+            <com.bw.movie.view.ListFilmView
+                android:id="@+id/lf_hortshowing"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_180"
+                android:layout_below="@id/lf_hortmovie"
+                app:Title="正在热映"></com.bw.movie.view.ListFilmView>
+
+            <com.bw.movie.view.ListFilmView
+                android:id="@+id/lf_upcoming"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_180"
+                android:layout_below="@id/lf_hortshowing"
+                app:Title="即将上映"></com.bw.movie.view.ListFilmView>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

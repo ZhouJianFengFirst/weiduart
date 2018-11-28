@@ -27,6 +27,7 @@ public class PagerAdapter3D extends PagerAdapter {
 
     public void setImageurl(List<String> imageurl) {
         this.imageurl = imageurl;
+        notifyDataSetChanged();
     }
 
     public PagerAdapter3D(Context context) {
@@ -56,9 +57,6 @@ public class PagerAdapter3D extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.view_3d_image, null);
         SimpleDraweeView smView = (SimpleDraweeView) view.findViewById(R.id.iv);
-        /*imageView.setImageResource(mBitmapIds[position]);
-        new LoadBitmapTask(imageView).execute(mBitmapIds[position]);*/
-        /*loadBitmapIntoTarget(mBitmapIds[position], imageView);*/
         smView.setImageURI(imageurl.get(position));
         container.addView(view);
         return view;
@@ -148,4 +146,5 @@ public class PagerAdapter3D extends PagerAdapter {
             imageView.setImageBitmap(bitmap);
         }
     }
+
 }

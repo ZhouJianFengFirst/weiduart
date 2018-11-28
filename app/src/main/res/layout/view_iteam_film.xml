@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_180">
+
+        <RelativeLayout
+            android:id="@+id/layout_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_hortmovie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dp_20"
+                android:textColor="@color/colorBlack"
+                android:text="热门电影"/>
+            <View
+                android:layout_below="@id/txt_hortmovie"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_2"
+                android:background="@drawable/purplechange"/>
+
+            <ImageView
+                android:src="@drawable/back_reight"
+                android:layout_width="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_height="@dimen/dp_20" />
+
+        </RelativeLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpage_hortmovie"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_below="@id/layout_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_158"></android.support.v4.view.ViewPager>
+    </RelativeLayout>
+
+
+</RelativeLayout>

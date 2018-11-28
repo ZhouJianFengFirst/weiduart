@@ -9,10 +9,11 @@ import android.widget.RelativeLayout;
 
 import com.bw.movie.R;
 
-public  class ViewPage3D   extends RelativeLayout {
+public class ViewPage3D extends RelativeLayout {
 
     private Context context;
     private ViewPager viewPager;
+
     public ViewPage3D(Context context) {
         super(context);
         init(context);
@@ -28,9 +29,9 @@ public  class ViewPage3D   extends RelativeLayout {
         init(context);
     }
 
-    public void init(Context context){
+    public void init(Context context) {
         this.context = context;
-        View view = LayoutInflater.from(context).inflate(R.layout.view_3d_viewpage,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.view_3d_viewpage, null);
         initWeight(view);
         this.setClipChildren(false);
         addView(view);
@@ -40,13 +41,21 @@ public  class ViewPage3D   extends RelativeLayout {
         viewPager = (ViewPager) view.findViewById(R.id.vp_banner);
     }
 
-    public void setAdapter(PagerAdapter3D pagerAdapter3D){
+    public void setAdapter(PagerAdapter3D pagerAdapter3D) {
         viewPager.setAdapter(pagerAdapter3D);
     }
 
-    public void setPageTransformer(RotationPageTransformer rotation,int OffscreenPageLimit,int PageMargin){
-        viewPager.setPageTransformer(true,rotation);
+    public void setPageTransformer(RotationPageTransformer rotation, int OffscreenPageLimit, int PageMargin) {
+        viewPager.setPageTransformer(true, rotation);
         viewPager.setOffscreenPageLimit(OffscreenPageLimit);//设置预加载的数量，这里设置了2,会预加载中心item左边两个Item和右边两个Item
         viewPager.setPageMargin(PageMargin);//设置两个Page之间的距离
+    }
+
+    public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
+        viewPager.addOnPageChangeListener(listener);
+    }
+
+    public void setCurrentItem(int i) {
+        viewPager.setCurrentItem(i);
     }
 }

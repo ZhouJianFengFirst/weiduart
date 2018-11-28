@@ -10,24 +10,43 @@ import com.facebook.imagepipeline.postprocessors.IterativeBoxBlurPostProcessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
 
 /**
  * SimpDrawViewUtils 工具类
  */
-public    class SimpDrawViewUtils   {
+public class SimpDrawViewUtils {
     /**
      * 高斯模糊
      */
+
+    private static Map<String, AbstractDraweeController> map = new HashMap<>();
+
     public static void showUrlBlur(SimpleDraweeView draweeView, String url, int iterations, int blurRadius) {
         try {
             Uri uri = Uri.parse(url);
             ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
                     .setPostprocessor(new IterativeBoxBlurPostProcessor(iterations, blurRadius))
                     .build();
+            Set set = map.keySet();
+            Iterator iter = set.iterator();
+            while (iter.hasNext()) {
+                String key = (String) iter.next();
+                if (key.equals(url)){
+                    draweeView.setController(map.get(url));
+                    return;
+                }
+            }
+
             AbstractDraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setOldController(draweeView.getController())
                     .setImageRequest(request)
                     .build();
+            map.put(url, controller);
             draweeView.setController(controller);
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,6 +56,7 @@ public    class SimpDrawViewUtils   {
 
     /**
      * 加载本地资源图片
+     *
      * @param draweeView
      * @param resId
      */
