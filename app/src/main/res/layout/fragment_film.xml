@@ -15,7 +15,7 @@
     <RelativeLayout
         android:id="@+id/relayout_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_200"
+        android:layout_height="@dimen/dp_300"
         android:layout_marginTop="@dimen/dp_100"
         android:clipChildren="false"
         android:padding="@dimen/dp_20">
@@ -23,40 +23,49 @@
         <com.bw.movie.view.ViewPage3D
             android:id="@+id/viepage_3d"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_200"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"></com.bw.movie.view.ViewPage3D>
+
     </RelativeLayout>
 
-    <ScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/relayout_view"
         android:layout_marginTop="@dimen/dp_20">
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.bw.movie.view.ListFilmView
-                android:id="@+id/lf_hortmovie"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_180"
-                app:Title="热门电影"></com.bw.movie.view.ListFilmView>
+                android:layout_height="wrap_content">
 
-            <com.bw.movie.view.ListFilmView
-                android:id="@+id/lf_hortshowing"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_180"
-                android:layout_below="@id/lf_hortmovie"
-                app:Title="正在热映"></com.bw.movie.view.ListFilmView>
+                <com.bw.movie.view.ListFilmView
+                    android:id="@+id/lf_hortmovie"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_300"
+                    app:Title="热门电影"></com.bw.movie.view.ListFilmView>
 
-            <com.bw.movie.view.ListFilmView
-                android:id="@+id/lf_upcoming"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_180"
-                android:layout_below="@id/lf_hortshowing"
-                app:Title="即将上映"></com.bw.movie.view.ListFilmView>
-        </RelativeLayout>
-    </ScrollView>
+                <com.bw.movie.view.ListFilmView
+                    android:id="@+id/lf_hortshowing"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_300"
+                    android:layout_below="@id/lf_hortmovie"
+                    app:Title="正在热映"></com.bw.movie.view.ListFilmView>
+
+                <com.bw.movie.view.ListFilmView
+                    android:id="@+id/lf_upcoming"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_300"
+                    android:layout_below="@id/lf_hortshowing"
+                    app:Title="即将上映"></com.bw.movie.view.ListFilmView>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

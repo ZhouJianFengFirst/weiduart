@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_180">
+        android:layout_height="@dimen/dp_300">
 
         <RelativeLayout
             android:id="@+id/layout_one"
@@ -40,8 +40,7 @@
             android:layout_marginTop="@dimen/dp_5"
             android:layout_below="@id/layout_one"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_158"></android.support.v7.widget.RecyclerView>
+            android:layout_height="@dimen/dp_258"></android.support.v7.widget.RecyclerView>
     </RelativeLayout>
-
 
 </RelativeLayout>

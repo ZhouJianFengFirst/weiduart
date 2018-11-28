@@ -78,4 +78,6 @@
     <dimen name="dp_126">14px</dimen>
     <!--影片-->
     <dimen name="dp_158">158dp</dimen>
+    <dimen name="dp_258">258dp</dimen>
+    <dimen name="dp_240">240dp</dimen>
 </resources>

@@ -9,6 +9,7 @@ import com.bw.movie.adapter.MovieRecyAdapter;
 import com.bw.movie.entity.HortMovieEntity;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
+import com.bw.movie.utils.Logger;
 import com.bw.movie.view.ListFilmView;
 import com.bw.movie.view.PagerAdapter3D;
 import com.bw.movie.view.RotationPageTransformer;
@@ -63,14 +64,28 @@ public class FragmentFilmPresenter extends AppDelegate {
         hortShowing = (ListFilmView) getView(R.id.lf_hortshowing);
         upcoming = (ListFilmView) getView(R.id.lf_upcoming);
         viewPage3D = (ViewPage3D) getView(R.id.viepage_3d);
+
         //初始化适配器
         upcomingAdapter = new MovieRecyAdapter(context);
+        hortMovieAdapter = new MovieRecyAdapter(context);
+        hortShowingAdapter = new MovieRecyAdapter(context);
         pagerAdapter3D = new PagerAdapter3D(context);
+
+        //設置适配器
         viewPage3D.setAdapter(pagerAdapter3D);
         viewPage3D.setPageTransformer(new RotationPageTransformer(), 2, 8);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        upcoming.setAdapter(upcomingAdapter, linearLayoutManager);
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(context);
+        linearLayoutManager1.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(context);
+        linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+
+        LinearLayoutManager linearLayoutManager3 = new LinearLayoutManager(context);
+        linearLayoutManager3.setOrientation(LinearLayoutManager.HORIZONTAL);
+        upcoming.setAdapter(upcomingAdapter, linearLayoutManager1);
+        horMovie.setAdapter(hortMovieAdapter,linearLayoutManager2);
+        hortShowing.setAdapter(hortShowingAdapter,linearLayoutManager3);
     }
 
     @Override
@@ -87,10 +102,10 @@ public class FragmentFilmPresenter extends AppDelegate {
                 setSoonMovieData(data);
                 break;
             case HOTMOVIELIST_CONTENT:
-                /* setSoonMovieData(data);*/
+                 setHortMovieData(data);
                 break;
             case RELEAASEMOVIELIST_CONTENT:
-                /*setSoonMovieData(data);*/
+                setReleaseMovieData(data);
                 break;
         }
     }
@@ -102,13 +117,23 @@ public class FragmentFilmPresenter extends AppDelegate {
     }
 
     public void setSoonMovieData(String data) {
-        images.clear();
-        HortMovieEntity soonMovieEntity = new Gson().fromJson(data, HortMovieEntity.class);
-        for (int i = 0; i < soonMovieEntity.getResult().size(); i++) {
-            images.add(soonMovieEntity.getResult().get(i).getImageUrl());
-        }
-        pagerAdapter3D.setImageurl(images);
-        upcomingAdapter.setList(soonMovieEntity.getResult());
+
+        HortMovieEntity entity = new Gson().fromJson(data, HortMovieEntity.class);
+        upcomingAdapter.setList(entity.getResult());
     }
 
+    public void setHortMovieData(String data) {
+        HortMovieEntity entity = new Gson().fromJson(data, HortMovieEntity.class);
+        hortMovieAdapter.setList(entity.getResult());
+    }
+
+    public void setReleaseMovieData(String data) {
+        images.clear();
+        HortMovieEntity entity = new Gson().fromJson(data, HortMovieEntity.class);
+        for (int i = 0; i < entity.getResult().size(); i++) {
+            images.add(entity.getResult().get(i).getImageUrl());
+        }
+        pagerAdapter3D.setImageurl(images);
+        hortShowingAdapter.setList(entity.getResult());
+    }
 }
