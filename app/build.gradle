@@ -41,4 +41,5 @@ dependencies {
     implementation 'com.google.guava:guava:16.0.1'
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation project(':xlistviewlib')
 }

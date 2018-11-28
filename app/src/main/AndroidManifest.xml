@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".activitys.MainActivity"></activity>
         <activity android:name=".activitys.ActivityBegin"></activity>
         <activity android:name=".activitys.ActivityInform"></activity>
         <activity android:name=".activitys.ActivityMessage"></activity>
@@ -30,6 +30,8 @@
         <activity android:name=".activitys.ActivityHistory"></activity>
         <activity android:name=".activitys.ActivityOpinion"></activity>
         <activity android:name=".activitys.ActivityNewest"></activity>
+        <activity android:name=".activitys.ActivityCinemaDetails"></activity>
+
     </application>
 
 </manifest>

@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.bw.movie.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityBegin;
+import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.mvp.view.AppDelegate;
 
 /**

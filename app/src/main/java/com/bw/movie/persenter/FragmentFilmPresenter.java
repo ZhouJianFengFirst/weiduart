@@ -69,6 +69,6 @@ public class FragmentFilmPresenter extends AppDelegate {
     @Override
     public void failString(String msg) {
         super.failString(msg);
-        toast("请检查网络");
+        toast(context,"请检查网络");
     }
 }
