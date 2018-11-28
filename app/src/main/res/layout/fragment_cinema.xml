@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorLightGray"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -79,7 +80,7 @@
 
     </LinearLayout>
 
-    <ListView
+    <com.example.xlistviewlib.XListView
         android:id="@+id/listview_cinema_list1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

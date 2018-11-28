@@ -1,4 +1,4 @@
-package com.bw.movie;
+package com.bw.movie.activitys;
 
 import com.bw.movie.mvp.persenter.BaseActivity;
 import com.bw.movie.persenter.ActivityMainPersenter;

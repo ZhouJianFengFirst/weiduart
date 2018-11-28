@@ -117,8 +117,8 @@ public abstract class AppDelegate implements IDelegate {
 
     }
 
-    public void toast(String msg) {
-        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+    public void toast(Context context,String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     public void toast(String title,String msg,int s){

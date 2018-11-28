@@ -1,13 +1,11 @@
 package com.bw.movie.persenter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bw.movie.MainActivity;
+import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.fragments.FragmentCinema;
 import com.bw.movie.fragments.FragmentFilm;
