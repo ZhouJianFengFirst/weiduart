@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".activitys.MainActivity" />
         <activity android:name=".activitys.ActivityBegin" />
+        <activity android:name=".activitys.ActivityLogin" />
         <activity android:name=".activitys.ActivityInform" />
         <activity android:name=".activitys.ActivityMessage" />
         <activity android:name=".activitys.ActivityAttention" />

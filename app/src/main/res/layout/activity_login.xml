@@ -27,6 +27,8 @@
             android:layout_marginLeft="@dimen/dp_7"
             android:background="@null"
             android:hint="@string/login_ed_phone"
+            android:maxEms="11"
+            android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite" />
     </LinearLayout>
 
@@ -55,6 +57,8 @@
             android:layout_weight="8"
             android:background="@null"
             android:hint="@string/login_ed_pass"
+            android:inputType="numberPassword"
+            android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite" />
 
         <ImageView
