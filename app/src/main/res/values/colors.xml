@@ -20,6 +20,7 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorD8d8d8">#d8d8d8</color>
     <color name="color333333">#333333</color>
+    <color name="color999999">#999999</color>
     <color name="color666666">#666666</color>
 
 </resources>
