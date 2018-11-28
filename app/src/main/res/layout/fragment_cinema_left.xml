@@ -4,8 +4,63 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical">
- <TextView
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:text="详情"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:src="@mipmap/cinema_left_place" />
+        <TextView
+            android:id="@+id/text_left_te1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_20"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:src="@mipmap/cinema_left_phone" />
+        <TextView
+            android:id="@+id/text_left_te2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_20"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:src="@mipmap/cinema_left_path" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="乘车路线"
+            android:gravity="center_vertical"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_left_te3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"/>
+
 </LinearLayout>

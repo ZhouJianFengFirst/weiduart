@@ -44,7 +44,6 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private FragmentManager supportFragmentManager;
     private FragmentCinemaLeft fragmentCinemaLeft;
     private FragmentCinemaRight fragmentCinemaRight;
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_cinema_details;
@@ -85,7 +84,6 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         super.successString(data, type);
         switch (type) {
             case 0:
-                Logger.i("影院详情", data);
                 CinemaDetailsBean cinemaDetailsBean = new Gson().fromJson(data, CinemaDetailsBean.class);
                 CinemaDetailsBean.ResultBean derail = cinemaDetailsBean.getResult();
                 simp.setImageURI(Uri.parse(derail.getLogo()));
