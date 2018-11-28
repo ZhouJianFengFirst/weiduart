@@ -4,8 +4,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -33,6 +36,8 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
     private int page = 1;
     private String longitude = "116.30551391385724";
     private String latitude = "40.04571807462411";
+    private RelativeLayout relay;
+    private ImageView search;
 
     @Override
     protected int getLayoutId() {
@@ -121,6 +126,8 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         recommend = (TextView) getView(R.id.text_cinema_recommend);
         nearby = (TextView) getView(R.id.text_cinema_nearby);
         list1 = (XListView) getView(R.id.listview_cinema_list1);
+        relay = (RelativeLayout) getView(R.id.relay_cinema_search);
+        search = (ImageView) getView(R.id.image_cinema_search);
         setClick(this, R.id.text_cinema_recommend, R.id.text_cinema_nearby);
     }
 
@@ -142,6 +149,10 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
                 nearby.setTextColor(Color.WHITE);
                 recommend.setTextColor(Color.BLACK);
                 break;
+            case R.id.relay_cinema_search:
+
+                break;
+
         }
     }
 }
