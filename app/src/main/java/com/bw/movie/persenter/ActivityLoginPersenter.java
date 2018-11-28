@@ -1,12 +1,16 @@
 package com.bw.movie.persenter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.activitys.ActivityLogin;
+import com.bw.movie.activitys.ActivityRegister;
 import com.bw.movie.mvp.view.AppDelegate;
 
 /**
@@ -34,6 +38,17 @@ public class ActivityLoginPersenter extends AppDelegate {
     public void initData() {
         super.initData();
         initwidget();
+        setClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.login_txt_justregister:
+                        //点击跳转到注册页面
+                        ((ActivityLogin) mcontext).startActivity(new Intent(mcontext, ActivityRegister.class));
+                        break;
+                }
+            }
+        }, R.id.login_txt_justregister);
     }
 
     private void initwidget() {

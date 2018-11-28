@@ -6,12 +6,13 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/px_126"
     android:paddingRight="@dimen/px_126"
-    android:paddingTop="@dimen/px_126">
+    android:paddingTop="@dimen/px_380">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,6 +25,7 @@
             android:layout_marginLeft="@dimen/dp_7"
             android:background="@null"
             android:hint="@string/register_txt_name"
+            android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite" />
     </LinearLayout>
 
@@ -34,12 +36,12 @@
         android:background="@color/colorWhite" />
 
 
-
     <LinearLayout
-        android:layout_marginTop="@dimen/dp_20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,18 +54,22 @@
             android:layout_marginLeft="@dimen/dp_7"
             android:background="@null"
             android:hint="@string/register_txt_sex"
+            android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:layout_marginTop="@dimen/dp_5"
         android:background="@color/colorWhite" />
+
     <LinearLayout
-        android:layout_marginTop="@dimen/dp_20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,6 +82,7 @@
             android:layout_marginLeft="@dimen/dp_7"
             android:background="@null"
             android:hint="@string/register_txt_date"
+            android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite" />
     </LinearLayout>
 
@@ -84,11 +91,13 @@
         android:layout_height="@dimen/dp_1"
         android:layout_marginTop="@dimen/dp_5"
         android:background="@color/colorWhite" />
+
     <LinearLayout
-        android:layout_marginTop="@dimen/dp_20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,11 +105,13 @@
 
         <EditText
             android:id="@+id/register_ed_name"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_7"
             android:background="@null"
             android:hint="@string/login_ed_phone"
+            android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite" />
     </LinearLayout>
 
@@ -109,11 +120,13 @@
         android:layout_height="@dimen/dp_1"
         android:layout_marginTop="@dimen/dp_5"
         android:background="@color/colorWhite" />
+
     <LinearLayout
-        android:layout_marginTop="@dimen/dp_20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,11 +134,14 @@
 
         <EditText
             android:id="@+id/register_ed_emil"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_7"
             android:background="@null"
             android:hint="@string/register_txt_emil"
+            android:textColor="@color/colorWhite"
+
             android:textColorHint="@color/colorWhite" />
     </LinearLayout>
 
@@ -134,11 +150,13 @@
         android:layout_height="@dimen/dp_1"
         android:layout_marginTop="@dimen/dp_5"
         android:background="@color/colorWhite" />
+
     <LinearLayout
-        android:layout_marginTop="@dimen/dp_20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -151,6 +169,8 @@
             android:layout_marginLeft="@dimen/dp_7"
             android:background="@null"
             android:hint="@string/login_ed_pass"
+            android:textColor="@color/colorWhite"
+
             android:textColorHint="@color/colorWhite" />
     </LinearLayout>
 
@@ -167,7 +187,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px_200"
         android:background="@drawable/yellowchange"
-        android:text="@string/login_bt_login"
+        android:text="@string/register_bt_register"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_20" />
 

@@ -5,11 +5,12 @@
     android:background="@drawable/begin">
 
     <Button
+
         android:id="@+id/begin_bt_jump"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_35"
         android:layout_marginRight="@dimen/dp_7"
-        android:layout_marginTop="@dimen/dp_7"
+        android:layout_marginTop="@dimen/dp_32"
         android:layout_toLeftOf="@+id/begin_bt_second"
         android:background="@drawable/circle_begin_s"
         android:padding="@dimen/dp_3"
@@ -23,7 +24,7 @@
         android:layout_height="@dimen/dp_35"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dp_7"
-        android:layout_marginTop="@dimen/dp_7"
+        android:layout_marginTop="@dimen/dp_32"
         android:background="@drawable/circle_begin_s"
         android:gravity="center"
         android:padding="@dimen/dp_3"
