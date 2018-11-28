@@ -11,6 +11,7 @@ import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityAttention;
 import com.bw.movie.activitys.ActivityHistory;
 import com.bw.movie.activitys.ActivityInform;
+import com.bw.movie.activitys.ActivityLogin;
 import com.bw.movie.activitys.ActivityMessage;
 import com.bw.movie.activitys.ActivityNewest;
 import com.bw.movie.activitys.ActivityOpinion;
@@ -75,7 +76,9 @@ public    class FragmentMePresenter extends AppDelegate implements View.OnClickL
         switch (view.getId()){
             case R.id.me_sdv_head:
                 //吐司这是头像
-                Toast.makeText(context,"这是头像",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,"这是头像",Toast.LENGTH_SHORT).show();
+                //强转上下文跳转
+                context.startActivity(new Intent(context, ActivityLogin.class));
                 break;
             case R.id.me_sdv_inform:
                 //吐司这是通知
