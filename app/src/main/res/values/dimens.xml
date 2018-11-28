@@ -2,12 +2,18 @@
 <resources>
 
     <!--通用适配-->
+    <dimen name="dp_0">0dp</dimen>
+
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_3">3dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_6">6dp</dimen>
     <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_7">7dp</dimen>
     <dimen name="dp_10">10dp</dimen>
     <dimen name="dp_15">15dp</dimen>
+    <dimen name="dp_17">17dp</dimen>
+    <dimen name="dp_18">18dp</dimen>
     <dimen name="dp_20">20dp</dimen>
     <dimen name="dp_30">30dp</dimen>
     <dimen name="dp_35">35dp</dimen>
@@ -51,12 +57,20 @@
     <dimen name="dp_86">86dp</dimen>
     <dimen name="dp_72">72dp</dimen>
     <dimen name="dp_220">220dp</dimen>
+
     <dimen name="dp_37">37dp</dimen>
     <dimen name="dp_64">64dp</dimen>
     <dimen name="dp_48">48dp</dimen>
 
     <!--引导页需要sp-->
+
     <dimen name="sp_14">14sp</dimen>
+    <!--登录需要的适配-->
+    <dimen name="px_126">126px</dimen>
+    <dimen name="px_100">100px</dimen>
+    <dimen name="px_380">380px</dimen>
+    <dimen name="px_200">200px</dimen>
+    <dimen name="dp_126">14px</dimen>
 
 
 </resources>
