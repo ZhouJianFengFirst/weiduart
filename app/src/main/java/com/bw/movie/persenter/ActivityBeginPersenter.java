@@ -29,7 +29,7 @@ public class ActivityBeginPersenter extends AppDelegate {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            //去上面封装一个整型变量初始值3
+            //去上面封装一个整型变量初始值23
             //直接time--
             time--;
             //给控件赋值
