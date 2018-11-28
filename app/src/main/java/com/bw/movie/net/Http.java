@@ -5,9 +5,8 @@ package com.bw.movie.net;
  */
 public class Http {
 
-    public static final String BASE_URL="http://www.zhaoapi.cn";
-    //首页轮播图接口
-    public static final String BANNER_URL=BASE_URL+"/ad/getAd";
+  public static final String BASE_URL = "http://mobile.bwstudent.com/";
 
+  public static final String SOONMOVIELIST_URL = "/movieApi/movie/v1/findComingSoonMovieList";
 
 }

@@ -2,6 +2,7 @@ package com.bw.movie;
 
 import android.app.Application;
 
+import com.bw.movie.net.Http;
 import com.bw.movie.net.HttpHelper;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -14,8 +15,9 @@ public    class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        HttpHelper.getInstens().init("http://172.17.8.100/",this);
+        HttpHelper.getInstens().init(Http.BASE_URL,this);
         //初始化fresco图片控件
         Fresco.initialize(this);
+
     }
 }
