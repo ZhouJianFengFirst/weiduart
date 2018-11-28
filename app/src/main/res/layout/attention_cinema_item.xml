@@ -10,7 +10,7 @@
         android:layout_marginLeft="@dimen/dp_24"
         android:layout_marginRight="@dimen/dp_24"
         android:background="@drawable/square_gray"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dp_20"
         android:orientation="horizontal">
 
         <ImageView
