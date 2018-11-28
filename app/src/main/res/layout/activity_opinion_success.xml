@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activitys.ActivityOpinion">
+    tools:context=".activitys.ActivityOpinionSuccess">
 
     <TextView
         android:layout_width="match_parent"
@@ -16,47 +16,50 @@
         android:layout_marginTop="@dimen/dp_30"
         android:textSize="@dimen/sp_14"
         />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_86"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="110dp"
+        android:gravity="center"
         android:layout_marginLeft="@dimen/dp_24"
         android:layout_marginRight="@dimen/dp_24"
-        android:layout_marginTop="@dimen/dp_30"
         >
-        <!--输入框隐藏线背景背景设置为@null-->
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/dp_20"
-            android:hint="写下您对产品的感受吧!工作人员将会在第一时间评估处理。"
-            android:background="@null"
-            android:textSize="@dimen/sp_12"
-            android:textColor="@color/color999999"
-            android:id="@+id/opinion_et_text"
-            />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            android:src="@drawable/ic_launcher_background"
+            />
+        
     </LinearLayout>
-    <RelativeLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="@dimen/dp_48"
-            android:layout_height="@dimen/dp_25"
-            android:text="提交"
-            android:textSize="@dimen/sp_12"
-            android:textColor="@color/colorWhite"
-            android:background="@drawable/purplechange"
-            android:gravity="center"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginRight="@dimen/dp_24"
-            android:id="@+id/opinion_commit"
-            />
-    </RelativeLayout>
-
+        android:layout_height="wrap_content"
+        android:text="反馈成功"
+        android:textColor="@color/color333333"
+        android:textSize="@dimen/sp_16"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_30"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="感谢您对维度影院的关注与支持,我们会认真处理您的后"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_30"
+        android:textColor="@color/color666666"
+        android:textSize="@dimen/sp_12"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="馈,尽快修复和完善相关内容"
+        android:gravity="center"
+        android:textColor="@color/color666666"
+        android:textSize="@dimen/sp_12"
+        android:layout_marginTop="@dimen/dp_5"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -73,7 +76,7 @@
                 android:layout_marginLeft="@dimen/dp_24"
                 android:layout_marginBottom="@dimen/dp_20"
                 android:src="@drawable/left_return"
-                android:id="@+id/opinion_cv_leftreturn"
+                android:id="@+id/opinionsuccess_cv_leftreturn"
                 />
 
         </LinearLayout>

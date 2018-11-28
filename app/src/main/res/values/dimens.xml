@@ -52,6 +52,8 @@
     <dimen name="dp_72">72dp</dimen>
     <dimen name="dp_220">220dp</dimen>
     <dimen name="dp_37">37dp</dimen>
+    <dimen name="dp_64">64dp</dimen>
+    <dimen name="dp_48">48dp</dimen>
 
     <!--引导页需要sp-->
     <dimen name="sp_14">14sp</dimen>
