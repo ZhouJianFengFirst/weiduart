@@ -35,12 +35,12 @@
 
         </RelativeLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpage_hortmovie"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recy_hortmovie"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_below="@id/layout_one"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_158"></android.support.v4.view.ViewPager>
+            android:layout_height="@dimen/dp_158"></android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
 

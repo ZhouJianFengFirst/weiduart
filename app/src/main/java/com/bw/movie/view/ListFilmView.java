@@ -42,7 +42,7 @@ public class ListFilmView extends RelativeLayout {
     }
 
     public void initWeight(View view){
-        viewPager = (ViewPager) view.findViewById(R.id.viewpage_hortmovie);
+        viewPager = (ViewPager) view.findViewById(R.id.recy_hortmovie);
         txtTitle = (TextView) view.findViewById(R.id.txt_hortmovie);
     }
 
