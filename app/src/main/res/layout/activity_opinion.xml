@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activitys.ActivityOpinion">
+    tools:context=".activitys.ActivityOpinion"
+    android:background="@color/colorLightGray"
+    >
 
     <TextView
         android:layout_width="match_parent"
@@ -24,6 +26,7 @@
         android:layout_marginLeft="@dimen/dp_24"
         android:layout_marginRight="@dimen/dp_24"
         android:layout_marginTop="@dimen/dp_30"
+        android:background="@color/colorWhite"
         >
         <!--输入框隐藏线背景背景设置为@null-->
         <EditText

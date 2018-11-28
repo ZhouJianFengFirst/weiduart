@@ -57,10 +57,11 @@
     <dimen name="dp_86">86dp</dimen>
     <dimen name="dp_72">72dp</dimen>
     <dimen name="dp_220">220dp</dimen>
-
     <dimen name="dp_37">37dp</dimen>
     <dimen name="dp_64">64dp</dimen>
     <dimen name="dp_48">48dp</dimen>
+    <dimen name="dp_103">103dp</dimen>
+    <dimen name="dp_128">128dp</dimen>
 
     <!--引导页需要sp-->
 

@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activitys.ActivityMessage">
+    tools:context=".activitys.ActivityMessage"
+    android:background="@color/colorLightGray"
+    >
 
     <TextView
         android:layout_width="match_parent"
