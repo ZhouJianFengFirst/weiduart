@@ -13,6 +13,7 @@
     <string name="login_ck_smlogin">自动登录</string>
     <string name="login_ck_justregister">快速注册</string>
     <string name="login_bt_login">登录</string>
+    <string name="register_bt_register">注册</string>
     <string name="login_txt_third">第三方快速登录</string>
     <string name="register_txt_sex">性别</string>
     <string name="register_txt_date">出生日期</string>
