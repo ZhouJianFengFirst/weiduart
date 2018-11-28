@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightGray"
+    tools:context=".activitys.ActivityResetPwd">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="重置密码"
+        android:textSize="@dimen/sp_20"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_20"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_40"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/resetpwd_pwd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_5"
+            android:background="@drawable/my_item"
+            android:hint="请输入新密码" />
+
+        <TextView
+            android:id="@+id/resetpwd_ok"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yellowchange"
+            android:gravity="center"
+            android:padding="@dimen/dp_5"
+            android:text="确定"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_20" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:text="密码格式为6个字母数字和，_组成" />
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/resetpwd_cv_leftreturn"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:src="@drawable/left_return" />
+
+</RelativeLayout>

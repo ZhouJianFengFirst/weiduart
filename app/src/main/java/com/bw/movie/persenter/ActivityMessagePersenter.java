@@ -1,12 +1,14 @@
 package com.bw.movie.persenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityMessage;
+import com.bw.movie.activitys.ActivityResetPwd;
 import com.bw.movie.mvp.view.AppDelegate;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -102,7 +104,9 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
                 break;
             case R.id.message_rl_pwd:
                 //吐司重置密码
-                Toast.makeText(context,"重置密码",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,"重置密码",Toast.LENGTH_SHORT).show();
+                //跳转强转上下文
+                context.startActivity(new Intent(context, ActivityResetPwd.class));
                 break;
             case R.id.message_cv_leftreturn:
                 //吐司销毁这个页面,返回上一个
