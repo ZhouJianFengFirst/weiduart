@@ -19,7 +19,6 @@
         <attr name="tab_tabViewDefaultPosition" format="integer" />
     </declare-styleable>
 
-
     <declare-styleable name="ListFilmView">
         <attr name="Title" format="string"/>
     </declare-styleable>

@@ -27,7 +27,6 @@
             android:layout_centerHorizontal="true"></com.bw.movie.view.ViewPage3D>
     </RelativeLayout>
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,4 +58,5 @@
                 app:Title="即将上映"></com.bw.movie.view.ListFilmView>
         </RelativeLayout>
     </ScrollView>
+
 </RelativeLayout>
