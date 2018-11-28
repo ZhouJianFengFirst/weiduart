@@ -15,7 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/fillet_guidance_bt"
-        android:text="立即跳转"
+        android:text="@string/guidance_bt_jump"
         android:layout_marginBottom="@dimen/dp_10"
         android:visibility="gone"
 

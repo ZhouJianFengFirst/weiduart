@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_60"
-        android:text="一场电影"
+        android:text="@string/guidance_txt_title"
         android:textSize="@dimen/sp_14" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_21"
-        android:text="荡漾你的心灵"
+        android:text="@string/guidance_txt_desc"
         android:textSize="@dimen/sp_14" />
 
 

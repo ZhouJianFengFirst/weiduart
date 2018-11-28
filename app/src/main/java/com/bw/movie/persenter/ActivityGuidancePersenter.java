@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.bw.movie.MainActivity;
 import com.bw.movie.R;
+import com.bw.movie.activitys.ActivityBegin;
 import com.bw.movie.activitys.ActivityGuidance;
 import com.bw.movie.adapter.StartAdapter;
 import com.bw.movie.mvp.view.AppDelegate;
@@ -44,7 +45,7 @@ public class ActivityGuidancePersenter extends AppDelegate {
         initwidget();
         boolean isfirst = (boolean) SpUtil.getInserter(mcontext).getSpData("isFirst", false);
         if (isfirst) {
-            mcontext.startActivity(new Intent(mcontext, MainActivity.class));
+            mcontext.startActivity(new Intent(mcontext, ActivityBegin.class));
             //销毁
             ((ActivityGuidance) mcontext).finish();
 
@@ -80,7 +81,7 @@ public class ActivityGuidancePersenter extends AppDelegate {
                         public void onClick(View v) {
                             switch (v.getId()) {
                                 case R.id.gm_bt_jump:
-                                    mcontext.startActivity(new Intent(mcontext, MainActivity.class));
+                                    mcontext.startActivity(new Intent(mcontext,  ActivityBegin.class));
                                     ((ActivityGuidance) mcontext).finish();
 
                                     break;

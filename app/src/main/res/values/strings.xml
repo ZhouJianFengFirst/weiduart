@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">weiduart</string>
+    <string name="begin_txt_title">维度影院</string>
+    <string name="begin_txt_desc">一场不一样的视觉盛宴</string>
+    <string name="begin_txt_jump">立即跳过</string>
+    <string name="begin_txt_second">3s</string>
+    <string name="guidance_txt_title">一场电影</string>
+    <string name="guidance_txt_desc">荡漾你的心灵</string>
+    <string name="guidance_bt_jump">立即跳转</string>
 </resources>

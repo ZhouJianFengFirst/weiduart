@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/begin">
+
+    <Button
+        android:id="@+id/begin_bt_jump"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_35"
+        android:layout_marginRight="@dimen/dp_7"
+        android:layout_marginTop="@dimen/dp_7"
+        android:layout_toLeftOf="@+id/begin_bt_second"
+        android:background="@drawable/circle_begin_s"
+        android:padding="@dimen/dp_3"
+        android:text="@string/begin_txt_jump"
+        android:textColor="@color/colorLightGray"
+        android:textSize="@dimen/sp_20" />
+
+    <TextView
+        android:id="@+id/begin_bt_second"
+        android:layout_width="@dimen/dp_35"
+        android:layout_height="@dimen/dp_35"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_7"
+        android:layout_marginTop="@dimen/dp_7"
+        android:background="@drawable/circle_begin_s"
+        android:gravity="center"
+        android:padding="@dimen/dp_3"
+        android:text="@string/begin_txt_second"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp_18" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp_120"
+        android:text="@string/begin_txt_title"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp_20" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp_98"
+        android:text="@string/begin_txt_desc"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp_14" />
+</RelativeLayout>
