@@ -15,14 +15,16 @@ import com.bw.movie.net.HttpHelper;
 import com.tapadoo.alerter.Alerter;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
+
 /**
  * 作者：zhoujianfeng
  * 时间：2018/11/27
  * 作用：View(实现接口)
- * */
+ */
 public abstract class AppDelegate implements IDelegate {
 
     private Context mContext;
@@ -58,15 +60,15 @@ public abstract class AppDelegate implements IDelegate {
 
             @Override
             public void onNext(ResponseBody responseBody) {
-                if (responseBody != null){
+                if (responseBody != null) {
                     String data = null;
                     try {
                         data = responseBody.string();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    successString(data,type);
-                }else{
+                    successString(data, type);
+                } else {
                     failString("请求错误");
                 }
             }
@@ -76,26 +78,32 @@ public abstract class AppDelegate implements IDelegate {
                 failString(e.getMessage());
             }
         };
-        HttpHelper.getInstens().doGet(url, map,ob);
+        HttpHelper.getInstens().doGet(url, map, ob);
     }
 
 
     @Override
-    public void postString(String url, final int type, Map<String,String> map) {
+    public void postString(String url, final int type, Map<String, String> map) {
+
+        if (map == null) {
+            map = new HashMap<>();
+        }
 
         BaseObserver ob = new BaseObserver<ResponseBody>() {
 
             @Override
             public void onNext(ResponseBody responseBody) {
-                if (responseBody != null){
+
+                if (responseBody != null) {
                     String data = null;
                     try {
                         data = responseBody.string();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    successString(data,type);
-                }else{
+
+                    successString(data, type);
+                } else {
                     failString("请求错误");
                 }
             }
@@ -105,7 +113,7 @@ public abstract class AppDelegate implements IDelegate {
                 failString(e.getMessage());
             }
         };
-        HttpHelper.getInstens().doPost(url, map,ob);
+        HttpHelper.getInstens().doPost(url, map, ob);
 
     }
 
@@ -117,12 +125,12 @@ public abstract class AppDelegate implements IDelegate {
 
     }
 
-    public void toast(Context context,String msg) {
+    public void toast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public void toast(String title,String msg,int s){
-        Alerter.create(((AppCompatActivity)mContext)).setBackgroundColor(R.color.colorPrimary)
+    public void toast(String title, String msg, int s) {
+        Alerter.create(((AppCompatActivity) mContext)).setBackgroundColor(R.color.colorPrimary)
                 .setText(msg)
                 .setTitle(title)
                 .setDuration(s)
@@ -148,7 +156,7 @@ public abstract class AppDelegate implements IDelegate {
         }
     }
 
-    public void destory(){
+    public void destory() {
         rootView = null;
     }
 }

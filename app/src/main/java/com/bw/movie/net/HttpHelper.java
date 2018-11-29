@@ -62,9 +62,7 @@ public class HttpHelper {
     }
 
     public void doPost(String url, Map<String, String> map, Observer ob) {
-        if (map == null) {
-            map = new HashMap<>();
-        }
+
         BaseService baseService = retrofit.create(BaseService.class);
         baseService.post(url, map)
                 .subscribeOn(Schedulers.io())
