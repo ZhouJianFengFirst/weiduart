@@ -37,7 +37,7 @@ public class ActivityRegisterPersenter extends AppDelegate {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.register_bt_register:
+                    case R.id.register_bt_register://
                         String registername = edname.getText().toString().trim();
                         String registerpass = edpass.getText().toString().trim();
                         String registersex = edsex.getText().toString().trim();
