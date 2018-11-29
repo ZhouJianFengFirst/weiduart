@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
@@ -30,6 +31,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     private RelativeLayout message_rl_email;
     private RelativeLayout message_rl_pwd;
     private CircleImageView message_cv_leftreturn;
+    private TextView message_tv_exit;
 
     @Override
     protected int getLayoutId() {
@@ -63,6 +65,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         message_rl_email=(RelativeLayout)getView(R.id.message_rl_email);
         message_rl_pwd=(RelativeLayout)getView(R.id.message_rl_pwd);
         message_cv_leftreturn=(CircleImageView)getView(R.id.message_cv_leftreturn);
+        message_tv_exit=(TextView)getView(R.id.message_tv_exit);
         //点击事件
         message_rl_head.setOnClickListener(this);
         message_rl_nickname.setOnClickListener(this);
@@ -72,6 +75,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         message_rl_email.setOnClickListener(this);
         message_rl_pwd.setOnClickListener(this);
         message_cv_leftreturn.setOnClickListener(this);
+        message_tv_exit.setOnClickListener(this);
     }
 
     @Override
@@ -112,6 +116,12 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
                 //吐司销毁这个页面,返回上一个
 //                Toast.makeText(context,"销毁这个页面,返回上一个",Toast.LENGTH_SHORT).show();
                 //强转上下文销毁这个页面
+                ((ActivityMessage)context).finish();
+                break;
+            case R.id.message_tv_exit:
+                //吐司退出登录
+                Toast.makeText(context,"退出登录",Toast.LENGTH_SHORT).show();
+                //销毁本页面
                 ((ActivityMessage)context).finish();
                 break;
 

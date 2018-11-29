@@ -34,7 +34,7 @@
         <EditText
             android:id="@+id/resetpwd_pwd"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="37dp"
             android:layout_weight="1"
             android:padding="@dimen/dp_5"
             android:background="@drawable/my_item"
@@ -43,7 +43,7 @@
         <TextView
             android:id="@+id/resetpwd_ok"
             android:layout_width="@dimen/dp_60"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_30"
             android:background="@drawable/yellowchange"
             android:gravity="center"
             android:padding="@dimen/dp_5"
