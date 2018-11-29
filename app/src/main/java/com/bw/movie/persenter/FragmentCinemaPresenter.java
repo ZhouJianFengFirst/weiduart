@@ -21,6 +21,7 @@ import com.bw.movie.adapter.RecommendSearchAdapter;
 import com.bw.movie.entity.CinemaSearchBean;
 import com.bw.movie.entity.recommendBean;
 import com.bw.movie.mvp.view.AppDelegate;
+import com.bw.movie.net.Http;
 import com.bw.movie.utils.Logger;
 import com.example.xlistviewlib.XListView;
 import com.google.gson.Gson;
@@ -39,8 +40,6 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
     private TextView recommend, nearby, ss;
     private FrameLayout frag;
     private XListView list1;
-    private String reurl = "/movieApi/cinema/v1/findRecommendCinemas";
-    private String ssurl = "/movieApi/cinema/v1/findAllCinemas";
     private RecommendAdapter recommendAdapter;
     private int page = 1;
     private String longitude = "116.30551391385724";
@@ -97,8 +96,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         map.put("page", page);
         map.put("count", "20");
         //请求推荐
-        getString(reurl, 0, map);
-
+        getString(Http.CINEMARE_URL, 0, map);
         list1.stopRefresh();
 //        list1.stopLoadMore();
     }
@@ -113,7 +111,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         map1.put("longitude", longitude);
         map1.put("latitude", latitude);
         //请求附近
-        getString(reurl, 1, map1);
+        getString(Http.CINEMARE_URL, 1, map1);
     }
 
     //请求成功返回
@@ -212,7 +210,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         map2.put("count", "20");
         map2.put("cinemaName", cinema_name);
         //请求附近
-        getString(ssurl, 2, map2);
+        getString(Http.CINEMASEARCH_URL, 2, map2);
     }
 
     //隐藏搜索框

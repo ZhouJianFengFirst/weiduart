@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,15 +17,22 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityCinemaDetails;
 import com.bw.movie.activitys.MainActivity;
+import com.bw.movie.adapter.CinemaFlowAdapter;
 import com.bw.movie.entity.CinemaDetailsBean;
+import com.bw.movie.entity.CinemaFlowBean;
 import com.bw.movie.fragments.FragmentCinemaLeft;
 import com.bw.movie.fragments.FragmentCinemaRight;
 import com.bw.movie.mvp.view.AppDelegate;
+import com.bw.movie.net.Http;
 import com.bw.movie.utils.Logger;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
+import java.util.List;
+
+import recycler.coverflow.CoverFlowLayoutManger;
+import recycler.coverflow.RecyclerCoverFlow;
 
 /**
  * 作者：gaojiabao
@@ -36,7 +44,6 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private SimpleDraweeView simp;
     private TextView name, teseat;
     private RecyclerView rescy;
-    private String cinemaurl = "/movieApi/cinema/v1/findCinemaInfo";
     private String id;
     private LinearLayout tan, xq, pl;
     private FrameLayout fram;
@@ -44,6 +51,9 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private FragmentManager supportFragmentManager;
     private FragmentCinemaLeft fragmentCinemaLeft;
     private FragmentCinemaRight fragmentCinemaRight;
+    private RecyclerCoverFlow flow;
+    private CinemaFlowAdapter cinemaFlowAdapter;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_cinema_details;
@@ -60,14 +70,31 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         initwidget();
         Intent intent = ((ActivityCinemaDetails) context).getIntent();
         id = intent.getStringExtra("id");
-//        toast(context, "影院id" + id);
         dohttp();//请求影院详情
+        dohttpFlow();//请求画廊轮播数据
         //实例化fragment
-          fragmentCinemaLeft = new FragmentCinemaLeft();
-          fragmentCinemaRight = new FragmentCinemaRight();
+        fragmentCinemaLeft = new FragmentCinemaLeft();
+        fragmentCinemaRight = new FragmentCinemaRight();
         //管理fragment
         supportFragmentManager = ((ActivityCinemaDetails) context).getSupportFragmentManager();
-        supportFragmentManager.beginTransaction().replace(R.id.fram_cinema,fragmentCinemaLeft).commit();
+        supportFragmentManager.beginTransaction().replace(R.id.fram_cinema, fragmentCinemaLeft).commit();
+        //设置画廊的适配器
+//        flow.setFlatFlow(true); //平面滚动
+        cinemaFlowAdapter = new CinemaFlowAdapter(context);
+        flow.setAdapter(cinemaFlowAdapter);
+        flow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
+            @Override
+            public void onItemSelected(int position) {
+                 toast(context,"位置"+position);
+            }
+        });
+    }
+
+    //请求画廊轮播数据
+    private void dohttpFlow() {
+        HashMap map = new HashMap();
+        map.put("cinemaId", id);
+        getString(Http.CINEMAFLOW_URL, 1, map);
     }
 
     //网络请求影院详情
@@ -76,7 +103,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         map.put("userId", "18");
         map.put("sessionId", "15320748258726");
         map.put("cinemaId", id);
-        getString(cinemaurl, 0, map);
+        getString(Http.CINEMADETAILS_URL, 0, map);
     }
 
     @Override
@@ -89,6 +116,11 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
                 simp.setImageURI(Uri.parse(derail.getLogo()));
                 name.setText(derail.getName());
                 teseat.setText(derail.getAddress());
+                break;
+            case 1:
+                CinemaFlowBean cinemaFlowBean = new Gson().fromJson(data, CinemaFlowBean.class);
+                List<CinemaFlowBean.ResultBean> flowlist = cinemaFlowBean.getResult();
+                cinemaFlowAdapter.setList(flowlist);
                 break;
         }
     }
@@ -105,7 +137,8 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         fram = (FrameLayout) getView(R.id.fram_cinema);
         left = (View) getView(R.id.view_cinemadetails_left);
         right = (View) getView(R.id.view_cinemadetails_right);
-        setClick(this, R.id.image_cinemadetails_seat, R.id.image_cinemadetails_left, R.id.text_cinemadetails_name, R.id.text_cinemadetails_seat, R.id.simp_cinemadetails_simp, R.id.image_cinema_down,R.id.text_cinemadetails_pl,R.id.text_cinemadetails_xq);
+        flow = (RecyclerCoverFlow) getView(R.id.rcf_cinema_flow);
+        setClick(this, R.id.image_cinemadetails_seat, R.id.image_cinemadetails_left, R.id.text_cinemadetails_name, R.id.text_cinemadetails_seat, R.id.simp_cinemadetails_simp, R.id.image_cinema_down, R.id.text_cinemadetails_pl, R.id.text_cinemadetails_xq);
     }
 
     //点击事件
@@ -132,12 +165,12 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
             case R.id.text_cinemadetails_xq://影院详情
                 left.setVisibility(View.VISIBLE);
                 right.setVisibility(View.GONE);
-                supportFragmentManager.beginTransaction().replace(R.id.fram_cinema,fragmentCinemaLeft).commit();
+                supportFragmentManager.beginTransaction().replace(R.id.fram_cinema, fragmentCinemaLeft).commit();
                 break;
             case R.id.text_cinemadetails_pl://影院评论
                 left.setVisibility(View.GONE);
                 right.setVisibility(View.VISIBLE);
-                supportFragmentManager.beginTransaction().replace(R.id.fram_cinema,fragmentCinemaRight).commit();
+                supportFragmentManager.beginTransaction().replace(R.id.fram_cinema, fragmentCinemaRight).commit();
                 break;
 
         }
