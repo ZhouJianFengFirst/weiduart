@@ -36,7 +36,7 @@ public class SpUtil {
     }
 
     // 获取sharedpreferences中的数据
-    public  Object getSpData( String key, Object value) {
+    public Object getSpData(String key, Object value) {
         String type = value.getClass().getSimpleName();
         if ("Integer".equals(type)) {
             return sp.getInt(key, (Integer) value);
@@ -52,7 +52,7 @@ public class SpUtil {
         return null;
     }
 
-    public  Editor saveData( String key, Object value) {
+    public Editor saveData(String key, Object value) {
         String type = value.getClass().getSimpleName();
         if ("Integer".equals(type)) {
             return edit.putInt(key, (Integer) value);
@@ -69,7 +69,14 @@ public class SpUtil {
 
     }
 
-    public  boolean commit() {
+    /*保存*/
+    public boolean commit() {
         return edit.commit();
+    }
+
+    /*清空*/
+    public SpUtil clear() {
+        edit.clear();
+        return this;
     }
 }

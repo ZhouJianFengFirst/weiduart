@@ -1,7 +1,13 @@
 package com.bw.movie.activitys;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
+
 import com.bw.movie.mvp.persenter.BaseActivity;
 import com.bw.movie.persenter.ActivityMessagePersenter;
+import com.bw.movie.utils.SpUtil;
 
 /**
  * 作者：mafuyan
@@ -16,5 +22,45 @@ public class ActivityMessage extends BaseActivity<ActivityMessagePersenter> {
     public Class<ActivityMessagePersenter> getDelegateClass() {
         //返回本页面的Persenter
         return ActivityMessagePersenter.class;
+    }
+    //重写生命周期onResume 聚焦方法
+    @Override
+    public void onResume() {
+        super.onResume();
+//        //获取sp里面的数据userId sessionId 调用工具类强转自己需要的类型 提上去调用
+        String message1 = (String) SpUtil.getInserter(this).getSpData("message", "");
+        String status1 = (String) SpUtil.getInserter(this).getSpData("status", "");
+        String sessionId1 = (String) SpUtil.getInserter(this).getSpData("sessionId()", "");
+        String userId1 = (String) SpUtil.getInserter(this).getSpData("userId", "");
+        String headPic1 = (String) SpUtil.getInserter(this).getSpData("headPic", "");
+        String nickName1 = (String) SpUtil.getInserter(this).getSpData("nickName", "");
+        String phone1 = (String) SpUtil.getInserter(this).getSpData("phone", "");
+        String birthday1 = (String) SpUtil.getInserter(this).getSpData("birthday", "");
+        String id1 = (String) SpUtil.getInserter(this).getSpData("id", "");
+        String lastLoginTime1 = (String) SpUtil.getInserter(this).getSpData("lastLoginTime", "");
+        String sex1 = (String) SpUtil.getInserter(this).getSpData("sex", "");
+        //调用方法传获取到的值
+        delegate.setData(message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1);
+    }
+
+    //回调方法
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //判读requestcode
+        switch (requestCode){
+            case 0:
+                //当时0的时候调用方法生成到persenter 传resultcode 和data相机回调
+                delegate.onCode0(resultCode,data);
+                break;
+            case 1:
+                //当时0的时候调用方法生成到persenter 传resultcode 相册回调
+                delegate.onCode1(resultCode);
+                break;
+            case 2:
+                //当时0的时候调用方法生成到persenter 传rdata 裁剪回调
+                delegate.onCode2(data);
+                break;
+        }
     }
 }

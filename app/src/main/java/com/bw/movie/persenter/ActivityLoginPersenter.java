@@ -98,7 +98,6 @@ public class ActivityLoginPersenter extends AppDelegate {
         new OkHttpHelper(new HttpRequestListener() {
             @Override
             public void SuccessRequest(String data) {
-
                 Gson gson = new Gson();
                 LoginBean loginBean = gson.fromJson(data, LoginBean.class);
                 SpUtil.getInserter(mcontext).saveData("message", loginBean.getMessage()).putString("status", loginBean.getStatus())
@@ -108,7 +107,7 @@ public class ActivityLoginPersenter extends AppDelegate {
                         .putString("birthday", loginBean.getResult().getUserInfo().getBirthday() + "")
                         .putString("id", loginBean.getResult().getUserInfo().getId() + "")
                         .putString("lastLoginTime", loginBean.getResult().getUserInfo().getLastLoginTime() + "")
-                        .putString("sex", loginBean.getResult().getUserInfo().getSex() + "");
+                        .putString("sex", loginBean.getResult().getUserInfo().getSex() + "").commit();
                 toast("登录", "登录成功", 1);
                 /*
                  *开个线程
