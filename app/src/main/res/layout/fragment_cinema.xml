@@ -111,9 +111,9 @@
                     android:layout_width="@dimen/dp_120"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:textColor="@color/colorWhite"
                     android:layout_toRightOf="@+id/image_cinema_search_yes"
-                    android:background="@null" />
+                    android:background="@null"
+                    android:textColor="@color/colorWhite" />
 
                 <TextView
                     android:id="@+id/text_cinema_ss"
@@ -135,6 +135,5 @@
         android:layout_marginLeft="@dimen/dp_24"
         android:layout_marginRight="@dimen/dp_24"
         android:layout_marginTop="@dimen/dp_10" />
-
 
 </LinearLayout>
