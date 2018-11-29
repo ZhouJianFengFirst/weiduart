@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FilmActivityPersenter extends AppDelegate implements View.OnClickListener {
+public class ActivityFilmPersenter extends AppDelegate implements View.OnClickListener {
 
     private Context context;
     private TextView txtHortmovie, txtHortShowing, txtUpcoming;

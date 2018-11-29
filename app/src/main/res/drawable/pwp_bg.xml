@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!--angle：倾斜角度
+
+    centerColor：中部颜色
+
+    endColor：尾部颜色
+
+    startColor：头部颜色
+
+    使用时，把控件background属性设置为上面drawable文件-->
+<corners android:radius="@dimen/dp_25"/>
+    <gradient
+        android:angle="0"
+        android:centerColor="@color/colorDeepPink"
+        android:endColor="@color/colorLightPink"
+        android:startColor="@color/colorLightPink"
+        android:type="linear" />
+
+    <corners
+        android:radius="5dp"
+        ></corners>
+
+</shape>

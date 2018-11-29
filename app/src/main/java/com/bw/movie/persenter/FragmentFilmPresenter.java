@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityFilm;
@@ -36,6 +38,8 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
     private ListFilmView horMovie, hortShowing, upcoming;
     private MovieRecyAdapter upcomingAdapter, hortMovieAdapter, hortShowingAdapter;
     private BackGroundPageAdapter backGroundPageAdapter;
+    private LinearLayout linearLine;
+    private HortMovieEntity entity;
 
     @Override
     public void initContext(Context context) {
@@ -76,13 +80,19 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
             @Override
             public void onPageSelected(int i) {
                 viewPage3D.setCurrentItem(i);
-                Logger.d("Tagger",i+">>>>>");
             }
         });
         horMovie = (ListFilmView) getView(R.id.lf_hortmovie);
         hortShowing = (ListFilmView) getView(R.id.lf_hortshowing);
         upcoming = (ListFilmView) getView(R.id.lf_upcoming);
         viewPage3D = (ViewPage3D) getView(R.id.viepage_3d);
+        viewPage3D.setOnPageChangeListener(new BasePageChangeAdapter() {
+            @Override
+            public void onPageSelected(int i) {
+                putLine(i);
+            }
+        });
+        linearLine = (LinearLayout)getView(R.id.layout_put_line);
         setClick(this,R.id.lf_hortmovie,R.id.lf_hortshowing,R.id.lf_upcoming);
 
         //初始化适配器
@@ -164,7 +174,7 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
      * @param data
      */
     public void setReleaseMovieData(String data) {
-        HortMovieEntity entity = new Gson().fromJson(data, HortMovieEntity.class);
+         entity = new Gson().fromJson(data, HortMovieEntity.class);
         backGroundPageAdapter.setPage(entity.getResult().size());
         pagerAdapter3D.setList(entity.getResult());
         hortShowingAdapter.setList(entity.getResult());
@@ -184,4 +194,23 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
                 break;
         }
     }
+
+    public void putLine(int page){
+        linearLine.removeAllViews();
+        for (int i = 0; i < entity.getResult().size(); i++) {
+            View view = new View(context);
+            if (page == i) {
+                view.setBackgroundResource(R.drawable.purplechange);
+            } else {
+                view.setBackgroundResource(R.drawable.square_gray);
+            }
+            linearLine.addView(view);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
+            params.weight = 5;
+            params.height = 2;
+            view.setLayoutParams(params);
+        }
+    }
+
+
 }
