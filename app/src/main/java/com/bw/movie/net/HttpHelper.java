@@ -85,4 +85,20 @@ public class HttpHelper {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(ob);
     }
+
+    public void headGet(String url,Map<String,String> map,Observer ob){
+        BaseService baseService = retrofit.create(BaseService.class);
+        baseService.HeadGet(url,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ob);
+    }
+
+    public void headPost(String url,Map<String,String> map,Observer ob){
+        BaseService baseService = retrofit.create(BaseService.class);
+        baseService.HeadPost(url,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ob);
+    }
 }

@@ -22,6 +22,10 @@ public interface IDelegate {
 
     void initContext(Context context);
 
+    void handGetString(String url, int type, Map<String, String> map);
+
+    void handPostString(String url, int type, Map<String, String> map);
+
     void getString(String url, int type, Map<String, String> map);
 
     void postString(String url, int type, Map<String, String> map);

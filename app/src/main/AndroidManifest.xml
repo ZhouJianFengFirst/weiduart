@@ -38,6 +38,9 @@
         <activity android:name=".activitys.ActivityOpinionSuccess" />
         <activity android:name=".activitys.ActivityResetPwd" />
         <activity android:name=".activitys.ActivityFilm" />
+        <activity android:name=".activitys.ActivityUpdateName" />
+        <activity android:name=".activitys.ActivityUpdateSex" />
+        <activity android:name=".activitys.ActivityUpdateEmail"></activity>
     </application>
 
 </manifest>

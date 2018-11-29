@@ -61,6 +61,8 @@ public class ActivityResetPwdPersenter extends AppDelegate implements View.OnCli
             case R.id.resetpwd_ok:
                 //吐司修改密码成功
                 toast(context,"重置密码成功");
+                //销毁本页面
+                ((ActivityResetPwd)context).finish();
                 break;
             case R.id.resetpwd_cv_leftreturn:
                 //销毁本页面
