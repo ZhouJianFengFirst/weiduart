@@ -29,6 +29,7 @@ public class MovieRecyAdapter extends RecycleAdapter<HortMovieEntity.ResultBean>
     @Override
     protected void convert(ViewHolder viewHolder, HortMovieEntity.ResultBean resultBean, int postion) {
         SimpleDraweeView simpleDraweeView = viewHolder.getView(R.id.sm_hortmovie);
-        viewHolder.setSimpleDraweViewUrl(R.id.sm_hortmovie, resultBean.getImageUrl());
+        viewHolder.setSimpleDraweViewUrl(R.id.sm_hortmovie, resultBean.getImageUrl())
+        .setText(R.id.txt_title,resultBean.getName());
     }
 }

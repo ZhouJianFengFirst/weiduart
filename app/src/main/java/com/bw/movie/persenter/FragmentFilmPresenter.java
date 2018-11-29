@@ -2,25 +2,27 @@ package com.bw.movie.persenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityFilm;
 import com.bw.movie.activitys.MainActivity;
+import com.bw.movie.adapter.BackGroundPageAdapter;
+import com.bw.movie.adapter.BasePageChangeAdapter;
 import com.bw.movie.adapter.MovieRecyAdapter;
 import com.bw.movie.entity.HortMovieEntity;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
+import com.bw.movie.utils.Logger;
 import com.bw.movie.view.ListFilmView;
 import com.bw.movie.view.PagerAdapter3D;
 import com.bw.movie.view.RotationPageTransformer;
 import com.bw.movie.view.ViewPage3D;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class FragmentFilmPresenter extends AppDelegate implements View.OnClickListener{
@@ -31,9 +33,9 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
     private Context context;
     private ViewPage3D viewPage3D;
     private PagerAdapter3D pagerAdapter3D;
-    List<String> images = new ArrayList<>();
     private ListFilmView horMovie, hortShowing, upcoming;
     private MovieRecyAdapter upcomingAdapter, hortMovieAdapter, hortShowingAdapter;
+    private BackGroundPageAdapter backGroundPageAdapter;
 
     @Override
     public void initContext(Context context) {
@@ -51,6 +53,9 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
 
     }
 
+    /**
+     * 网络请求
+     */
     private void doHttp() {
         Map<String, String> map = new HashMap<>();
         map.put("page", "1");
@@ -60,8 +65,20 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
         getString(Http.RELEAASEMOVIELIST_URL, RELEAASEMOVIELIST_CONTENT, map);
     }
 
+
+    /**
+     * 初始化
+     */
     private void initWeght() {
         //初始化控件
+        ViewPager viewPager =  (ViewPager)getView(R.id.back_viewpage);
+        viewPager.addOnPageChangeListener(new BasePageChangeAdapter() {
+            @Override
+            public void onPageSelected(int i) {
+                viewPage3D.setCurrentItem(i);
+                Logger.d("Tagger",i+">>>>>");
+            }
+        });
         horMovie = (ListFilmView) getView(R.id.lf_hortmovie);
         hortShowing = (ListFilmView) getView(R.id.lf_hortshowing);
         upcoming = (ListFilmView) getView(R.id.lf_upcoming);
@@ -73,6 +90,7 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
         hortMovieAdapter = new MovieRecyAdapter(context);
         hortShowingAdapter = new MovieRecyAdapter(context);
         pagerAdapter3D = new PagerAdapter3D(context);
+        backGroundPageAdapter = new BackGroundPageAdapter(context);
 
         //設置适配器
         viewPage3D.setAdapter(pagerAdapter3D);
@@ -83,12 +101,12 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(context);
         linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-
         LinearLayoutManager linearLayoutManager3 = new LinearLayoutManager(context);
         linearLayoutManager3.setOrientation(LinearLayoutManager.HORIZONTAL);
         upcoming.setAdapter(upcomingAdapter, linearLayoutManager1);
         horMovie.setAdapter(hortMovieAdapter,linearLayoutManager2);
         hortShowing.setAdapter(hortShowingAdapter,linearLayoutManager3);
+        viewPager.setAdapter(backGroundPageAdapter);
     }
 
     @Override
@@ -119,24 +137,36 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
         toast(context, "请检查网络");
     }
 
+
+    /**
+     * 设置即将上映电影的数据
+     * @param data
+     */
     public void setSoonMovieData(String data) {
 
         HortMovieEntity entity = new Gson().fromJson(data, HortMovieEntity.class);
         upcomingAdapter.setList(entity.getResult());
     }
 
+
+    /**
+     * 热门电影的数据
+     * @param data
+     */
     public void setHortMovieData(String data) {
         HortMovieEntity entity = new Gson().fromJson(data, HortMovieEntity.class);
         hortMovieAdapter.setList(entity.getResult());
     }
 
+
+    /**
+     * 设置热映的电影数据
+     * @param data
+     */
     public void setReleaseMovieData(String data) {
-        images.clear();
         HortMovieEntity entity = new Gson().fromJson(data, HortMovieEntity.class);
-        for (int i = 0; i < entity.getResult().size(); i++) {
-            images.add(entity.getResult().get(i).getImageUrl());
-        }
-        pagerAdapter3D.setImageurl(images);
+        backGroundPageAdapter.setPage(entity.getResult().size());
+        pagerAdapter3D.setList(entity.getResult());
         hortShowingAdapter.setList(entity.getResult());
     }
 

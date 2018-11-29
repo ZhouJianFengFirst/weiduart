@@ -82,4 +82,7 @@
     <dimen name="dp_158">158dp</dimen>
     <dimen name="dp_258">258dp</dimen>
     <dimen name="dp_240">240dp</dimen>
+    <dimen name="dp_123">123dp</dimen>
+    <dimen name="dp_129">129dp</dimen>
+    <dimen name="dp_8dp">8dp</dimen>
 </resources>

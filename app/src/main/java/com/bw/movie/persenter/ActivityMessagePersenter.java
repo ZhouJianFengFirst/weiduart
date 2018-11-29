@@ -18,16 +18,26 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityMessage;
 import com.bw.movie.activitys.ActivityResetPwd;
+import com.bw.movie.activitys.ActivityUpdateEmail;
+import com.bw.movie.activitys.ActivityUpdateName;
+import com.bw.movie.activitys.ActivityUpdateSex;
+import com.bw.movie.entity.MessageSelectBean;
 import com.bw.movie.mvp.view.AppDelegate;
+import com.bw.movie.net.BaseObserver;
+import com.bw.movie.net.Http;
 import com.bw.movie.net.HttpHelper;
 import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.Pop;
 import com.bw.movie.utils.SpUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -35,7 +45,7 @@ import static android.app.Activity.RESULT_OK;
  * 作者：mafuyan
  * 时间：2018/11/28
  * 作用：ActivityMessagePersenter(我的信息页面)
- * */
+ */
 
 //继承APPDelegate
 public class ActivityMessagePersenter extends AppDelegate implements View.OnClickListener {
@@ -52,7 +62,6 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     private LinearLayout chage_pop;
     private String pic = "head.png";
     private Bitmap head;
-    private String selecturl="/movieApi/user/v1/verify/findUserHomeInfo";
     private String message1;
     private String status1;
     private String sessionId1;
@@ -64,6 +73,12 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     private String id1;
     private String lastLoginTime1;
     private String sex1;
+    private SimpleDraweeView message_cv_head;
+    private TextView message_tv_name;
+    private TextView message_tv_sex;
+    private TextView message_tv_date;
+    private TextView message_tv_phone;
+    private TextView message_tv_email;
 
     @Override
     protected int getLayoutId() {
@@ -75,7 +90,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     @Override
     public void initContext(Context context) {
         //删了super这行提上去上下文
-        this.context=context;
+        this.context = context;
     }
 
     //重写初始化数据方法
@@ -84,20 +99,21 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         super.initData();
         //初始化数据方法
         initwidget();
-        //请求获取我的信息网络请求
-        dohttpSelect();
+
     }
 
     //请求网络数据
     private void dohttpSelect() {
         //new hasmap
-        HashMap<String,String> map=new HashMap<>();
+        HashMap<String, String> map = new HashMap<>();
         //往map里面存值
-        map.put("userId",userId1);
-        map.put("sessionId()",sessionId1);
+        map.put("userId", userId1);
+        map.put("sessionId", sessionId1);
         //请求get字符串方法 传网址类型随机数0,1
-        getString(selecturl,0,map);
-        Logger.i("id",userId1+sessionId1);
+        /* getString(selecturl,0,map);*/
+        //调用head请求方法传接口的数据,传类型和map
+        handGetString(Http.SELECT_URL, 0, map);
+        Logger.i("id", map.get("userId") + "哈哈哈" + map.get("sessionId"));
     }
 
     //调用成功方法
@@ -105,9 +121,13 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     public void successString(String data, int type) {
         super.successString(data, type);
         //选择判断tyep上面的类型
-        switch (type){
+        switch (type) {
             case 0:
-                Logger.i("信息",data);
+                Logger.i("信息", data);
+                //new gson from
+                MessageSelectBean messageSelectBean = new Gson().fromJson(data, MessageSelectBean.class);
+                //获取对象
+                MessageSelectBean.ResultBean result = messageSelectBean.getResult();
                 break;
 
         }
@@ -117,16 +137,22 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     //初始化控件方法
     private void initwidget() {
         //获取控件强转提上去
-        message_rl_head=(RelativeLayout)getView(R.id.message_rl_head);
-        message_rl_nickname=(RelativeLayout)getView(R.id.message_rl_nickname);
-        message_rl_sex=(RelativeLayout)getView(R.id.message_rl_sex);
-        message_rl_date=(RelativeLayout)getView(R.id.message_rl_date);
-        message_rl_phone=(RelativeLayout)getView(R.id.message_rl_phone);
-        message_rl_email=(RelativeLayout)getView(R.id.message_rl_email);
-        message_rl_pwd=(RelativeLayout)getView(R.id.message_rl_pwd);
-        message_cv_leftreturn=(CircleImageView)getView(R.id.message_cv_leftreturn);
-        message_tv_exit=(TextView)getView(R.id.message_tv_exit);
-        chage_pop=(LinearLayout)getView(R.id.chage_pop);
+        message_rl_head = (RelativeLayout) getView(R.id.message_rl_head);
+        message_rl_nickname = (RelativeLayout) getView(R.id.message_rl_nickname);
+        message_rl_sex = (RelativeLayout) getView(R.id.message_rl_sex);
+        message_rl_date = (RelativeLayout) getView(R.id.message_rl_date);
+        message_rl_phone = (RelativeLayout) getView(R.id.message_rl_phone);
+        message_rl_email = (RelativeLayout) getView(R.id.message_rl_email);
+        message_rl_pwd = (RelativeLayout) getView(R.id.message_rl_pwd);
+        message_cv_leftreturn = (CircleImageView) getView(R.id.message_cv_leftreturn);
+        message_tv_exit = (TextView) getView(R.id.message_tv_exit);
+        chage_pop = (LinearLayout) getView(R.id.chage_pop);
+        message_cv_head = (SimpleDraweeView) getView(R.id.message_cv_head);
+        message_tv_name = (TextView) getView(R.id.message_tv_name);
+        message_tv_sex = (TextView) getView(R.id.message_tv_sex);
+        message_tv_date = (TextView) getView(R.id.message_tv_date);
+        message_tv_phone = (TextView) getView(R.id.message_tv_phone);
+        message_tv_email = (TextView) getView(R.id.message_tv_email);
         //点击事件
         message_rl_head.setOnClickListener(this);
         message_rl_nickname.setOnClickListener(this);
@@ -142,7 +168,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     @Override
     public void onClick(View view) {
         //选择点击事件
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.message_rl_head:
                 //吐司切换头像
 //                Toast.makeText(context,"切换头像",Toast.LENGTH_SHORT).show();
@@ -151,23 +177,39 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
                 break;
             case R.id.message_rl_nickname:
                 //吐司修改昵称
-                Toast.makeText(context,"修改昵称",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "修改昵称", Toast.LENGTH_SHORT).show();
+                //带值跳转
+                //new 意图
+                Intent intent = new Intent(context, ActivityUpdateName.class);
+                //往意图里面传值
+                intent.putExtra("nickName1",nickName1);
+                //启动跳转
+                context.startActivity(intent);
                 break;
             case R.id.message_rl_sex:
                 //吐司修改性别
-                Toast.makeText(context,"修改性别",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "修改性别", Toast.LENGTH_SHORT).show();
+                //带值跳转
+                //new 意图
+                Intent intent1 = new Intent(context, ActivityUpdateSex.class);
+                //往意图里面传值
+                intent1.putExtra("sex1",sex1);
+                //启动跳转
+                context.startActivity(intent1);
                 break;
             case R.id.message_rl_date:
                 //吐司修改出生日期
-                Toast.makeText(context,"修改出生日期",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "修改出生日期", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.message_rl_phone:
                 //吐司修改手机号
-                Toast.makeText(context,"修改手机号",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "修改手机号", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.message_rl_email:
                 //吐司修改邮箱
-                Toast.makeText(context,"修改邮箱",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "修改邮箱", Toast.LENGTH_SHORT).show();
+                //跳转强转上下文
+                context.startActivity(new Intent(context, ActivityUpdateEmail.class));
                 break;
             case R.id.message_rl_pwd:
                 //吐司重置密码
@@ -179,13 +221,13 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
                 //吐司销毁这个页面,返回上一个
 //                Toast.makeText(context,"销毁这个页面,返回上一个",Toast.LENGTH_SHORT).show();
                 //强转上下文销毁这个页面
-                ((ActivityMessage)context).finish();
+                ((ActivityMessage) context).finish();
                 break;
             case R.id.message_tv_exit:
                 //吐司退出登录
-                Toast.makeText(context,"退出登录",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "退出登录", Toast.LENGTH_SHORT).show();
                 //销毁本页面
-                ((ActivityMessage)context).finish();
+                ((ActivityMessage) context).finish();
                 break;
 
         }
@@ -275,34 +317,49 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
 
     //裁剪方法
     // 调用系统的裁剪
-        public void cropPhoto(Uri uri) {
-            Intent intent = new Intent("com.android.camera.action.CROP");
-            intent.setDataAndType(uri, "image/*");
-            intent.putExtra("crop", "true");
-            // aspectX aspectY 是宽高的比例
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
-            // outputX outputY 是裁剪图片宽高
-            intent.putExtra("outputX", 127);
-            intent.putExtra("outputY", 127);
-            intent.putExtra("scale", true);
-            intent.putExtra("noFaceDetection", false);//不启用人脸识别
-            intent.putExtra("return-data", true);
-            ((ActivityMessage) context).startActivityForResult(intent, 2);
-        }
-        //获取到的值
+    public void cropPhoto(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 127);
+        intent.putExtra("outputY", 127);
+        intent.putExtra("scale", true);
+        intent.putExtra("noFaceDetection", false);//不启用人脸识别
+        intent.putExtra("return-data", true);
+        ((ActivityMessage) context).startActivityForResult(intent, 2);
+    }
+
+    //获取到的值
     public void setData(String message1, String status1, String sessionId1, String userId1, String headPic1, String nickName1, String phone1, String birthday1, String id1, String lastLoginTime1, String sex1) {
         //this.名称=名称提上去
-        this.message1=message1;
-        this.status1=message1;
-        this.sessionId1=message1;
-        this.userId1=message1;
-        this.headPic1=message1;
-        this.nickName1=message1;
-        this.phone1=message1;
-        this.birthday1=message1;
-        this.id1=message1;
-        this.lastLoginTime1=message1;
-        this.sex1=message1;
+        this.message1 = message1;
+        this.status1 = status1;
+        this.sessionId1 = sessionId1;
+        this.userId1 = userId1;
+        this.headPic1 = headPic1;
+        this.nickName1 = nickName1;
+        this.phone1 = phone1;
+        this.birthday1 = birthday1;
+        this.id1 = id1;
+        this.lastLoginTime1 = lastLoginTime1;
+        this.sex1 = sex1;
+//        //请求获取我的信息网络请求
+//        dohttpSelect();
+        //给控件重新赋值
+        message_tv_name.setText(nickName1);
+        //判断=1=2
+        if("1".equals(sex1)){
+            message_tv_sex.setText("男");
+        }else{
+            message_tv_sex.setText("女");
+        }
+
+        message_tv_date.setText(birthday1);
+        message_tv_phone.setText(phone1);
+        message_cv_head.setImageURI(Uri.parse(headPic1));
     }
 }

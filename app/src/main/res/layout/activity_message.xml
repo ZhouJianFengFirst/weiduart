@@ -44,12 +44,15 @@
                 android:textColor="@color/color333333"
                 android:textSize="@dimen/sp_14" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/user_head" />
+                android:id="@+id/message_cv_head"
+                app:roundAsCircle="true"
+                app:placeholderImage="@drawable/ic_launcher_background"
+                />
 
         </RelativeLayout>
 
@@ -71,6 +74,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/message_tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -98,6 +102,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/message_tv_sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -128,6 +133,7 @@
                 />
 
             <TextView
+                android:id="@+id/message_tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -167,6 +173,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/message_tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -193,6 +200,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/message_tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

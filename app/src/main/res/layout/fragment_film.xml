@@ -1,88 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false">
 
-    <ImageView
-        android:id="@+id/backimage"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_300"
-        android:scaleType="centerCrop"
-        android:src="@drawable/backmovie" />
-
-    <LinearLayout
-        android:layout_width="@dimen/dp_100"
-        android:layout_height="@dimen/dp_40"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_marginRight="@dimen/fudp_20"
-        android:background="@drawable/yellowchange"
-        android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="@dimen/dp_40"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_height="@dimen/dp_30"
-            android:src="@mipmap/cinema_search"/>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/relayout_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_300"
-        android:layout_marginTop="@dimen/dp_100"
-        android:clipChildren="false"
-        android:padding="@dimen/dp_20">
-
-        <com.bw.movie.view.ViewPage3D
-            android:id="@+id/viepage_3d"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"></com.bw.movie.view.ViewPage3D>
-
-    </RelativeLayout>
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/relayout_view"
-        android:layout_marginTop="@dimen/dp_20">
+        android:clipChildren="false">
 
-        <ScrollView
+        <ImageView
+            android:id="@+id/backimage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/dp_300"
+            android:scaleType="centerCrop"
+            android:src="@drawable/backmovie" />
 
-            <RelativeLayout
+
+        <ImageView
+            android:id="@+id/address"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:src="@drawable/address_w" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/address"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="北京"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/colorD8d8d8"/>
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_24"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/fudp_20"
+            android:layout_marginTop="@dimen/dp_40"
+            android:background="@drawable/yellowchange"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:src="@mipmap/cinema_search" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relayout_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_300"
+            android:layout_marginTop="@dimen/dp_100"
+            android:clipChildren="false"
+            android:padding="@dimen/dp_20">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/back_viewpage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"></android.support.v4.view.ViewPager>
 
-                <com.bw.movie.view.ListFilmView
-                    android:id="@+id/lf_hortmovie"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_300"
-                    app:Title="@string/hort_movie"></com.bw.movie.view.ListFilmView>
+            <com.bw.movie.view.ViewPage3D
+                android:id="@+id/viepage_3d"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"></com.bw.movie.view.ViewPage3D>
 
-                <com.bw.movie.view.ListFilmView
-                    android:id="@+id/lf_hortshowing"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_300"
-                    android:layout_below="@id/lf_hortmovie"
-                    app:Title="@string/hort_showing"></com.bw.movie.view.ListFilmView>
+        </RelativeLayout>
 
-                <com.bw.movie.view.ListFilmView
-                    android:id="@+id/lf_upcoming"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_300"
-                    android:layout_below="@id/lf_hortshowing"
-                    app:Title="@string/upcoming"></com.bw.movie.view.ListFilmView>
-            </RelativeLayout>
-        </ScrollView>
+        <LinearLayout
+            android:id="@+id/layout_put_line"
+            android:layout_below="@id/relayout_view"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="@dimen/dp_5">
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_put_line"
+            android:layout_marginTop="@dimen/dp_20">
+
+            <com.bw.movie.view.ListFilmView
+                android:id="@+id/lf_hortmovie"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_300"
+                app:Title="@string/hort_movie"></com.bw.movie.view.ListFilmView>
+
+            <com.bw.movie.view.ListFilmView
+                android:id="@+id/lf_hortshowing"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_300"
+                android:layout_below="@id/lf_hortmovie"
+                app:Title="@string/hort_showing"></com.bw.movie.view.ListFilmView>
+
+            <com.bw.movie.view.ListFilmView
+                android:id="@+id/lf_upcoming"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_300"
+                android:layout_below="@id/lf_hortshowing"
+                app:Title="@string/upcoming"></com.bw.movie.view.ListFilmView>
+        </RelativeLayout>
+
     </RelativeLayout>
 
-
-
-</RelativeLayout>
+</ScrollView>
