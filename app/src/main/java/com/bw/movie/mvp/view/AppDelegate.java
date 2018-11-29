@@ -14,6 +14,7 @@ import com.bw.movie.net.BaseObserver;
 import com.bw.movie.net.HttpHelper;
 import com.tapadoo.alerter.Alerter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,6 +80,7 @@ public abstract class AppDelegate implements IDelegate {
             }
         };
         HttpHelper.getInstens().doGet(url, map, ob);
+
     }
 
 

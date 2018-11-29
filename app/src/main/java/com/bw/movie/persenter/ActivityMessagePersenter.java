@@ -2,6 +2,7 @@ package com.bw.movie.persenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -11,6 +12,10 @@ import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityMessage;
 import com.bw.movie.activitys.ActivityResetPwd;
 import com.bw.movie.mvp.view.AppDelegate;
+import com.bw.movie.net.HttpHelper;
+import com.bw.movie.utils.SpUtil;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -32,6 +37,8 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     private RelativeLayout message_rl_pwd;
     private CircleImageView message_cv_leftreturn;
     private TextView message_tv_exit;
+    private String userId;
+    private String sessionId;
 
     @Override
     protected int getLayoutId() {
@@ -52,6 +59,23 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         super.initData();
         //初始化数据方法
         initwidget();
+        //请求获取我的信息网络请求
+        dohttpSelect();
+        //获取sp里面的数据userId sessionId
+        SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
+        //获取数据 提上去
+         userId = sp.getString("userId", "");
+         sessionId = sp.getString("sessionId()", "");
+    }
+
+    //请求网络数据
+    private void dohttpSelect() {
+        //new hasmap
+        HashMap<String,String> map=new HashMap<>();
+        //往map里面存值
+        map.put("userId",userId);
+        map.put("sessionId()",sessionId);
+        //请求get方法
     }
 
     //初始化控件方法
