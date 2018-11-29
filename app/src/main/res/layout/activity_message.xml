@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorLightGray"
     android:orientation="vertical"
+    android:id="@+id/chage_pop"
     tools:context=".activitys.ActivityMessage">
 
     <TextView

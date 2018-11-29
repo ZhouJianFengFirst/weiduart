@@ -68,6 +68,7 @@
     <dimen name="dp_128">128dp</dimen>
     <dimen name="dp_77">77dp</dimen>
     <dimen name="dp_28">28dp</dimen>
+    <dimen name="dp_19">19dp</dimen>
 
     <!--引导页需要sp-->
     <dimen name="sp_14">14sp</dimen>
