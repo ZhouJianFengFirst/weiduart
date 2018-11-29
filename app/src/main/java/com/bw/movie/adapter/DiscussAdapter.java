@@ -19,10 +19,15 @@ public class DiscussAdapter extends RecycleAdapter<DiscussBean.ResultBean> {
 
     @Override
     protected void convert(ViewHolder viewHolder, DiscussBean.ResultBean resultBean, int postion) {
-        viewHolder.setSimpleDraweViewUrl(R.id.right_cinema_simp,resultBean.getCommentHeadPic());
-        viewHolder.setText(R.id.right_cinema_name,resultBean.getCommentUserName());
-        viewHolder.setText(R.id.right_cinema_pl,resultBean.getCommentContent());
-        viewHolder.setText(R.id.right_cinema_time,resultBean.getCommentTime()+"");
-        viewHolder.setText(R.id.right_cinema_zs,resultBean.getGreatNum()+"");
+        viewHolder.setSimpleDraweViewUrl(R.id.right_cinema_simp, resultBean.getCommentHeadPic());
+        viewHolder.setText(R.id.right_cinema_name, resultBean.getCommentUserName());
+        viewHolder.setText(R.id.right_cinema_pl, resultBean.getCommentContent());
+        viewHolder.setText(R.id.right_cinema_time, resultBean.getCommentTime() + "");
+        viewHolder.setText(R.id.right_cinema_zs, resultBean.getGreatNum() + "");
+        if (resultBean.getIsGreat() == 1) {//判断是否点过赞
+            viewHolder.setImageResource(R.id.image_cinema_z, R.mipmap.cinema_praise_yes);
+        } else {
+            viewHolder.setImageResource(R.id.image_cinema_z, R.mipmap.cinema_praise_no);
+        }
     }
 }

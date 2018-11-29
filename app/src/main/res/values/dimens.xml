@@ -39,6 +39,7 @@
     <dimen name="dp_312">312dp</dimen>
     <dimen name="dp_90">90dp</dimen>
     <dimen name="dp_70">70dp</dimen>
+    <dimen name="dp_250">250dp</dimen>
     <dimen name="dp_16">16dp</dimen>
     <dimen name="dp_115">115dp</dimen>
     <dimen name="fudp_20">-20dp</dimen>

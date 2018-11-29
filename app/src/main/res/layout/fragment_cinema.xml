@@ -5,6 +5,33 @@
     android:background="@color/colorLightGray"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_25"
+        android:layout_marginTop="@dimen/dp_24"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_cinema_recommend"
+            android:layout_width="@dimen/dp_83"
+            android:layout_height="match_parent"
+            android:background="@drawable/square_purple"
+            android:gravity="center"
+            android:text="推荐影院"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/text_cinema_nearby"
+            android:layout_width="@dimen/dp_83"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_32"
+            android:background="@drawable/square_gray"
+            android:gravity="center"
+            android:text="附近影院" />
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_24"
@@ -32,54 +59,74 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/relay_cinema_search"
-            android:layout_width="@dimen/dp_100"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="@dimen/fudp_20"
-            android:background="@drawable/yellowchange">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/image_cinema_search"
-                android:layout_width="@dimen/dp_24"
-                android:layout_height="@dimen/dp_24"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+            <RelativeLayout
+                android:id="@+id/relay_cinema_search"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="@dimen/dp_12"
-                android:layout_marginStart="@dimen/dp_12"
-                android:src="@mipmap/cinema_search" />
+                android:layout_marginRight="@dimen/fudp_20"
+                android:background="@drawable/yellowchange">
+
+                <ImageView
+                    android:id="@+id/image_cinema_search"
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:src="@mipmap/cinema_search" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relay_cinema_search_yes"
+                android:layout_width="@dimen/dp_250"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/fudp_20"
+                android:background="@drawable/yellowchange"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/image_cinema_search_yes"
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:src="@mipmap/cinema_search" />
+
+                <EditText
+                    android:id="@+id/ed_cinema"
+                    android:layout_width="@dimen/dp_120"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textColor="@color/colorWhite"
+                    android:layout_toRightOf="@+id/image_cinema_search_yes"
+                    android:background="@null" />
+
+                <TextView
+                    android:id="@+id/text_cinema_ss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_toRightOf="@+id/ed_cinema"
+                    android:gravity="center_vertical"
+                    android:text="搜索"
+                    android:textColor="@color/colorWhite" />
+            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_25"
-        android:layout_marginTop="@dimen/dp_10"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/text_cinema_recommend"
-            android:layout_width="@dimen/dp_83"
-            android:layout_height="match_parent"
-            android:background="@drawable/square_purple"
-            android:gravity="center"
-            android:text="推荐影院"
-            android:textColor="@color/colorWhite" />
-
-        <TextView
-            android:id="@+id/text_cinema_nearby"
-            android:layout_width="@dimen/dp_83"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp_32"
-            android:background="@drawable/square_gray"
-            android:gravity="center"
-            android:text="附近影院" />
-
-    </LinearLayout>
 
     <com.example.xlistviewlib.XListView
         android:id="@+id/listview_cinema_list1"

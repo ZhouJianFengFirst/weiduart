@@ -148,7 +148,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         //计算高度
         int hight = context.getResources().getDisplayMetrics().heightPixels;
         //向下的动画
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(tan, "translationY", 300, hight);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(tan, "translationY", 500, hight);
         objectAnimator.setDuration(500);
         objectAnimator.start();
         //延时关闭1000毫秒
@@ -163,7 +163,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     //弹出详情
     private void showDetail() {
         int height = context.getResources().getDisplayMetrics().heightPixels;
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(tan, "translationY", height, 300);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(tan, "translationY", height, 500);
         objectAnimator.setDuration(500);
         objectAnimator.start();
         tan.setVisibility(View.VISIBLE);
