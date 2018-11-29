@@ -10,4 +10,5 @@
         android:layout_height="@dimen/dp_258"
         android:layout_margin="@dimen/dp_10"
         app:roundedCornerRadius="@dimen/dp_7" />
+
 </RelativeLayout>

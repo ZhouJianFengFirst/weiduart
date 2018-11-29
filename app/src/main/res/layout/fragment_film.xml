@@ -12,6 +12,23 @@
         android:scaleType="centerCrop"
         android:src="@drawable/backmovie" />
 
+    <LinearLayout
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_40"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginRight="@dimen/fudp_20"
+        android:background="@drawable/yellowchange"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_height="@dimen/dp_30"
+            android:src="@mipmap/cinema_search"/>
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/relayout_view"
         android:layout_width="match_parent"
@@ -47,21 +64,21 @@
                     android:id="@+id/lf_hortmovie"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_300"
-                    app:Title="热门电影"></com.bw.movie.view.ListFilmView>
+                    app:Title="@string/hort_movie"></com.bw.movie.view.ListFilmView>
 
                 <com.bw.movie.view.ListFilmView
                     android:id="@+id/lf_hortshowing"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_300"
                     android:layout_below="@id/lf_hortmovie"
-                    app:Title="正在热映"></com.bw.movie.view.ListFilmView>
+                    app:Title="@string/hort_showing"></com.bw.movie.view.ListFilmView>
 
                 <com.bw.movie.view.ListFilmView
                     android:id="@+id/lf_upcoming"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_300"
                     android:layout_below="@id/lf_hortshowing"
-                    app:Title="即将上映"></com.bw.movie.view.ListFilmView>
+                    app:Title="@string/upcoming"></com.bw.movie.view.ListFilmView>
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

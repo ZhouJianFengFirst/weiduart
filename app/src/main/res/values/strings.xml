@@ -19,5 +19,8 @@
     <string name="register_txt_date">出生日期</string>
     <string name="register_txt_phone">手机号</string>
     <string name="register_txt_emil">邮箱</string>
-    <string name="register_txt_name">昵称</string>
+    <string name="hort_movie">热门电影</string>
+    <string name="hort_showing">正在热映</string>
+    <string name="upcoming">即将上映</string>
+
 </resources>

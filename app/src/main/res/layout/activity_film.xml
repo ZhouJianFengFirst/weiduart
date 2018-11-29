@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightGray"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -19,7 +18,7 @@
                 android:layout_width="@dimen/dp_24"
                 android:layout_height="@dimen/dp_24"
                 android:layout_marginLeft="@dimen/dp_24"
-                android:src="@mipmap/cinema_location" />
+                android:src="@drawable/address_black" />
 
             <TextView
                 android:id="@+id/text_cinema_location"
@@ -51,6 +50,7 @@
                 android:layout_marginLeft="@dimen/dp_12"
                 android:layout_marginStart="@dimen/dp_12"
                 android:src="@mipmap/cinema_search" />
+
         </RelativeLayout>
     </RelativeLayout>
 
@@ -62,32 +62,41 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/text_cinema_recommend"
+            android:id="@+id/txt_hortmovie"
             android:layout_width="@dimen/dp_83"
             android:layout_height="match_parent"
             android:background="@drawable/square_purple"
             android:gravity="center"
-            android:text="推荐影院"
+            android:text="@string/hort_movie"
             android:textColor="@color/colorWhite" />
 
         <TextView
-            android:id="@+id/text_cinema_nearby"
+            android:id="@+id/txt_hortshowing"
             android:layout_width="@dimen/dp_83"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_32"
             android:background="@drawable/square_gray"
             android:gravity="center"
-            android:text="附近影院" />
+            android:text="@string/hort_showing" />
+
+        <TextView
+            android:id="@+id/txt_upcoming"
+            android:layout_width="@dimen/dp_83"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_32"
+            android:background="@drawable/square_gray"
+            android:gravity="center"
+            android:text="@string/upcoming" />
 
     </LinearLayout>
 
+
     <com.example.xlistviewlib.XListView
-        android:id="@+id/listview_cinema_list1"
+        android:id="@+id/xshowlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/dp_24"
         android:layout_marginRight="@dimen/dp_24"
         android:layout_marginTop="@dimen/dp_10" />
-
 
 </LinearLayout>
