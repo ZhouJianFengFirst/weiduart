@@ -2,6 +2,7 @@ package com.bw.movie.persenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -53,6 +54,9 @@ public class ActivityLoginPersenter extends AppDelegate {
     private ImageView imgthird;
     private ImageView imglookpass;
     private TextView txtjustregister;
+    private String loginphone;
+    private boolean flag = false;
+    private boolean auto = false;
 
     @Override
     protected int getLayoutId() {
@@ -63,37 +67,70 @@ public class ActivityLoginPersenter extends AppDelegate {
     public void initData() {
         super.initData();
         initwidget();
+        /*
+         * 首次进来判断是否登录
+         * */
+        boolean isLogin = (boolean) SpUtil.getInserter(mcontext).getSpData("isLogin", false);
+        if (isLogin) {
+            boolean isremenber = (boolean) SpUtil.getInserter(mcontext).getSpData("isRemenber", false);
+
+            /*
+             * 判断是否记住密码
+             * */
+            if (isremenber) {
+                //将账号和密码都设置到文本中
+                String phone = (String) SpUtil.getInserter(mcontext).getSpData("phone", "");
+                String pwd = (String) SpUtil.getInserter(mcontext).getSpData("pwd", "");
+                edphone.setText(phone);
+                edpass.setText(pwd);
+               /* boolean isAuto = (boolean) SpUtil.getInserter(mcontext).getSpData("isAuto", false);
+                if (isAuto) {
+                    //跳转界面
+                    Intent intent = new Intent(mcontext, MainActivity.class);
+                    ((ActivityLogin) mcontext).startActivity(intent);
+                    Logger.d("ttttt","已自动登录！！");
+                }*/
+            }
+
+        }
         setClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.login_bt_login:
-                        String loginphone = edphone.getText().toString().trim();
+                    case R.id.login_bt_login://登录按钮
+                        loginphone = edphone.getText().toString().trim();
                         String loginpass = edpass.getText().toString().trim();
-                        String encrypt = EncryptUtil.encrypt(loginpass);
-                        uselogin(loginphone, encrypt);
+
+                        uselogin(loginphone, loginpass);
                         break;
-                    case R.id.login_txt_justregister:
-                        //点击跳转到注册页面
+                    case R.id.login_txt_justregister://点击跳转到注册页面
                         ((ActivityLogin) mcontext).startActivity(new Intent(mcontext, ActivityRegister.class));
                         break;
-                    case R.id.login_img_lookpass:
-                        pwdShow(edpass,imglookpass);
+                    case R.id.login_img_lookpass://点击是否隐藏密码
+                        pwdShow(edpass, imglookpass);
+                        break;
+                    case R.id.login_img_repass://点击是否记住密码
+                        setCk(imgrepass);
+                        break;
+                    case R.id.login_img_smlogin://点击是否自动登录
+                        setCk(imgsmlogin);
                         break;
                 }
             }
-        }, R.id.login_txt_justregister, R.id.login_bt_login,R.id.login_img_lookpass);
+        }, R.id.login_txt_justregister, R.id.login_img_smlogin, R.id.login_bt_login, R.id.login_img_lookpass, R.id.login_img_repass);
     }
 
     /*
      *登录
      * */
-    private void uselogin(final String loginphone, String encrypt) {
-        if (TextUtils.isEmpty(loginphone) || TextUtils.isEmpty(encrypt)) {
-            Toast.makeText(mcontext, "用户名或密码不能为空！！", Toast.LENGTH_SHORT).show();
+    private void uselogin(final String loginphone, final String loginpass) {
+        if (TextUtils.isEmpty(loginphone) && TextUtils.isEmpty(loginpass)) {
+            toast("警告", "用户名或密码不能为空！！", 1);
             return;
         }
-        FormBody build = new FormBody.Builder().add("phone", "15711263757").add("pwd", "eWLPHopE945d2ivttHaQTQ==")
+        String encrypt = EncryptUtil.encrypt(loginpass);
+        //网络请求okhttp
+        FormBody build = new FormBody.Builder().add("phone", loginphone).add("pwd", encrypt)
                 .build();
         new OkHttpHelper(new HttpRequestListener() {
             @Override
@@ -107,7 +144,13 @@ public class ActivityLoginPersenter extends AppDelegate {
                         .putString("birthday", loginBean.getResult().getUserInfo().getBirthday() + "")
                         .putString("id", loginBean.getResult().getUserInfo().getId() + "")
                         .putString("lastLoginTime", loginBean.getResult().getUserInfo().getLastLoginTime() + "")
-                        .putString("sex", loginBean.getResult().getUserInfo().getSex() + "").commit();
+                        .putString("sex", loginBean.getResult().getUserInfo().getSex() + "")
+                        .putBoolean("isLogin", true).commit();
+                if (flag) {
+                    SpUtil.getInserter(mcontext).saveData("pwd", loginpass).putBoolean("isRemenber", true).putBoolean("isAuto", true).commit();
+                } else {
+                    SpUtil.getInserter(mcontext).clear().commit();
+                }
                 toast("登录", "登录成功", 1);
                 /*
                  *开个线程
@@ -123,18 +166,31 @@ public class ActivityLoginPersenter extends AppDelegate {
                         ((ActivityLogin) mcontext).finish();
                     }
                 }).start();
-
             }
 
             @Override
             public void Filed(String msg) {
                 toast("登录", "登录失败", 3);
-
             }
         }).doPost(Http.BASE_URL + "movieApi/user/v1/login", build);
-
     }
 
+    /*
+     * 判断记住密码
+     * */
+    private void setCk(ImageView img) {
+        if (!flag) {
+            img.setImageResource(R.drawable.login_ck_yes);
+        } else {
+            img.setImageResource(R.drawable.login_ck_no);
+        }
+        //每次置反
+        flag = !flag;
+    }
+
+    /*
+     * 初始化控件
+     * */
     private void initwidget() {
         edphone = (EditText) getView(R.id.login_ed_phone);
         edpass = (EditText) getView(R.id.login_ed_pass);
@@ -154,6 +210,7 @@ public class ActivityLoginPersenter extends AppDelegate {
 
         int type = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
         if (editText.getInputType() == type) {//密码可见
+
             editText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
             imageView.setImageResource(R.drawable.log_icon_eye);
             /*imageView.setImageDrawable(getResources().getDrawable(R.drawable.log_icon_eye));*/
@@ -162,12 +219,15 @@ public class ActivityLoginPersenter extends AppDelegate {
         } else {
             editText.setInputType(type);
             imageView.setImageResource(R.drawable.log_icon_leye);
-        /*    imageView.setImageDrawable(getResources().getDrawable(R.drawable.log_icon_leye));*/
+            /*    imageView.setImageDrawable(getResources().getDrawable(R.drawable.log_icon_leye));*/
             editText.setSelection(editText.getText().length());
         }
 
     }
 
+    /*
+     * 初始化上下文
+     * */
     @Override
     public void initContext(Context context) {
         super.initContext(context);

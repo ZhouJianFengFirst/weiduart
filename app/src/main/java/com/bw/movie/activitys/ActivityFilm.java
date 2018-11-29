@@ -1,11 +1,11 @@
 package com.bw.movie.activitys;
 
 import com.bw.movie.mvp.persenter.BaseActivity;
-import com.bw.movie.persenter.FilmActivityPersenter;
+import com.bw.movie.persenter.ActivityFilmPersenter;
 
-public class ActivityFilm extends BaseActivity<FilmActivityPersenter> {
+public class ActivityFilm extends BaseActivity<ActivityFilmPersenter> {
     @Override
-    public Class<FilmActivityPersenter> getDelegateClass() {
-        return FilmActivityPersenter.class;
+    public Class<ActivityFilmPersenter> getDelegateClass() {
+        return ActivityFilmPersenter.class;
     }
 }

@@ -9,7 +9,7 @@ import com.bw.movie.R;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.example.xlistviewlib.XListView;
 
-public class FilmActivityPersenter extends AppDelegate implements View.OnClickListener{
+public class ActivityFilmPersenter extends AppDelegate implements View.OnClickListener{
 
     private Context context;
     private TextView txtHortmovie,txtHortShowing,txtUpcoming;
