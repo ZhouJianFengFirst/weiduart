@@ -13,6 +13,7 @@ import com.bw.movie.adapter.DiscussAdapter;
 import com.bw.movie.entity.CinemaDetailsBean;
 import com.bw.movie.entity.DiscussBean;
 import com.bw.movie.mvp.view.AppDelegate;
+import com.bw.movie.net.Http;
 import com.bw.movie.utils.Logger;
 import com.google.gson.Gson;
 
@@ -29,7 +30,6 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
     private Context context;
     private RecyclerView recy;
     private String id;
-    private String url = "/movieApi/cinema/v1/findAllCinemaComment";
     private String page = "1";
     private String count = "20";
     private DiscussAdapter discussAdapter;
@@ -63,7 +63,7 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
         map.put("cinemaId", id);
         map.put("page", page);
         map.put("count", count);
-        getString(url, 0, map);
+        getString(Http.CINEMARIGHT_URL, 0, map);
     }
 
     @Override
