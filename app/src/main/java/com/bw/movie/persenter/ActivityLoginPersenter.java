@@ -2,6 +2,7 @@ package com.bw.movie.persenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -76,9 +77,12 @@ public class ActivityLoginPersenter extends AppDelegate {
                         //点击跳转到注册页面
                         ((ActivityLogin) mcontext).startActivity(new Intent(mcontext, ActivityRegister.class));
                         break;
+                    case R.id.login_img_lookpass:
+                        pwdShow(edpass,imglookpass);
+                        break;
                 }
             }
-        }, R.id.login_txt_justregister, R.id.login_bt_login);
+        }, R.id.login_txt_justregister, R.id.login_bt_login,R.id.login_img_lookpass);
     }
 
     /*
@@ -141,6 +145,28 @@ public class ActivityLoginPersenter extends AppDelegate {
         imgthird = (ImageView) getView(R.id.login_img_third);
         txtjustregister = (TextView) getView(R.id.login_txt_justregister);
         imglookpass = (ImageView) getView(R.id.login_img_lookpass);
+    }
+
+    /**
+     * @param editText
+     * @param imageView 设置隐藏/显示密码
+     */
+    public void pwdShow(EditText editText, ImageView imageView) {
+
+        int type = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
+        if (editText.getInputType() == type) {//密码可见
+            editText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            imageView.setImageResource(R.drawable.log_icon_eye);
+            /*imageView.setImageDrawable(getResources().getDrawable(R.drawable.log_icon_eye));*/
+            editText.setSelection(editText.getText().length());     //把光标设置到当前文本末尾
+
+        } else {
+            editText.setInputType(type);
+            imageView.setImageResource(R.drawable.log_icon_leye);
+        /*    imageView.setImageDrawable(getResources().getDrawable(R.drawable.log_icon_leye));*/
+            editText.setSelection(editText.getText().length());
+        }
+
     }
 
     @Override

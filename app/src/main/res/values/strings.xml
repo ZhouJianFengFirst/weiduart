@@ -22,5 +22,6 @@
     <string name="hort_movie">热门电影</string>
     <string name="hort_showing">正在热映</string>
     <string name="upcoming">即将上映</string>
+    <string name="register_txt_name">昵称</string>
 
 </resources>
