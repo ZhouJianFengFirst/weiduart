@@ -4,11 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/sm_hortmovie"
+    <RelativeLayout
         android:layout_width="@dimen/dp_150"
-        android:layout_height="@dimen/dp_258"
-        android:layout_margin="@dimen/dp_10"
-        app:roundedCornerRadius="@dimen/dp_7" />
+        android:layout_height="@dimen/dp_200">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sm_hortmovie"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_200"
+            android:layout_margin="@dimen/dp_10"
+            app:roundedCornerRadius="@dimen/dp_8dp" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:gravity="center"
+            android:textColor="@color/colorD8d8d8"
+            android:textSize="@dimen/sp_16"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shape_m_r_bg"
+            android:layout_width="@dimen/dp_150"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_height="@dimen/dp_30" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

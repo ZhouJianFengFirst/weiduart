@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.entity.HortMovieEntity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -23,10 +25,10 @@ import java.util.List;
 public class PagerAdapter3D extends PagerAdapter {
     private Context mContext;
     private LruCache<Integer, Bitmap> mCache;
-    private List<String> imageurl = new ArrayList<>();
+    private List<HortMovieEntity.ResultBean> list = new ArrayList<>();
 
-    public void setImageurl(List<String> imageurl) {
-        this.imageurl = imageurl;
+    public void setList(List<HortMovieEntity.ResultBean> list) {
+        this.list = list;
         notifyDataSetChanged();
     }
 
@@ -45,7 +47,7 @@ public class PagerAdapter3D extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return imageurl.size();
+        return list.size();
     }
 
     @Override
@@ -57,7 +59,9 @@ public class PagerAdapter3D extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.view_3d_image, null);
         SimpleDraweeView smView = (SimpleDraweeView) view.findViewById(R.id.iv);
-        smView.setImageURI(imageurl.get(position));
+        TextView txtView = view.findViewById(R.id.txt_title);
+        txtView.setText(list.get(position).getName());
+        smView.setImageURI(list.get(position).getImageUrl());
         container.addView(view);
         return view;
     }
