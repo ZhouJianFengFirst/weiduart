@@ -31,15 +31,14 @@ public class Http {
     public static final String CINEMASESSION_URL = "/movieApi/movie/v1/findMovieScheduleList";
     //我的页面接口
     public static final String SELECT_URL = "/movieApi/user/v1/verify/findUserHomeInfo";
-
-    public static final String UPDATE_URL = "/movieApi/user/v1/verify/modifyUserInfo";
+    public static final String UPDATA_URL = "/movieApi/user/v1/verify/modifyUserInfo";
+    public static final String INFORM_URL = "/movieApi/tool/v1/verify/findAllSysMsgList";
+    public static final String INFORMCHECKED_URL = "/movieApi/tool/v1/verify/changeSysMsgStatus";
+    public static final String INFORMNUM_URL = "/movieApi/tool/v1/verify/findUnreadMessageCount";
 
     //影片关注
     public static final String FOLLOW_MOVIE = "/movieApi/movie/v1/verify/followMovie";
 
     //影片取消关注
     public static final String CANCEL_MOVIE = "/movieApi/movie/v1/verify/cancelFollowMovie";
-
-    //查询影院详情
-    public static final String FINDMOVIE_URL = "/movieApi/movie/v1/findMoviesDetail";
 }

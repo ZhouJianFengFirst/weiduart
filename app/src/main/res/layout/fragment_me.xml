@@ -34,7 +34,7 @@
             android:layout_below="@+id/me_sdv_head"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="冬天来了"
+            android:text="登录/注册"
             android:textColor="@color/colorWhite" />
 
     </RelativeLayout>

@@ -21,6 +21,7 @@ import com.bw.movie.activitys.ActivityResetPwd;
 import com.bw.movie.activitys.ActivityUpdateEmail;
 import com.bw.movie.activitys.ActivityUpdateName;
 import com.bw.movie.activitys.ActivityUpdateSex;
+import com.bw.movie.entity.LoginBean;
 import com.bw.movie.entity.MessageSelectBean;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.BaseObserver;
@@ -28,6 +29,7 @@ import com.bw.movie.net.Http;
 import com.bw.movie.net.HttpHelper;
 import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.Pop;
+import com.bw.movie.utils.SharedUtil;
 import com.bw.movie.utils.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -182,7 +184,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
                 //new 意图
                 Intent intent = new Intent(context, ActivityUpdateName.class);
                 //往意图里面传值
-                intent.putExtra("nickName1",nickName1);
+                intent.putExtra("nickName1", nickName1);
                 //启动跳转
                 context.startActivity(intent);
                 break;
@@ -193,7 +195,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
                 //new 意图
                 Intent intent1 = new Intent(context, ActivityUpdateSex.class);
                 //往意图里面传值
-                intent1.putExtra("sex1",sex1);
+                intent1.putExtra("sex1", sex1);
                 //启动跳转
                 context.startActivity(intent1);
                 break;
@@ -225,12 +227,40 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
                 break;
             case R.id.message_tv_exit:
                 //吐司退出登录
-                Toast.makeText(context, "退出登录", Toast.LENGTH_SHORT).show();
-                //销毁本页面
-                ((ActivityMessage) context).finish();
+//                Toast.makeText(context, "已经退出登录", Toast.LENGTH_SHORT).show();
+//                //销毁本页面
+//                ((ActivityMessage) context).finish();
+                //退出登录的方法
+                backLogin();
                 break;
 
         }
+    }
+
+    //退出登录的方法
+    private void backLogin() {
+        //重新赋值空所有的  登录状态赋值为假
+        SharedUtil.put(context, "phones", "");
+        SharedUtil.put(context, "sex", "");
+        SpUtil.saveData(context, "message", "");
+        SpUtil.saveData(context, "status", "");
+        SpUtil.saveData(context, "sessionId", "");
+        SpUtil.saveData(context, "userId", "");
+        SpUtil.saveData(context, "headPic", "");
+        SpUtil.saveData(context, "nickName", "");
+        SpUtil.saveData(context, "phone", "");
+        SpUtil.saveData(context, "birthday", "");
+        SpUtil.saveData(context, "id", "");
+        SpUtil.saveData(context, "lastLoginTime", "");
+        SpUtil.saveData(context, "sex", "");
+        SpUtil.saveData(context, "isLogin", false);
+        SpUtil.saveData(context, "pwd", "");
+        SpUtil.saveData(context, "isRemenber", false);
+        SpUtil.saveData(context, "isAuto", false);
+        //吐司退出登录
+        Toast.makeText(context, "已经退出登录", Toast.LENGTH_SHORT).show();
+        //销毁本页面
+        ((ActivityMessage) context).finish();
     }
 
     //弹出popupwindow 方法
@@ -352,9 +382,9 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         //给控件重新赋值
         message_tv_name.setText(nickName1);
         //判断=1=2
-        if("1".equals(sex1)){
+        if ("1".equals(sex1)) {
             message_tv_sex.setText("男");
-        }else if("2".equals(sex1)){
+        } else if ("2".equals(sex1)) {
             message_tv_sex.setText("女");
         }
         message_tv_date.setText(birthday1);

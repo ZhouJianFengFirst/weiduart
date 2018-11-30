@@ -79,12 +79,12 @@ public class ActivityUpdateNamePersenter extends AppDelegate implements View.OnC
         //往map集合里添加
         hmap.put("userId", userId1);
         hmap.put("sessionId", sessionId1);
-
+        //入参的数据
         fmap.put("nickName",name);
         fmap.put("sex","2");
         fmap.put("email","12343256@qq.com");
         //post请求数据 传网址类型0 map集合
-        handPostString(Http.UPDATE_URL,0,hmap,fmap);
+        handPostString(Http.UPDATA_URL,0,hmap,fmap);
         Logger.i("map里","用户id"+hmap.get("userId")+"sessId"+hmap.get("sessionId")+fmap.get("nickName"));
     }
     //成功方法

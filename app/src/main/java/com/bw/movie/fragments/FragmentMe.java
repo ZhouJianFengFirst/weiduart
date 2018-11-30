@@ -19,8 +19,8 @@ public    class FragmentMe extends BaseFragment<FragmentMePresenter>{
     @Override
     public void onResume() {
         super.onResume();
-        Boolean islogin = (Boolean) SpUtil.getSpData(getActivity(),"isLogin",false);
-        if (islogin){
+//        Boolean islogin = (Boolean) SpUtil.getSpData(getActivity(),"isLogin",false);
+//        if (islogin){
           //获取sp里面的数据userId sessionId 调用工具类强转自己需要的类型 提上去调用
             String message1 = (String) SpUtil.getSpData(getActivity(),"message", "");
             String status1 = (String) SpUtil.getSpData(getActivity(),"status", "");
@@ -35,6 +35,6 @@ public    class FragmentMe extends BaseFragment<FragmentMePresenter>{
             String sex1 = (String) SpUtil.getSpData(getActivity(),"sex", "");
             //调用方法传获取到的值
             delegate.setData(message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1);
-        }
+//        }
     }
 }

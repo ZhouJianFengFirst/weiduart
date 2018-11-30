@@ -100,38 +100,59 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
             case R.id.me_sdv_head:
                 //吐司这是头像
 //                Toast.makeText(context,"这是头像",Toast.LENGTH_SHORT).show();
-                //判断是否登录在赋值 判断昵称是否为空
-              /*  if (TextUtils.isEmpty(nickName1)) {
-                    //没点登录在跳转登录页面
-                    context.startActivity(new Intent(context, ActivityLogin.class));
-                } else {
-                    //登录了就直接赋值吐司已经登录
-                    //吐司
+                //获取登录状态islogin
+                Boolean islogin = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+                //判断islogin
+                if (islogin) {
+                    //吐司已经登录
                     toast(context, "已登录");
-                    me_sdv_head.setImageURI(headPic1);
-                    me_tv_nickname.setText(nickName1);
-                    //跳到详情页面
-
-                }*/
-              Boolean islogin = (Boolean) SpUtil.getSpData(context,"isLogin",false);
-              if (islogin){
-                  context.startActivity(new Intent(context, ActivityMessage.class));
-              }else{
-                  context.startActivity(new Intent(context, ActivityLogin.class));
-              }
-
+                    //跳转信息
+                    context.startActivity(new Intent(context, ActivityMessage.class));
+                } else {
+                    //吐司已经登录
+                    toast(context, "请先登录");
+                    //跳转登录
+                    context.startActivity(new Intent(context, ActivityLogin.class));
+                }
                 break;
             case R.id.me_sdv_inform:
                 //吐司这是通知
 //                Toast.makeText(context,"这是通知",Toast.LENGTH_SHORT).show();
                 //跳转页面上下文
-                context.startActivity(new Intent(context, ActivityInform.class));
+//                context.startActivity(new Intent(context, ActivityInform.class));
+                //获取登录状态islogin
+                Boolean islogin2 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+                //判断islogin
+                if (islogin2) {
+                    //吐司已经登录
+                    toast(context, "已登录");
+                    //跳转信息
+                    context.startActivity(new Intent(context, ActivityInform.class));
+                } else {
+                    //吐司已经登录
+                    toast(context, "请先登录");
+                    //跳转登录
+                    context.startActivity(new Intent(context, ActivityLogin.class));
+                }
                 break;
             case R.id.me_liner_message:
                 //吐司这是我的信息
 //                Toast.makeText(context,"这是我的信息",Toast.LENGTH_SHORT).show();
                 //跳转页面上下文
-                context.startActivity(new Intent(context, ActivityMessage.class));
+                //获取登录状态islogin
+                Boolean islogin1 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+                //判断islogin
+                if (islogin1) {
+                    //吐司已经登录
+                    toast(context, "已登录");
+                    //跳转信息
+                    context.startActivity(new Intent(context, ActivityMessage.class));
+                } else {
+                    //吐司已经登录
+                    toast(context, "请先登录");
+                    //跳转登录
+                    context.startActivity(new Intent(context, ActivityLogin.class));
+                }
                 break;
             case R.id.me_Liner_attention:
                 //吐司这是我的关注
@@ -174,10 +195,19 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
         this.id1 = id1;
         this.lastLoginTime1 = lastLoginTime1;
         this.sex1 = sex1;
-        Logger.i("我的",nickName1);
-
-        me_sdv_head.setImageURI(headPic1);
-        me_tv_nickname.setText(nickName1);
+        Logger.i("我的", nickName1);
+        //获取登录状态
+        Boolean islogin = (Boolean) SpUtil.getSpData(context,"isLogin",false);
+        //判断登录状态
+       if(islogin){
+           //赋值登录后的值
+           me_sdv_head.setImageURI(headPic1);
+           me_tv_nickname.setText(nickName1);
+       }else {
+           //赋值初始值 "res///"
+           me_sdv_head.setImageURI("res:///"+R.drawable.user_head);
+           me_tv_nickname.setText("登录/注册");
+       }
 
     }
 }

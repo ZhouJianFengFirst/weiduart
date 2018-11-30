@@ -54,7 +54,12 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         imageView.setImageResource(resource);
         return this;
     }
-
+    //设置文本是否显示
+    public ViewHolder setVisibilityText(int viewId, int resource) {
+        TextView textView = (TextView) getView(viewId);
+        textView.setVisibility(resource);
+        return this;
+    }
     public void setClick(View.OnClickListener listener, int... ids) {
         if (ids == null) {
             return;
