@@ -1,12 +1,13 @@
 package com.bw.movie.persenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.DrawableContainer;
 import android.view.View;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.activitys.ActivityFilm;
 import com.bw.movie.adapter.FileListAdapter;
 import com.bw.movie.entity.HortMovieEntity;
 import com.bw.movie.mvp.view.AppDelegate;
@@ -17,6 +18,9 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ */
 public class ActivityFilmPersenter extends AppDelegate implements View.OnClickListener {
 
     private Context context;
@@ -28,12 +32,15 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
     private int flage = 1;
     private int hortshowingpage = 1;
     private int hortshowingcont = 10;
+    private int moviesize = 0;
 
     private int hortmoviepage = 1;
     private int hortmoviecont = 10;
 
+
     private int upcomingpage = 1;
     private int upcomingcont = 10;
+
     private FileListAdapter filmAdapter;
 
     @Override
@@ -51,11 +58,42 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
     public void initData() {
         super.initData();
         initWeight();
-
+        Intent intent = ((ActivityFilm) context).getIntent();
+        int flag = intent.getIntExtra("flag", 0);
         //网络请求
-        doHortMovieHttp();
+        switch (flag) {
+            case 1:
+                flage = 1;
+                txtHortmovie.setBackgroundResource(R.drawable.square_purple);
+                txtHortmovie.setTextColor(Color.WHITE);
+                txtHortShowing.setBackgroundResource(R.drawable.square_gray);
+                txtHortShowing.setTextColor(Color.GRAY);
+                txtUpcoming.setBackgroundResource(R.drawable.square_gray);
+                txtUpcoming.setTextColor(Color.GRAY);
+                doHortMovieHttp();
+                break;
+            case 2:
+                flage = 2;
+                txtHortmovie.setBackgroundResource(R.drawable.square_gray);
+                txtHortmovie.setTextColor(Color.GRAY);
+                txtHortShowing.setBackgroundResource(R.drawable.square_purple);
+                txtHortShowing.setTextColor(Color.WHITE);
+                txtUpcoming.setBackgroundResource(R.drawable.square_gray);
+                txtUpcoming.setTextColor(Color.GRAY);
+                doHortShowingHttp();
+                break;
+            case 3:
+                flage = 3;
+                txtHortmovie.setBackgroundResource(R.drawable.square_gray);
+                txtHortmovie.setTextColor(Color.GRAY);
+                txtHortShowing.setBackgroundResource(R.drawable.square_gray);
+                txtHortShowing.setTextColor(Color.GRAY);
+                txtUpcoming.setBackgroundResource(R.drawable.square_purple);
+                txtUpcoming.setTextColor(Color.WHITE);
+                doHortUpCommimg();
+                break;
+        }
     }
-
     /**
      * 热门电影
      */
@@ -90,6 +128,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
 
     private void initWeight() {
         //初始化控件
+        getView(R.id.backimage).setOnClickListener(this);
         txtHortmovie = (TextView) getView(R.id.txt_hortmovie);
         txtHortShowing = (TextView) getView(R.id.txt_hortshowing);
         txtUpcoming = (TextView) getView(R.id.txt_upcoming);
@@ -118,6 +157,10 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
 
             @Override
             public void onLoadMore() {
+                if (moviesize <= 10){
+                    listView.stopLoadMore();
+                    return;
+                }
                 switch (flage) {
                     case 1:
                         hortmoviecont += 5;
@@ -198,6 +241,9 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
                 txtUpcoming.setTextColor(Color.WHITE);
                 doHortUpCommimg();
                 break;
+            case R.id.backimage:
+                ((ActivityFilm)context).finish();
+                break;
         }
     }
 
@@ -208,6 +254,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
      */
     public void setHortMovieData(String hortMovieData) {
         HortMovieEntity entity = new Gson().fromJson(hortMovieData, HortMovieEntity.class);
+        moviesize = entity.getResult().size();
         filmAdapter.setHortList(entity.getResult());
     }
 
@@ -218,6 +265,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
      */
     public void setHortShowingData(String hortShowingData) {
         HortMovieEntity entity = new Gson().fromJson(hortShowingData, HortMovieEntity.class);
+        moviesize = entity.getResult().size();
         filmAdapter.setHortList(entity.getResult());
     }
 
@@ -228,6 +276,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
      */
     public void setUpCommingData(String upCommingData) {
         HortMovieEntity entity = new Gson().fromJson(upCommingData, HortMovieEntity.class);
+        moviesize = entity.getResult().size();
         filmAdapter.setHortList(entity.getResult());
     }
 }

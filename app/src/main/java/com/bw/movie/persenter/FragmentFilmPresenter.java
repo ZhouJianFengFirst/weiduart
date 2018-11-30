@@ -184,13 +184,19 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.lf_hortmovie:
-                ((MainActivity)context).startActivity(new Intent(context, ActivityFilm.class));
+                Intent intentHortMovie = new Intent(context, ActivityFilm.class);
+                intentHortMovie.putExtra("flag",1);
+                ((MainActivity)context).startActivity(intentHortMovie);
                 break;
             case R.id.lf_hortshowing:
-                ((MainActivity)context).startActivity(new Intent(context, ActivityFilm.class));
+                Intent intentHortShowing = new Intent(context, ActivityFilm.class);
+                intentHortShowing.putExtra("flag",2);
+                ((MainActivity)context).startActivity(intentHortShowing);
                 break;
             case R.id.lf_upcoming:
-                ((MainActivity)context).startActivity(new Intent(context, ActivityFilm.class));
+                Intent intentUpComing = new Intent(context, ActivityFilm.class);
+                intentUpComing.putExtra("flag",3);
+                ((MainActivity)context).startActivity(intentUpComing);
                 break;
         }
     }
