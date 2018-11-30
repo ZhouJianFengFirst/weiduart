@@ -14,6 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -106,6 +107,14 @@ public class HttpHelper {
     public void headOrQueryGet(String url, Map<String, String> hmap, Map<String, String> qmap, Observer ob) {
         BaseService baseService = retrofit.create(BaseService.class);
         baseService.HeadOrQueryGet(url, hmap, qmap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ob);
+    }
+
+    public void registerPost(String url, Map<String, String> map, Observer ob) {
+        BaseService baseService = retrofit.create(BaseService.class);
+        baseService.postRegister(url,map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ob);

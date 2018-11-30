@@ -62,10 +62,10 @@ public interface BaseService {
 
 
 
-//    @Headers({
-//            "ak:0110010010000",
-//            "Content-Type:application/x-www-form-urlencoded"
-//    })
+   @Headers({
+           "ak:0110010010000",
+            "Content-Type:application/x-www-form-urlencoded"
+   })
     @FormUrlEncoded
     @POST
     Observable<ResponseBody> postRegister(@Url String url, @FieldMap Map<String, String> map);

@@ -161,7 +161,7 @@ public class ActivityRegisterPersenter extends AppDelegate {
         });
     }
 
-    @Override
+   /* @Override
     public void successString(String data, int type) {
         super.successString(data, type);
         switch (type) {
@@ -184,7 +184,7 @@ public class ActivityRegisterPersenter extends AppDelegate {
         super.failString(msg);
         Logger.d("ffff", msg);
     }
-
+*/
     private void initwidget() {
         edname = (EditText) getView(R.id.register_ed_name);
         edate = (EditText) getView(R.id.register_ed_date);
