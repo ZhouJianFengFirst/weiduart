@@ -57,7 +57,6 @@ public class ActivityLoginPersenter extends AppDelegate {
     private TextView txtjustregister;
     private String loginphone;
     private boolean flag = false;
-    private boolean auto = false;
 
     @Override
     protected int getLayoutId() {

@@ -19,7 +19,7 @@
             android:src="@drawable/register_icon_name" />
 
         <EditText
-            android:id="@+id/register_ed_phone"
+            android:id="@+id/register_ed_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_7"
@@ -104,8 +104,7 @@
             android:src="@drawable/log_icon_phone" />
 
         <EditText
-            android:id="@+id/register_ed_name"
-
+            android:id="@+id/register_ed_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_7"

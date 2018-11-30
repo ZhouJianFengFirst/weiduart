@@ -30,5 +30,4 @@ public interface IDelegate {
     void getString(String url, int type, Map<String, String> map);
 
     void postString(String url, int type, Map<String, String> map);
-
 }

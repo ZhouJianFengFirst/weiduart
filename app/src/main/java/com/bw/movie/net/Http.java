@@ -8,7 +8,12 @@ public class Http {
   public static final String BASE_URL = "http://mobile.bwstudent.com/";
 
   public static final String SOONMOVIELIST_URL = "/movieApi/movie/v1/findComingSoonMovieList";
+  //登录
   public static final String LOGIN_URL = "/movieApi/user/v1/login";
+
+  //注册
+  public static final String REGISTER_URL = "/movieApi/user/v1/registerUser";
+
 
   public static final String HOTMOVIELIST_URL = "/movieApi/movie/v1/findHotMovieList";
 

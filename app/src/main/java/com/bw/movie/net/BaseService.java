@@ -3,12 +3,12 @@ package com.bw.movie.net;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -48,6 +48,7 @@ public interface BaseService {
     Observable<ResponseBody> HeadGet(@Url String url, @HeaderMap Map<String, String> map);
 
 
+
     //    @Headers({
 //            "ak:0110010010000",
 //            "Content-Type:application/x-www-form-urlencoded"
@@ -58,5 +59,15 @@ public interface BaseService {
 
     @GET
     Observable<ResponseBody> HeadOrQueryGet(@Url String url, @HeaderMap Map<String, String> hap ,@QueryMap Map<String, String> qmap);
+
+
+
+//    @Headers({
+//            "ak:0110010010000",
+//            "Content-Type:application/x-www-form-urlencoded"
+//    })
+    @FormUrlEncoded
+    @POST
+    Observable<ResponseBody> postRegister(@Url String url, @FieldMap Map<String, String> map);
 
 }
