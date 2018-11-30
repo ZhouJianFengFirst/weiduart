@@ -15,6 +15,8 @@ import com.bw.movie.utils.SpUtil;
  * 作用：ActivityMessage(我的信息页面)
  * */
 
+//手机号:15711263757   密码:123456
+
 //继承BaseActivity 泛型本页面的persenter类
 public class ActivityMessage extends BaseActivity<ActivityMessagePersenter> {
 
