@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityFilm;
+import com.bw.movie.activitys.ActivityFilmDetails;
 import com.bw.movie.adapter.FileListAdapter;
+import com.bw.movie.entity.BackJson;
 import com.bw.movie.entity.HortMovieEntity;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
+import com.bw.movie.utils.Logger;
+import com.bw.movie.utils.SpUtil;
 import com.example.xlistviewlib.XListView;
 import com.google.gson.Gson;
 
@@ -21,14 +26,16 @@ import java.util.Map;
 /**
  *
  */
-public class ActivityFilmPersenter extends AppDelegate implements View.OnClickListener {
+public class ActivityFilmPersenter extends AppDelegate implements View.OnClickListener, FileListAdapter.BackDataListener {
 
+    private static final int FOLLOW_MOVIE_CONTENT = 0x126;
     private Context context;
     private TextView txtHortmovie, txtHortShowing, txtUpcoming;
     private XListView listView;
     private static final int SOONMOVIELIST_CONTENT = 0x123;
     private static final int HOTMOVIELIST_CONTENT = 0x124;
     private static final int RELEAASEMOVIELIST_CONTENT = 0x125;
+    private HortMovieEntity movieEntity;
     private int flage = 1;
     private int hortshowingpage = 1;
     private int hortshowingcont = 10;
@@ -94,6 +101,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
                 break;
         }
     }
+
     /**
      * 热门电影
      */
@@ -102,6 +110,8 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
         Map<String, String> hortmoviemap = new HashMap<>();
         hortmoviemap.put("page", "" + hortmoviepage + "");
         hortmoviemap.put("count", "" + hortmoviecont + "");
+        hortmoviemap.put("userId", getuserId());
+        hortmoviemap.put("sessionId", getUserSession());
         getString(Http.HOTMOVIELIST_URL, HOTMOVIELIST_CONTENT, hortmoviemap);
 
     }
@@ -113,6 +123,8 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
         Map<String, String> hortshowingmap = new HashMap<>();
         hortshowingmap.put("page", "" + hortshowingpage + "");
         hortshowingmap.put("count", "" + hortshowingcont + "");
+        hortshowingmap.put("userId", getuserId());
+        hortshowingmap.put("sessionId", getUserSession());
         getString(Http.SOONMOVIELIST_URL, SOONMOVIELIST_CONTENT, hortshowingmap);
     }
 
@@ -120,10 +132,23 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
      * 即将上映
      */
     public void doHortUpCommimg() {
+
         Map<String, String> upcomingmap = new HashMap<>();
         upcomingmap.put("page", "" + upcomingpage + "");
         upcomingmap.put("count", "" + upcomingcont + "");
+        upcomingmap.put("userId", getuserId());
+        upcomingmap.put("sessionId", getUserSession());
         getString(Http.RELEAASEMOVIELIST_URL, RELEAASEMOVIELIST_CONTENT, upcomingmap);
+    }
+
+    public String getuserId() {
+        String userId = (String) SpUtil.getSpData(context, "userId", "");
+        return userId;
+    }
+
+    public String getUserSession() {
+        String sessionId = (String) SpUtil.getSpData(context, "sessionId", "");
+        return sessionId;
     }
 
     private void initWeight() {
@@ -135,29 +160,25 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
         listView = (XListView) getView(R.id.xshowlist);
         listView.setPullRefreshEnable(true);
         listView.setPullLoadEnable(true);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int movieId = movieEntity.getResult().get(position).getId();
+                Intent intent = new Intent(context, ActivityFilmDetails.class);
+                intent.putExtra("movieId", movieId);
+                ((ActivityFilm) context).startActivity(intent);
+            }
+        });
         listView.setXListViewListener(new XListView.IXListViewListener() {
             @Override
             public void onRefresh() {
-                switch (flage) {
-                    case 1:
-                        hortmoviepage = 1;
-                        doHortMovieHttp();
-                        break;
-                    case 2:
-                        hortmoviepage = 1;
-                        doHortShowingHttp();
-                        break;
-                    case 3:
-                        upcomingpage = 1;
-                        doHortUpCommimg();
-                        break;
-                }
+                doHttp();
                 listView.stopRefresh();
             }
 
             @Override
             public void onLoadMore() {
-                if (moviesize <= 10){
+                if (moviesize <= 10) {
                     listView.stopLoadMore();
                     return;
                 }
@@ -182,6 +203,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
 
         //初始化适配器
         filmAdapter = new FileListAdapter(context);
+        filmAdapter.setListener(this);
         listView.setAdapter(filmAdapter);
     }
 
@@ -198,6 +220,36 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
                 break;
             case RELEAASEMOVIELIST_CONTENT:
                 setUpCommingData(data);
+                break;
+            case FOLLOW_MOVIE_CONTENT:
+                followMovieUser(data);
+                break;
+        }
+    }
+
+    private void followMovieUser(String data) {
+        BackJson backJson = new Gson().fromJson(data, BackJson.class);
+        if ("0000".equals(backJson.getStatus())) {
+            toast(context, backJson.getMessage());
+            doHttp();
+        } else {
+            toast(context, "取消关注失败");
+        }
+    }
+
+    public void doHttp() {
+        switch (flage) {
+            case 1:
+                hortmoviepage = 1;
+                doHortMovieHttp();
+                break;
+            case 2:
+                hortmoviepage = 1;
+                doHortShowingHttp();
+                break;
+            case 3:
+                upcomingpage = 1;
+                doHortUpCommimg();
                 break;
         }
     }
@@ -242,7 +294,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
                 doHortUpCommimg();
                 break;
             case R.id.backimage:
-                ((ActivityFilm)context).finish();
+                ((ActivityFilm) context).finish();
                 break;
         }
     }
@@ -254,6 +306,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
      */
     public void setHortMovieData(String hortMovieData) {
         HortMovieEntity entity = new Gson().fromJson(hortMovieData, HortMovieEntity.class);
+        this.movieEntity = entity;
         moviesize = entity.getResult().size();
         filmAdapter.setHortList(entity.getResult());
     }
@@ -265,6 +318,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
      */
     public void setHortShowingData(String hortShowingData) {
         HortMovieEntity entity = new Gson().fromJson(hortShowingData, HortMovieEntity.class);
+        this.movieEntity = entity;
         moviesize = entity.getResult().size();
         filmAdapter.setHortList(entity.getResult());
     }
@@ -276,7 +330,30 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
      */
     public void setUpCommingData(String upCommingData) {
         HortMovieEntity entity = new Gson().fromJson(upCommingData, HortMovieEntity.class);
+        this.movieEntity = entity;
         moviesize = entity.getResult().size();
         filmAdapter.setHortList(entity.getResult());
+    }
+
+    @Override
+    public void followMovie(int movieId, boolean start) {
+
+        Boolean islogin = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+        if (islogin) {
+            String userId = (String) SpUtil.getSpData(context, "userId", "");
+            String sessionId = (String) SpUtil.getSpData(context, "sessionId", "");
+            Map<String, String> hmap = new HashMap<>();
+            hmap.put("userId", userId);
+            hmap.put("sessionId", sessionId);
+            Map<String, String> qmap = new HashMap<>();
+            qmap.put("movieId", movieId + "");
+            if (start) {
+                HeadOrQuertGet(Http.FOLLOW_MOVIE, FOLLOW_MOVIE_CONTENT, hmap, qmap);
+            } else {
+                HeadOrQuertGet(Http.CANCEL_MOVIE, FOLLOW_MOVIE_CONTENT, hmap, qmap);
+            }
+        } else {
+            toast("温馨提示", "请先登录", 3);
+        }
     }
 }

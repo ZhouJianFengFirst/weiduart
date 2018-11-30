@@ -99,6 +99,7 @@
 
     <com.example.xlistviewlib.XListView
         android:id="@+id/xshowlist"
+        android:descendantFocusability="blocksDescendants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
@@ -110,6 +111,5 @@
         android:layout_alignParentBottom="true"
         android:src="@drawable/left_return" />
 </RelativeLayout>
-
 
 </LinearLayout>

@@ -56,4 +56,7 @@ public interface BaseService {
     @POST
     Observable<ResponseBody> HeadPost(@HeaderMap Map<String, String> hmap, @Url String url, @FieldMap Map<String, String> fmap);
 
+    @GET
+    Observable<ResponseBody> HeadOrQueryGet(@Url String url, @HeaderMap Map<String, String> hap ,@QueryMap Map<String, String> qmap);
+
 }

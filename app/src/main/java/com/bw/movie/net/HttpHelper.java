@@ -17,11 +17,12 @@ import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 /**
  * 作者：zhoujianfeng
  * 时间：2018/11/27
  * 作用：HttpHelper(连网工具类 retrofit+RxJava)
- * */
+ */
 public class HttpHelper {
 
     private static HttpHelper retrofitHelper;
@@ -77,26 +78,34 @@ public class HttpHelper {
             return;
         }
 
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data;charset=utf-8"),file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData("file","head.jpg",requestBody);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data;charset=utf-8"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("file", "head.jpg", requestBody);
         retrofit.create(BaseService.class)
-        .upload(part,uid)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(ob);
-    }
-
-    public void headGet(String url,Map<String,String> map,Observer ob){
-        BaseService baseService = retrofit.create(BaseService.class);
-        baseService.HeadGet(url,map)
+                .upload(part, uid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ob);
     }
 
-    public void headPost(String url,Map<String,String> hmap,Map<String,String> fmap,Observer ob){
+    public void headGet(String url, Map<String, String> map, Observer ob) {
         BaseService baseService = retrofit.create(BaseService.class);
-        baseService.HeadPost(hmap,url,fmap)
+        baseService.HeadGet(url, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ob);
+    }
+
+    public void headPost(String url, Map<String, String> hmap, Map<String, String> fmap, Observer ob) {
+        BaseService baseService = retrofit.create(BaseService.class);
+        baseService.HeadPost(hmap, url, fmap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ob);
+    }
+
+    public void headOrQueryGet(String url, Map<String, String> hmap, Map<String, String> qmap, Observer ob) {
+        BaseService baseService = retrofit.create(BaseService.class);
+        baseService.HeadOrQueryGet(url, hmap, qmap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ob);

@@ -23,30 +23,16 @@ public class SimpDrawViewUtils {
     /**
      * 高斯模糊
      */
-
-    private static Map<String, AbstractDraweeController> map = new HashMap<>();
-
     public static void showUrlBlur(SimpleDraweeView draweeView, String url, int iterations, int blurRadius) {
         try {
             Uri uri = Uri.parse(url);
             ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
                     .setPostprocessor(new IterativeBoxBlurPostProcessor(iterations, blurRadius))
                     .build();
-            Set set = map.keySet();
-            Iterator iter = set.iterator();
-            while (iter.hasNext()) {
-                String key = (String) iter.next();
-                if (key.equals(url)){
-                    draweeView.setController(map.get(url));
-                    return;
-                }
-            }
-
             AbstractDraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setOldController(draweeView.getController())
                     .setImageRequest(request)
                     .build();
-            map.put(url, controller);
             draweeView.setController(controller);
         } catch (Exception e) {
             e.printStackTrace();

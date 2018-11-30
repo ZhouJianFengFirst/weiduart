@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
@@ -217,6 +218,26 @@ public abstract class AppDelegate implements IDelegate {
         for (int id : ids) {
             getView(id).setOnClickListener(listener);
         }
+    }
+
+    public void HeadOrQuertGet(String url, final int type, Map<String,String> hmap, Map<String,String> qmap) {
+        HttpHelper.getInstens().headOrQueryGet(url, hmap, qmap, new BaseObserver<ResponseBody>() {
+
+
+            @Override
+            public void onNext(ResponseBody responseBody) {
+                try {
+                    successString(responseBody.string(),type);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                failString(e.getMessage());
+            }
+        });
     }
 
     public void destory() {

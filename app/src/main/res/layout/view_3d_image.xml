@@ -11,7 +11,7 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/iv"
             android:layout_width="@dimen/dp_220"
-            android:layout_height="@dimen/dp_300"
+            android:layout_height="@dimen/dp_312"
             app:roundedCornerRadius="@dimen/dp_8dp" />
 
         <TextView
