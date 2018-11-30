@@ -30,7 +30,7 @@ public class ActivityMessage extends BaseActivity<ActivityMessagePersenter> {
 //        //获取sp里面的数据userId sessionId 调用工具类强转自己需要的类型 提上去调用
         String message1 = (String) SpUtil.getInserter(this).getSpData("message", "");
         String status1 = (String) SpUtil.getInserter(this).getSpData("status", "");
-        String sessionId1 = (String) SpUtil.getInserter(this).getSpData("sessionId()", "");
+        String sessionId1 = (String) SpUtil.getInserter(this).getSpData("sessionId", "");
         String userId1 = (String) SpUtil.getInserter(this).getSpData("userId", "");
         String headPic1 = (String) SpUtil.getInserter(this).getSpData("headPic", "");
         String nickName1 = (String) SpUtil.getInserter(this).getSpData("nickName", "");

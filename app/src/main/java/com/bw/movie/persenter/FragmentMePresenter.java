@@ -20,6 +20,7 @@ import com.bw.movie.activitys.ActivityNewest;
 import com.bw.movie.activitys.ActivityOpinion;
 import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.mvp.view.AppDelegate;
+import com.bw.movie.utils.Logger;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
@@ -101,7 +102,7 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                 //判断是否登录在赋值 判断昵称是否为空
                 if (TextUtils.isEmpty(nickName1)) {
                     //没点登录在跳转登录页面
-                    ((Activity) context).startActivity(new Intent(context, ActivityLogin.class));
+                    context.startActivity(new Intent(context, ActivityLogin.class));
                 } else {
                     //登录了就直接赋值吐司已经登录
                     //吐司
@@ -109,7 +110,7 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                     me_sdv_head.setImageURI(headPic1);
                     me_tv_nickname.setText(nickName1);
                     //跳到详情页面
-                    ((Activity) context).startActivity(new Intent(context, ActivityMessage.class));
+                    context.startActivity(new Intent(context, ActivityMessage.class));
                 }
 
                 break;
@@ -166,5 +167,6 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
         this.id1 = id1;
         this.lastLoginTime1 = lastLoginTime1;
         this.sex1 = sex1;
+        Logger.i("我的",nickName1);
     }
 }

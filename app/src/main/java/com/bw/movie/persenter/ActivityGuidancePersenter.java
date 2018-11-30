@@ -54,7 +54,6 @@ public class ActivityGuidancePersenter extends AppDelegate {
             vpguidance.setAdapter(startAdapter);
             pointe(0);
             //销毁
-
         }
     }
 
