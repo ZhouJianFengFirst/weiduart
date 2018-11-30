@@ -354,8 +354,11 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         //判断=1=2
         if("1".equals(sex1)){
             message_tv_sex.setText("男");
-        }else{
+        }else if("2".equals(sex1)){
             message_tv_sex.setText("女");
+        }else{
+            //吐司输入错误请重新输入
+            toast(context,"输入错误请重新输入");
         }
 
         message_tv_date.setText(birthday1);

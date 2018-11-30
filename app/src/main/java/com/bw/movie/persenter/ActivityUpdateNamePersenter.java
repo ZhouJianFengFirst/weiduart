@@ -73,18 +73,18 @@ public class ActivityUpdateNamePersenter extends AppDelegate implements View.OnC
     private void dohttpUpdateName() {
         //获取输入框的内容
         String name = update_name.getText().toString().trim();
-
         //new hasmap
-        HashMap<String,String> map=new HashMap<>();
+        HashMap<String,String> hmap=new HashMap<>();
+        HashMap<String,String> fmap=new HashMap<>();
         //往map集合里添加
-        map.put("userId", userId1);
-        map.put("sessionId", sessionId1);
-        map.put("nickName",name);
-        map.put("sex","2");
-        map.put("email","12343256@qq.com");
+        hmap.put("userId", userId1);
+        hmap.put("sessionId", sessionId1);
+        fmap.put("nickName",name);
+        fmap.put("sex","2");
+        fmap.put("email","12343256@qq.com");
         //post请求数据 传网址类型0 map集合
-        handPostString(Http.UPDATE_URL,0,map);
-        Logger.i("id","map里的"+map.get("userId")+map.get("sessionId")+name);
+        handPostString(Http.UPDATE_URL,0,hmap,fmap);
+        Logger.i("map里","用户id"+hmap.get("userId")+"sessId"+hmap.get("sessionId")+fmap.get("nickName"));
     }
     //成功方法
     @Override

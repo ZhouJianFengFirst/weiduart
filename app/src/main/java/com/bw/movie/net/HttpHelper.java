@@ -94,9 +94,9 @@ public class HttpHelper {
                 .subscribe(ob);
     }
 
-    public void headPost(String url,Map<String,String> map,Observer ob){
+    public void headPost(String url,Map<String,String> hmap,Map<String,String> fmap,Observer ob){
         BaseService baseService = retrofit.create(BaseService.class);
-        baseService.HeadPost(url,map)
+        baseService.HeadPost(hmap,url,fmap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ob);

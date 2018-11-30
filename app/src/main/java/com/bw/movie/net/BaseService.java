@@ -47,14 +47,12 @@ public interface BaseService {
     @GET
     Observable<ResponseBody> HeadGet(@Url String url, @HeaderMap Map<String, String> map);
 
-    //    @POST
-//    Observable<ResponseBody> HeadPost(@Url String url, @HeaderMap Map<String, String> map);
-
-/*    @Headers({
+    @FormUrlEncoded
+    @POST
+    @Headers({
             "ak:0110010010000",
             "Content-Type:application/x-www-form-urlencoded"
-    })*/
-    @POST
-    Observable<ResponseBody> HeadPost(@Url String url, @HeaderMap Map<String, String> map);
+    })
+    Observable<ResponseBody> HeadPost(@HeaderMap Map<String, String> hmap,@Url String url, @FieldMap Map<String, String> fmap);
 
 }

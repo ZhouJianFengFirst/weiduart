@@ -1,7 +1,10 @@
 package com.bw.movie.persenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,9 +26,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
  * 作者：mafuyan
  * 时间：2018/11/28
  * 作用：FragmentMePersenter(我的页面)
- * */
+ */
 
-public    class FragmentMePresenter extends AppDelegate implements View.OnClickListener {
+public class FragmentMePresenter extends AppDelegate implements View.OnClickListener {
     private Context context;
     private SimpleDraweeView me_sdv_head;
     private SimpleDraweeView me_sdv_inform;
@@ -35,6 +38,17 @@ public    class FragmentMePresenter extends AppDelegate implements View.OnClickL
     private LinearLayout me_Liner_history;
     private LinearLayout me_Liner_opinion;
     private LinearLayout me_Liner_newest;
+    private String message1;
+    private String status1;
+    private String sessionId1;
+    private String userId1;
+    private String headPic1;
+    private String nickName1;
+    private String phone1;
+    private String birthday1;
+    private String id1;
+    private String lastLoginTime1;
+    private String sex1;
 
     @Override
     protected int getLayoutId() {
@@ -45,7 +59,7 @@ public    class FragmentMePresenter extends AppDelegate implements View.OnClickL
     @Override
     public void initContext(Context context) {
         //删了super这行提上去上下文
-        this.context=context;
+        this.context = context;
     }
 
     //重写初始化数据方法
@@ -59,14 +73,14 @@ public    class FragmentMePresenter extends AppDelegate implements View.OnClickL
     //初始化数据方法
     private void initwidget() {
         //获取控件强转提上去
-        me_sdv_head=(SimpleDraweeView)getView(R.id.me_sdv_head);
-        me_sdv_inform=(SimpleDraweeView)getView(R.id.me_sdv_inform);
-        me_tv_nickname=(TextView)getView(R.id.me_tv_nickname);
-        me_liner_message=(LinearLayout)getView(R.id.me_liner_message);
-        me_Liner_attention=(LinearLayout)getView(R.id.me_Liner_attention);
-        me_Liner_history=(LinearLayout)getView(R.id.me_Liner_history);
-        me_Liner_opinion=(LinearLayout)getView(R.id.me_Liner_opinion);
-        me_Liner_newest=(LinearLayout)getView(R.id.me_Liner_newest);
+        me_sdv_head = (SimpleDraweeView) getView(R.id.me_sdv_head);
+        me_sdv_inform = (SimpleDraweeView) getView(R.id.me_sdv_inform);
+        me_tv_nickname = (TextView) getView(R.id.me_tv_nickname);
+        me_liner_message = (LinearLayout) getView(R.id.me_liner_message);
+        me_Liner_attention = (LinearLayout) getView(R.id.me_Liner_attention);
+        me_Liner_history = (LinearLayout) getView(R.id.me_Liner_history);
+        me_Liner_opinion = (LinearLayout) getView(R.id.me_Liner_opinion);
+        me_Liner_newest = (LinearLayout) getView(R.id.me_Liner_newest);
         //点击事件
         me_sdv_head.setOnClickListener(this);
         me_sdv_inform.setOnClickListener(this);
@@ -80,11 +94,24 @@ public    class FragmentMePresenter extends AppDelegate implements View.OnClickL
     @Override
     public void onClick(View view) {
         //选择点击事件
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.me_sdv_head:
                 //吐司这是头像
-                Toast.makeText(context,"这是头像",Toast.LENGTH_SHORT).show();
-                ((MainActivity)context).startActivity(new Intent(context, ActivityLogin.class));
+//                Toast.makeText(context,"这是头像",Toast.LENGTH_SHORT).show();
+                //判断是否登录在赋值 判断昵称是否为空
+                if (TextUtils.isEmpty(nickName1)) {
+                    //没点登录在跳转登录页面
+                    ((Activity) context).startActivity(new Intent(context, ActivityLogin.class));
+                } else {
+                    //登录了就直接赋值吐司已经登录
+                    //吐司
+                    toast(context, "已登录");
+                    me_sdv_head.setImageURI(headPic1);
+                    me_tv_nickname.setText(nickName1);
+                    //跳到详情页面
+                    ((Activity) context).startActivity(new Intent(context, ActivityMessage.class));
+                }
+
                 break;
             case R.id.me_sdv_inform:
                 //吐司这是通知
@@ -123,5 +150,21 @@ public    class FragmentMePresenter extends AppDelegate implements View.OnClickL
                 context.startActivity(new Intent(context, ActivityNewest.class));
                 break;
         }
+    }
+
+    //获取到的值
+    public void setData(String message1, String status1, String sessionId1, String userId1, String headPic1, String nickName1, String phone1, String birthday1, String id1, String lastLoginTime1, String sex1) {
+        //this.名称=名称提上去
+        this.message1 = message1;
+        this.status1 = status1;
+        this.sessionId1 = sessionId1;
+        this.userId1 = userId1;
+        this.headPic1 = headPic1;
+        this.nickName1 = nickName1;
+        this.phone1 = phone1;
+        this.birthday1 = birthday1;
+        this.id1 = id1;
+        this.lastLoginTime1 = lastLoginTime1;
+        this.sex1 = sex1;
     }
 }

@@ -83,10 +83,11 @@ public abstract class AppDelegate implements IDelegate {
 
     }
     @Override
-    public void handPostString(String url, final int type, Map<String, String> map) {
+    public void handPostString(String url, final int type, Map<String, String> hmap,Map<String, String> fmap) {
 
-        if (map == null){
-            map = new HashMap<>();
+        if (fmap == null&&hmap==null){
+            hmap = new HashMap<>();
+            fmap = new HashMap<>();
         }
 
         BaseObserver ob = new BaseObserver<ResponseBody>() {
@@ -111,7 +112,7 @@ public abstract class AppDelegate implements IDelegate {
                 failString(e.getMessage());
             }
         };
-        HttpHelper.getInstens().headPost(url, map, ob);
+        HttpHelper.getInstens().headPost(url,hmap,fmap, ob);
 
     }
     @Override

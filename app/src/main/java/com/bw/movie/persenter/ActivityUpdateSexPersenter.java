@@ -57,12 +57,14 @@ public class ActivityUpdateSexPersenter extends AppDelegate implements View.OnCl
         Intent intent = ((ActivityUpdateSex) context).getIntent();
         //获取意图里的值
         String sex1 = intent.getStringExtra("sex1");
+        //判断性别男1女2
         if("1".equals(sex1)){
-            //赋值给新控件
             update_sex.setText("男");
-        }else{
-            //赋值给新控件
+        }else if("2".equals(sex1)){
             update_sex.setText("女");
+        }else{
+            //吐司输入错误请重新输入
+            toast(context,"输入错误请重新输入");
         }
 
     }
