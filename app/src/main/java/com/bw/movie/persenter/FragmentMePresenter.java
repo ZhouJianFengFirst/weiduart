@@ -21,6 +21,7 @@ import com.bw.movie.activitys.ActivityOpinion;
 import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.utils.Logger;
+import com.bw.movie.utils.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
@@ -100,7 +101,7 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                 //吐司这是头像
 //                Toast.makeText(context,"这是头像",Toast.LENGTH_SHORT).show();
                 //判断是否登录在赋值 判断昵称是否为空
-                if (TextUtils.isEmpty(nickName1)) {
+              /*  if (TextUtils.isEmpty(nickName1)) {
                     //没点登录在跳转登录页面
                     context.startActivity(new Intent(context, ActivityLogin.class));
                 } else {
@@ -110,8 +111,14 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                     me_sdv_head.setImageURI(headPic1);
                     me_tv_nickname.setText(nickName1);
                     //跳到详情页面
-                    context.startActivity(new Intent(context, ActivityMessage.class));
-                }
+
+                }*/
+              Boolean islogin = (Boolean) SpUtil.getSpData(context,"isLogin",false);
+              if (islogin){
+                  context.startActivity(new Intent(context, ActivityMessage.class));
+              }else{
+                  context.startActivity(new Intent(context, ActivityLogin.class));
+              }
 
                 break;
             case R.id.me_sdv_inform:
@@ -168,5 +175,9 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
         this.lastLoginTime1 = lastLoginTime1;
         this.sex1 = sex1;
         Logger.i("我的",nickName1);
+
+        me_sdv_head.setImageURI(headPic1);
+        me_tv_nickname.setText(nickName1);
+
     }
 }

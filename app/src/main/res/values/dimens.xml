@@ -3,7 +3,6 @@
 
     <!--通用适配-->
     <dimen name="dp_0">0dp</dimen>
-
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_4">4dp</dimen>
     <dimen name="dp_6">6dp</dimen>
@@ -31,7 +30,6 @@
     <dimen name="sp_12">12sp</dimen>
     <dimen name="sp_10">10sp</dimen>
     <dimen name="sp_20">20sp</dimen>
-
     <!--影院页面需要dp-->
     <dimen name="dp_3">3dp</dimen>
     <dimen name="dp_36">36dp</dimen>
@@ -46,7 +44,6 @@
     <dimen name="dp_115">115dp</dimen>
     <dimen name="fudp_20">-20dp</dimen>
     <dimen name="sp_16">16sp</dimen>
-
     <!--引导页需要dp-->
     <dimen name="dp_205">205dp</dimen>
     <dimen name="dp_105">105dp</dimen>
@@ -56,7 +53,6 @@
     <dimen name="dp_12">12dp</dimen>
     <dimen name="dp_25">25dp</dimen>
     <dimen name="dp_2">2dp</dimen>
-
     <!--我的页面需要文字适配-->
     <dimen name="dp_24">24dp</dimen>
     <dimen name="dp_54">54dp</dimen>
@@ -71,7 +67,6 @@
     <dimen name="dp_77">77dp</dimen>
     <dimen name="dp_28">28dp</dimen>
     <dimen name="dp_19">19dp</dimen>
-
     <!--引导页需要sp-->
     <dimen name="sp_14">14sp</dimen>
     <!--登录需要的适配-->

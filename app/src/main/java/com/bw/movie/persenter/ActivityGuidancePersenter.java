@@ -42,14 +42,14 @@ public class ActivityGuidancePersenter extends AppDelegate {
     public void initData() {
         super.initData();
         initwidget();
-        boolean isfirst = (boolean) SpUtil.getInserter(mcontext).getSpData("isFirst", false);
+        boolean isfirst = (boolean) SpUtil.getSpData(mcontext,"isFirst", false);
         if (isfirst) {
             mcontext.startActivity(new Intent(mcontext, ActivityBegin.class));
             //销毁
             ((ActivityGuidance) mcontext).finish();
 
         } else {
-            SpUtil.getInserter(mcontext).saveData("isFirst", true).commit();
+            SpUtil.saveData(mcontext,"isFirst", true);
             StartAdapter startAdapter = new StartAdapter(imgs, mcontext);
             vpguidance.setAdapter(startAdapter);
             pointe(0);

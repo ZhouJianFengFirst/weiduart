@@ -24,6 +24,7 @@ import com.bw.movie.net.HttpRequestListener;
 import com.bw.movie.net.OkHttpHelper;
 import com.bw.movie.utils.EncryptUtil;
 import com.bw.movie.utils.Logger;
+import com.bw.movie.utils.SharedUtil;
 import com.bw.movie.utils.SpUtil;
 import com.google.gson.Gson;
 
@@ -70,17 +71,17 @@ public class ActivityLoginPersenter extends AppDelegate {
         /*
          * 首次进来判断是否登录
          * */
-        boolean isLogin = (boolean) SpUtil.getInserter(mcontext).getSpData("isLogin", false);
+        boolean isLogin = (boolean) SpUtil.getSpData(mcontext,"isLogin", false);
         if (isLogin) {
-            boolean isremenber = (boolean) SpUtil.getInserter(mcontext).getSpData("isRemenber", false);
+            boolean isremenber = (boolean) SpUtil.getSpData(mcontext,"isRemenber", false);
 
             /*
              * 判断是否记住密码
              * */
             if (isremenber) {
                 //将账号和密码都设置到文本中
-                String phone = (String) SpUtil.getInserter(mcontext).getSpData("phone", "");
-                String pwd = (String) SpUtil.getInserter(mcontext).getSpData("pwd", "");
+                String phone = (String) SpUtil.getSpData(mcontext,"phone","");
+                String pwd = (String) SpUtil.getSpData(mcontext,"pwd","");
                 edphone.setText(phone);
                 edpass.setText(pwd);
                /* boolean isAuto = (boolean) SpUtil.getInserter(mcontext).getSpData("isAuto", false);
@@ -137,19 +138,26 @@ public class ActivityLoginPersenter extends AppDelegate {
             public void SuccessRequest(String data) {
                 Gson gson = new Gson();
                 LoginBean loginBean = gson.fromJson(data, LoginBean.class);
-                SpUtil.getInserter(mcontext).saveData("message", loginBean.getMessage()).putString("status", loginBean.getStatus())
-                        .putString("sessionId()", loginBean.getResult().getSessionId()).putString("userId", loginBean.getResult().getUserId() + "")
-                        .putString("headPic", loginBean.getResult().getUserInfo().getHeadPic()).putString("nickName", loginBean.getResult().getUserInfo().getNickName())
-                        .putString("phone", loginBean.getResult().getUserInfo().getPhone())
-                        .putString("birthday", loginBean.getResult().getUserInfo().getBirthday() + "")
-                        .putString("id", loginBean.getResult().getUserInfo().getId() + "")
-                        .putString("lastLoginTime", loginBean.getResult().getUserInfo().getLastLoginTime() + "")
-                        .putString("sex", loginBean.getResult().getUserInfo().getSex() + "")
-                        .putBoolean("isLogin", true).commit();
+                SharedUtil.put(mcontext,"phones", loginBean.getResult().getUserInfo().getPhone());
+                SharedUtil.put(mcontext,"sex", loginBean.getResult().getUserInfo().getSex() + "");
+                SpUtil.saveData(mcontext,"message", loginBean.getMessage());
+                SpUtil.saveData(mcontext,"status", loginBean.getStatus());
+                SpUtil.saveData(mcontext,"sessionId", loginBean.getResult().getSessionId());
+                SpUtil.saveData(mcontext,"userId", loginBean.getResult().getUserId() + "");
+                SpUtil.saveData(mcontext,"headPic", loginBean.getResult().getUserInfo().getHeadPic());
+                SpUtil.saveData(mcontext,"nickName", loginBean.getResult().getUserInfo().getNickName());
+                SpUtil.saveData(mcontext,"phone", loginBean.getResult().getUserInfo().getPhone());
+                SpUtil.saveData(mcontext,"birthday", loginBean.getResult().getUserInfo().getBirthday() + "");
+                SpUtil.saveData(mcontext,"id", loginBean.getResult().getUserInfo().getId() + "");
+                SpUtil.saveData(mcontext,"lastLoginTime", loginBean.getResult().getUserInfo().getLastLoginTime() + "");
+                SpUtil.saveData(mcontext,"sex", loginBean.getResult().getUserInfo().getSex() + "");
+                SpUtil.saveData(mcontext,"isLogin", true);
                 if (flag) {
-                    SpUtil.getInserter(mcontext).saveData("pwd", loginpass).putBoolean("isRemenber", true).putBoolean("isAuto", true).commit();
+                    SpUtil.saveData(mcontext,"pwd", loginpass);
+                    SpUtil.saveData(mcontext,"isRemenber", true);
+                    SpUtil.saveData(mcontext,"isAuto", true);
                 } else {
-                    SpUtil.getInserter(mcontext).clear().commit();
+//                    SpUtil.clear();
                 }
                 toast("登录", "登录成功", 1);
                 /*

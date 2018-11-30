@@ -11,32 +11,15 @@ import android.content.SharedPreferences.Editor;
  */
 
 public class SpUtil {
-
-    private static volatile SpUtil inserter;
-    private Context context;
-    private static String SPCONFIG = "config";
+    private static String SPCONFIG = "config_sp";
     private static SharedPreferences sp;
     private static Editor edit;
 
-    private SpUtil(Context context) {
-        this.context = context;
-        sp = context.getSharedPreferences(SPCONFIG, context.MODE_PRIVATE);
-        edit = sp.edit();
-    }
-
-    public static SpUtil getInserter(Context con) {
-        if (inserter == null) {
-            synchronized (SpUtil.class) {
-                if (null == inserter) {
-                    inserter = new SpUtil(con);
-                }
-            }
-        }
-        return inserter;
-    }
 
     // 获取sharedpreferences中的数据
-    public Object getSpData(String key, Object value) {
+    public static Object getSpData(Context context,String key, Object value) {
+        sp = context.getSharedPreferences(SPCONFIG, context.MODE_PRIVATE);
+        edit = sp.edit();
         String type = value.getClass().getSimpleName();
         if ("Integer".equals(type)) {
             return sp.getInt(key, (Integer) value);
@@ -52,31 +35,28 @@ public class SpUtil {
         return null;
     }
 
-    public Editor saveData(String key, Object value) {
+    public static void saveData(Context context,String key, Object value) {
+        sp = context.getSharedPreferences(SPCONFIG, context.MODE_PRIVATE);
+        edit = sp.edit();
         String type = value.getClass().getSimpleName();
         if ("Integer".equals(type)) {
-            return edit.putInt(key, (Integer) value);
+            edit.putInt(key, (Integer) value);
         } else if ("Float".equals(type)) {
-            return edit.putFloat(key, (Float) value);
+            edit.putFloat(key, (Float) value);
         } else if ("Boolean".equals(type)) {
-            return edit.putBoolean(key, (Boolean) value);
+            edit.putBoolean(key, (Boolean) value);
         } else if ("Long".equals(type)) {
-            return edit.putLong(key, (Long) value);
+             edit.putLong(key, (Long) value);
         } else if ("String".equals(type)) {
-            return edit.putString(key, (String) value);
+            edit.putString(key, (String) value);
         }
-        return null;
+        edit.commit();
 
     }
 
-    /*保存*/
-    public boolean commit() {
-        return edit.commit();
-    }
-
-    /*清空*/
-    public SpUtil clear() {
-        edit.clear();
-        return this;
-    }
+//    /*清空*/
+//    public static SpUtil clear() {
+//        edit.clear();
+//        return this;
+//    }
 }

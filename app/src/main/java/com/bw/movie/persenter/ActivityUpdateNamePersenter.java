@@ -79,6 +79,7 @@ public class ActivityUpdateNamePersenter extends AppDelegate implements View.OnC
         //往map集合里添加
         hmap.put("userId", userId1);
         hmap.put("sessionId", sessionId1);
+
         fmap.put("nickName",name);
         fmap.put("sex","2");
         fmap.put("email","12343256@qq.com");
