@@ -22,11 +22,12 @@ import java.util.List;
 /**
 *作者：gaojiabao
 *时间：2018/11/28 8:43
-*作用：附近影院与推荐影院适配器
+*作用：影院搜索适配器
 */
 public class RecommendSearchAdapter extends BaseAdapter {
     private Context context;
     private List<CinemaSearchBean.ResultBean> list = new ArrayList<>();
+    private SetOnHeart setOnHeart;
 
     public RecommendSearchAdapter(Context context) {
         this.context = context;
@@ -75,7 +76,7 @@ public class RecommendSearchAdapter extends BaseAdapter {
         if(list.get(i).isFollowCinema()){
             myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_islike);
         }else {
-            myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_like);
+            myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);
         }
         //条目点击事件
         myViewHolder.lin_cinema_lay.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +88,20 @@ public class RecommendSearchAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
+        //喜欢点击事件
+        myViewHolder.item_re_img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(list.get(i).isFollowCinema()){
+                    list.get(i).setFollowCinema(false);
+                    setOnHeart.success(list);
+                }else{
+                    list.get(i).setFollowCinema(true);
+                    setOnHeart.success(list);
+                }
+                notifyDataSetChanged();
+            }
+        });
         return view;
     }
 
@@ -95,5 +110,12 @@ public class RecommendSearchAdapter extends BaseAdapter {
         TextView item_re_te1, item_re_te2, item_re_te3;
         ImageView item_re_img1;
         LinearLayout lin_cinema_lay;
+    }
+    public void result(SetOnHeart setOnHeart){
+        this.setOnHeart=setOnHeart;
+    }
+
+    public interface SetOnHeart{
+        void success(List<CinemaSearchBean.ResultBean> list);
     }
 }

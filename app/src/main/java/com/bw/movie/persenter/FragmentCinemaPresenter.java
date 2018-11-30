@@ -69,7 +69,6 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         recommendAdapter = new RecommendAdapter(context);
         recommendSearchAdapter = new RecommendSearchAdapter(context);
         list1.setAdapter(recommendAdapter);
-
 //        list1.setPullLoadEnable(true);
         //设置上拉下拉
         list1.setXListViewListener(new XListView.IXListViewListener() {
@@ -85,6 +84,29 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
 //                toast(context,"没有更多了");
             }
         });
+        //影院喜欢的回调
+        recommendAdapter.result(new RecommendAdapter.SetOnHeart() {
+            @Override
+            public void success(List<recommendBean.ResultBean.NearbyCinemaListBean> list) {
+                HashMap map2 = new HashMap();
+                map2.put("userId", "18");
+                map2.put("sessionId", "15320748258726");
+                map2.put("cinemaId", "1");
+                handGetString(Http.CINEMAHEART_URL,3,map2);
+            }
+        });
+        //喜欢的回调
+        recommendSearchAdapter.result(new RecommendSearchAdapter.SetOnHeart() {
+            @Override
+            public void success(List<CinemaSearchBean.ResultBean> list) {
+                HashMap map2 = new HashMap();
+                map2.put("userId", "18");
+                map2.put("sessionId", "15320748258726");
+                map2.put("cinemaId", "1");
+                handGetString(Http.CINEMAHEART_URL,3,map2);
+            }
+        });
+
 
     }
 
@@ -138,9 +160,10 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
                 } else {
                     toast(context, "没有找到关于" + cinema_name + "的影院");
 //                    list1.setAdapter(recommendAdapter);
-//                    return;
                 }
-
+                break;
+            case 3:
+                Logger.i("关注",data);
                 break;
         }
     }

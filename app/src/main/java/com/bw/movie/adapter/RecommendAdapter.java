@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityCinemaDetails;
@@ -25,6 +26,7 @@ import java.util.List;
 public class RecommendAdapter extends BaseAdapter {
     private Context context;
     private List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> list = new ArrayList<>();
+    private SetOnHeart setOnHeart;
 
     public RecommendAdapter(Context context) {
         this.context = context;
@@ -73,7 +75,7 @@ public class RecommendAdapter extends BaseAdapter {
         if(list.get(i).isFollowCinema()){
             myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_islike);
         }else {
-            myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_like);
+            myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);
         }
         //条目点击事件
         myViewHolder.lin_cinema_lay.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +87,21 @@ public class RecommendAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
+        //喜欢点击事件
+        myViewHolder.item_re_img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(list.get(i).isFollowCinema()){
+                     list.get(i).setFollowCinema(false);
+                    setOnHeart.success(list);
+                }else{
+                    list.get(i).setFollowCinema(true);
+                    setOnHeart.success(list);
+                }
+                notifyDataSetChanged();
+            }
+        });
+
         return view;
     }
 
@@ -94,4 +111,13 @@ public class RecommendAdapter extends BaseAdapter {
         ImageView item_re_img1;
         LinearLayout lin_cinema_lay;
     }
+
+    public void result(SetOnHeart setOnHeart){
+         this.setOnHeart=setOnHeart;
+    }
+
+    public interface SetOnHeart{
+        void success(List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> list);
+    }
+
 }

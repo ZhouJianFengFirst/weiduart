@@ -1,7 +1,11 @@
 package com.bw.movie.entity;
 
 import java.util.List;
-
+/**
+*作者：gaojiabao
+*时间：2018/11/30 9:13
+*作用：影院评论bean
+*/
 public class DiscussBean {
 
     /**

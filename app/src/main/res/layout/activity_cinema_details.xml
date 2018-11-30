@@ -11,26 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_200"
-                android:background="@mipmap/cinema_bag"
-                ></RelativeLayout>
+                android:background="@mipmap/cinema_bag"></RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/lin_cinema_lay_xq"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_60"
                 android:layout_margin="@dimen/dp_24"
                 android:orientation="horizontal">
+
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/simp_cinemadetails_simp"
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="@dimen/dp_60"
                     app:actualImageResource="@mipmap/ic_launcher" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -64,10 +68,10 @@
             </LinearLayout>
 
             <recycler.coverflow.RecyclerCoverFlow
-                android:layout_below="@+id/lin_cinema_lay_xq"
                 android:id="@+id/rcf_cinema_flow"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_300" />
+                android:layout_height="@dimen/dp_300"
+                android:layout_below="@+id/lin_cinema_lay_xq" />
         </RelativeLayout>
 
         <!--票价列表-->
@@ -79,7 +83,21 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyview_cinema_rescy"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/text_cinema_rescy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="暂未上映…"
+                android:gravity="center"
+                android:textSize="@dimen/sp_30"
+                android:textColor="@color/color666666"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20" />
 
             <ImageView
                 android:id="@+id/image_cinemadetails_left"
