@@ -40,8 +40,9 @@
         <activity android:name=".activitys.ActivityFilm" />
         <activity android:name=".activitys.ActivityUpdateName" />
         <activity android:name=".activitys.ActivityUpdateSex" />
-        <activity android:name=".activitys.ActivityUpdateEmail"></activity>
-        <activity android:name=".activitys.ActivityFilmDetails"></activity>
+        <activity android:name=".activitys.ActivityUpdateEmail" />
+        <activity android:name=".activitys.ActivityFilmDetails" />
+        <activity android:name=".activitys.ActivityBuyTicket"></activity>
     </application>
 
 </manifest>

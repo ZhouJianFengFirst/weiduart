@@ -28,6 +28,7 @@ public class RecommendSearchAdapter extends BaseAdapter {
     private Context context;
     private List<CinemaSearchBean.ResultBean> list = new ArrayList<>();
     private SetOnHeart setOnHeart;
+    private SetOnHeartQg setOnHeartQg;
 
     public RecommendSearchAdapter(Context context) {
         this.context = context;
@@ -73,10 +74,12 @@ public class RecommendSearchAdapter extends BaseAdapter {
         myViewHolder.item_re_te1.setText(list.get(i).getName());
         myViewHolder.item_re_te2.setText(list.get(i).getAddress());
         //设置是否喜欢
-        if(list.get(i).isFollowCinema()){
+        if (list.get(i).isFollowCinema()) {
+//            myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);
             myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_islike);
-        }else {
+        } else {
             myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);
+//            myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_islike);
         }
         //条目点击事件
         myViewHolder.lin_cinema_lay.setOnClickListener(new View.OnClickListener() {
@@ -94,10 +97,12 @@ public class RecommendSearchAdapter extends BaseAdapter {
             public void onClick(View view) {
                 if(list.get(i).isFollowCinema()){
                     list.get(i).setFollowCinema(false);
-                    setOnHeart.success(list);
+                    setOnHeart.success(list,i);
+//                    setOnHeartQg.success(list,i);
                 }else{
                     list.get(i).setFollowCinema(true);
-                    setOnHeart.success(list);
+//                    setOnHeart.success(list,i);
+                    setOnHeartQg.success(list,i);
                 }
                 notifyDataSetChanged();
             }
@@ -111,11 +116,21 @@ public class RecommendSearchAdapter extends BaseAdapter {
         ImageView item_re_img1;
         LinearLayout lin_cinema_lay;
     }
+    //关注
     public void result(SetOnHeart setOnHeart){
         this.setOnHeart=setOnHeart;
     }
 
     public interface SetOnHeart{
-        void success(List<CinemaSearchBean.ResultBean> list);
+        void success(List<CinemaSearchBean.ResultBean> list,int i);
+    }
+
+    //取关
+    public void resultQg(SetOnHeartQg setOnHeartQg) {
+        this.setOnHeartQg = setOnHeartQg;
+    }
+
+    public interface SetOnHeartQg {
+        void success(List<CinemaSearchBean.ResultBean> list,int i);
     }
 }

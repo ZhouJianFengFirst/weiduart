@@ -1,8 +1,11 @@
 package com.bw.movie.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 
 import com.bw.movie.R;
+import com.bw.movie.activitys.ActivityBuyTicket;
 import com.bw.movie.base.recycle.RecycleAdapter;
 import com.bw.movie.base.viewholder.ViewHolder;
 import com.bw.movie.entity.CinemaFlowBean;
@@ -14,8 +17,12 @@ import com.bw.movie.entity.CinemaSessionBean;
 *作用：影院和影片场次适配器
 */
 public class CinemaSessionsAdapter extends RecycleAdapter<CinemaSessionBean.ResultBean> {
+
+    private  Context context;
+
     public CinemaSessionsAdapter(Context mcontext) {
         super(mcontext);
+        this.context=mcontext;
     }
 
     @Override
@@ -32,6 +39,14 @@ public class CinemaSessionsAdapter extends RecycleAdapter<CinemaSessionBean.Resu
        viewHolder.setText(R.id.text_seccion_te3,resultBean.getEndTime()+"   end");
 //       viewHolder.setText(R.id.text_seccion_te4,(resultBean.getPrice()*10)+"");
        viewHolder.setText(R.id.text_seccion_te4,num+".9");
+       viewHolder.setClick(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent intent = new Intent(context, ActivityBuyTicket.class);
+//               intent.putExtra("",)
+               context.startActivity(intent);
+           }
+       }, R.id.cinema_session_lay);
     }
 
 }

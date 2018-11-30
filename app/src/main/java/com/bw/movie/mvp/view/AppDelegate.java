@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.net.BaseObserver;
 import com.bw.movie.net.HttpHelper;
+import com.bw.movie.utils.Logger;
 import com.tapadoo.alerter.Alerter;
 
 import java.io.File;
@@ -222,7 +223,6 @@ public abstract class AppDelegate implements IDelegate {
 
     public void HeadOrQuertGet(String url, final int type, Map<String,String> hmap, Map<String,String> qmap) {
         HttpHelper.getInstens().headOrQueryGet(url, hmap, qmap, new BaseObserver<ResponseBody>() {
-
 
             @Override
             public void onNext(ResponseBody responseBody) {

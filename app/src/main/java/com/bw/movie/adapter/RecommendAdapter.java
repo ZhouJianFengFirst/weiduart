@@ -18,15 +18,17 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
-*作者：gaojiabao
-*时间：2018/11/28 8:43
-*作用：附近影院与推荐影院适配器
-*/
+ * 作者：gaojiabao
+ * 时间：2018/11/28 8:43
+ * 作用：附近影院与推荐影院适配器
+ */
 public class RecommendAdapter extends BaseAdapter {
     private Context context;
     private List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> list = new ArrayList<>();
     private SetOnHeart setOnHeart;
+    private SetOnHeartQg setOnHeartQg;
 
     public RecommendAdapter(Context context) {
         this.context = context;
@@ -58,31 +60,33 @@ public class RecommendAdapter extends BaseAdapter {
         if (view == null) {
             view = View.inflate(context, R.layout.recommendadapter_item, null);
             myViewHolder = new MyViewHolder();
-            myViewHolder.item_re_img1=view.findViewById(R.id.item_re_img1);
-            myViewHolder.item_re_te1=view.findViewById(R.id.item_re_te1);
-            myViewHolder.item_re_te2=view.findViewById(R.id.item_re_te2);
-            myViewHolder.item_re_te3=view.findViewById(R.id.item_re_te3);
-            myViewHolder.item_re_simp=view.findViewById(R.id.item_re_simp);
-            myViewHolder.lin_cinema_lay=view.findViewById(R.id.lin_cinema_lay);
+            myViewHolder.item_re_img1 = view.findViewById(R.id.item_re_img1);
+            myViewHolder.item_re_te1 = view.findViewById(R.id.item_re_te1);
+            myViewHolder.item_re_te2 = view.findViewById(R.id.item_re_te2);
+            myViewHolder.item_re_te3 = view.findViewById(R.id.item_re_te3);
+            myViewHolder.item_re_simp = view.findViewById(R.id.item_re_simp);
+            myViewHolder.lin_cinema_lay = view.findViewById(R.id.lin_cinema_lay);
             view.setTag(myViewHolder);
-        }else {
+        } else {
             myViewHolder = (MyViewHolder) view.getTag();
         }
         myViewHolder.item_re_simp.setImageURI(Uri.parse(list.get(i).getLogo()));
         myViewHolder.item_re_te1.setText(list.get(i).getName());
         myViewHolder.item_re_te2.setText(list.get(i).getAddress());
         //设置是否喜欢
-        if(list.get(i).isFollowCinema()){
+        if (list.get(i).isFollowCinema()) {
+//                 myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);
             myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_islike);
-        }else {
+        } else {
             myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);
+//            myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_islike);
         }
         //条目点击事件
         myViewHolder.lin_cinema_lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ActivityCinemaDetails.class);
-                intent.putExtra("id",list.get(i).getId()+"");
+                intent.putExtra("id", list.get(i).getId() + "");
                 //跳转影院详情
                 context.startActivity(intent);
             }
@@ -91,12 +95,14 @@ public class RecommendAdapter extends BaseAdapter {
         myViewHolder.item_re_img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(list.get(i).isFollowCinema()){
-                     list.get(i).setFollowCinema(false);
-                    setOnHeart.success(list);
-                }else{
-                    list.get(i).setFollowCinema(true);
-                    setOnHeart.success(list);
+                if (list.get(i).isFollowCinema()) {
+                    list.get(i).setFollowCinema(false);//取关
+                    setOnHeart.success(list, i);
+//                    setOnHeartQg.success(list,i);
+                } else {
+                    list.get(i).setFollowCinema(true);//关注
+//                    setOnHeart.success(list,i);
+                    setOnHeartQg.success(list, i);
                 }
                 notifyDataSetChanged();
             }
@@ -112,12 +118,22 @@ public class RecommendAdapter extends BaseAdapter {
         LinearLayout lin_cinema_lay;
     }
 
-    public void result(SetOnHeart setOnHeart){
-         this.setOnHeart=setOnHeart;
+    //关注
+    public void result(SetOnHeart setOnHeart) {
+        this.setOnHeart = setOnHeart;
     }
 
-    public interface SetOnHeart{
-        void success(List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> list);
+    public interface SetOnHeart {
+        void success(List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> list, int i);
+    }
+
+    //取关
+    public void resultQg(SetOnHeartQg setOnHeartQg) {
+        this.setOnHeartQg = setOnHeartQg;
+    }
+
+    public interface SetOnHeartQg {
+        void success(List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> list, int i);
     }
 
 }

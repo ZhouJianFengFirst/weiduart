@@ -52,7 +52,6 @@ public class DiscussAdapter extends RecycleAdapter<DiscussBean.ResultBean> {
                 notifyDataSetChanged();
             }
         }, R.id.image_cinema_z);
-
     }
 
 

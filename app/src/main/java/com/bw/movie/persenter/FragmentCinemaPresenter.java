@@ -41,25 +41,23 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
     private FrameLayout frag;
     private XListView list1;
     private RecommendAdapter recommendAdapter;
-    private int page = 1;
     private String longitude = "116.30551391385724";
     private String latitude = "40.04571807462411";
     private RelativeLayout relay, relay_yes;
     private ImageView search;
     private EditText ed;
-    private String cinema_name;
     private RecommendSearchAdapter recommendSearchAdapter;
-
+    private String message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1,cinema_name;
+    private int count=20;
+    private int page = 1;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_cinema;
     }
-
     @Override
     public void initContext(Context context) {
         this.context = context;
     }
-
     @Override
     public void initData() {
         super.initData();
@@ -69,8 +67,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         recommendAdapter = new RecommendAdapter(context);
         recommendSearchAdapter = new RecommendSearchAdapter(context);
         list1.setAdapter(recommendAdapter);
-//        list1.setPullLoadEnable(true);
-        //设置上拉下拉
+        //设置上拉下拉    list1.setPullLoadEnable(true);
         list1.setXListViewListener(new XListView.IXListViewListener() {
             @Override
             public void onRefresh() {
@@ -84,62 +81,101 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
 //                toast(context,"没有更多了");
             }
         });
-        //影院喜欢的回调
+       //设置关注的回调
+        doAdapterListener();
+    }
+    //设置关注的回调
+    private void doAdapterListener() {
+        //影院关注的回调
         recommendAdapter.result(new RecommendAdapter.SetOnHeart() {
             @Override
-            public void success(List<recommendBean.ResultBean.NearbyCinemaListBean> list) {
-                HashMap map2 = new HashMap();
-                map2.put("userId", "18");
-                map2.put("sessionId", "15320748258726");
-                map2.put("cinemaId", "1");
-                handGetString(Http.CINEMAHEART_URL,3,map2);
+            public void success(List<recommendBean.ResultBean.NearbyCinemaListBean> list, int i) {
+                HashMap hmap = new HashMap();
+                hmap.put("userId",userId1);
+                hmap.put("sessionId",sessionId1);
+                HashMap qmap = new HashMap();
+                qmap.put("cinemaId","1");
+                HeadOrQuertGet(Http.CINEMAHEART_URL,3,hmap,qmap);
             }
         });
-        //喜欢的回调
+        //搜索关注的回调
         recommendSearchAdapter.result(new RecommendSearchAdapter.SetOnHeart() {
             @Override
-            public void success(List<CinemaSearchBean.ResultBean> list) {
-                HashMap map2 = new HashMap();
-                map2.put("userId", "18");
-                map2.put("sessionId", "15320748258726");
-                map2.put("cinemaId", "1");
-                handGetString(Http.CINEMAHEART_URL,3,map2);
+            public void success(List<CinemaSearchBean.ResultBean> list, int i) {
+                HashMap hmap = new HashMap();
+                hmap.put("userId",userId1);
+                hmap.put("sessionId",sessionId1);
+                HashMap qmap = new HashMap();
+                qmap.put("cinemaId","1");
+                HeadOrQuertGet(Http.CINEMAHEART_NO_URL,3,hmap,qmap);
+            }
+        });
+        //影院取关
+        recommendAdapter.resultQg(new RecommendAdapter.SetOnHeartQg() {
+            @Override
+            public void success(List<recommendBean.ResultBean.NearbyCinemaListBean> list, int i) {
+                HashMap hmap = new HashMap();
+                hmap.put("userId",userId1);
+                hmap.put("sessionId",sessionId1);
+                HashMap qmap = new HashMap();
+                qmap.put("cinemaId","1");
+                HeadOrQuertGet(Http.CINEMAHEART_NO_URL,4,hmap,qmap);
+            }
+        });
+        //搜索取关
+        recommendSearchAdapter.resultQg(new RecommendSearchAdapter.SetOnHeartQg() {
+            @Override
+            public void success(List<CinemaSearchBean.ResultBean> list, int i) {
+                HashMap hmap = new HashMap();
+                hmap.put("userId",userId1);
+                hmap.put("sessionId",sessionId1);
+                HashMap qmap = new HashMap();
+                qmap.put("cinemaId","1");
+                HeadOrQuertGet(Http.CINEMAHEART_URL,4,hmap,qmap);
             }
         });
 
-
     }
-
     //请求推荐网络
     private void dohttp(int page) {
         HashMap map = new HashMap();
-        map.put("userId", "18");
-        map.put("sessionId", "15320748258726");
+        map.put("userId",userId1);
+        map.put("sessionId", sessionId1);
         map.put("page", page);
-        map.put("count", "20");
+        map.put("count",count);
         //请求推荐
         getString(Http.CINEMARE_URL, 0, map);
         list1.stopRefresh();
 //        list1.stopLoadMore();
     }
-
     //请求附近网络
     private void dohttp1(int page, String longitude, String latitude) {
         HashMap map1 = new HashMap();
-        map1.put("userId", "18");
-        map1.put("sessionId", "15320748258726");
+        map1.put("userId",userId1);
+        map1.put("sessionId", sessionId1);
         map1.put("page", page);
-        map1.put("count", "20");
+        map1.put("count",count);
         map1.put("longitude", longitude);
         map1.put("latitude", latitude);
         //请求附近
         getString(Http.CINEMARE_URL, 1, map1);
     }
-
+    //请求搜索
+    private void dohttpSeach(String cinema_name) {
+        HashMap map2 = new HashMap();
+        map2.put("userId",userId1);
+        map2.put("sessionId", sessionId1);
+        map2.put("page", page);
+        map2.put("count",count);
+        map2.put("cinemaName", cinema_name);
+        //请求附近
+        getString(Http.CINEMASEARCH_URL, 2, map2);
+    }
     //请求成功返回
     @Override
     public void successString(String data, int type) {
         super.successString(data, type);
+        Logger.d("Tagger",data);
         switch (type) {
             case 0:
                 recommendBean recommendBean = new Gson().fromJson(data, recommendBean.class);
@@ -165,9 +201,11 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
             case 3:
                 Logger.i("关注",data);
                 break;
+            case 4:
+                Logger.i("取关",data);
+                break;
         }
     }
-
     //找控件的方法
     private void initwidget() {
         recommend = (TextView) getView(R.id.text_cinema_recommend);
@@ -180,7 +218,6 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         search = (ImageView) getView(R.id.image_cinema_search);
         setClick(this, R.id.text_cinema_recommend, R.id.text_cinema_nearby, R.id.relay_cinema_search, R.id.text_cinema_ss);
     }
-
     //点击事件
     @Override
     public void onClick(View view) {
@@ -212,7 +249,6 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
 
         }
     }
-
     //搜索的方法
     private void Search() {
         cinema_name = ed.getText().toString().trim();
@@ -223,19 +259,6 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         }
         dohttpSeach(cinema_name);
     }
-
-    //请求搜索
-    private void dohttpSeach(String cinema_name) {
-        HashMap map2 = new HashMap();
-        map2.put("userId", "18");
-        map2.put("sessionId", "15320748258726");
-        map2.put("page", page);
-        map2.put("count", "20");
-        map2.put("cinemaName", cinema_name);
-        //请求附近
-        getString(Http.CINEMASEARCH_URL, 2, map2);
-    }
-
     //隐藏搜索框
     private void hintSearch() {
         int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
@@ -251,7 +274,6 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
             }
         }, 500);
     }
-
     //显示搜索框
     private void showSearch() {
         int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
@@ -260,5 +282,22 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         objectAnimator.start();
         relay_yes.setVisibility(View.VISIBLE);
         relay.setVisibility(View.GONE);
+    }
+    //获取到的值
+    public void setData(String message1, String status1, String sessionId1, String userId1, String headPic1, String nickName1, String phone1, String birthday1, String id1, String lastLoginTime1, String sex1) {
+        //this.名称=名称提上去
+        this.message1 = message1;
+        this.status1 = status1;
+        this.sessionId1 = sessionId1;
+        this.userId1 = userId1;
+        this.headPic1 = headPic1;
+        this.nickName1 = nickName1;
+        this.phone1 = phone1;
+        this.birthday1 = birthday1;
+        this.id1 = id1;
+        this.lastLoginTime1 = lastLoginTime1;
+        this.sex1 = sex1;
+        Logger.i("影院",nickName1);
+        dohttp(page);
     }
 }
