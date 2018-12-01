@@ -1,12 +1,18 @@
 package com.bw.movie.persenter;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityFilm;
@@ -24,6 +30,8 @@ import com.bw.movie.view.RotationPageTransformer;
 import com.bw.movie.view.ViewPage3D;
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +48,11 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
     private BackGroundPageAdapter backGroundPageAdapter;
     private LinearLayout linearLine;
     private HortMovieEntity entity;
+    private RelativeLayout filmsearch, filmsearchyes;
+    private ImageView imagefilmsearch,imagefilmsearchyes;
+    private TextView textfilmss;
+    private EditText edfilm;
+    private String filmname;
 
     @Override
     public void initContext(Context context) {
@@ -85,6 +98,12 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
         hortShowing = (ListFilmView) getView(R.id.lf_hortshowing);
         upcoming = (ListFilmView) getView(R.id.lf_upcoming);
         viewPage3D = (ViewPage3D) getView(R.id.viepage_3d);
+        filmsearch = (RelativeLayout) getView(R.id.relay_film_search);
+        filmsearchyes = (RelativeLayout) getView(R.id.relay_film_search_yes);
+        imagefilmsearch = (ImageView) getView( R.id.image_film_search);
+        imagefilmsearchyes = (ImageView) getView( R.id.image_film_search_yes);
+        textfilmss = (TextView) getView( R.id.text_film_ss);
+        edfilm = (EditText) getView( R.id.ed_film);
         viewPage3D.setOnPageChangeListener(new BasePageChangeAdapter() {
             @Override
             public void onPageSelected(int i) {
@@ -92,7 +111,11 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
             }
         });
         linearLine = (LinearLayout) getView(R.id.layout_put_line);
+
         setClick(this, R.id.lf_hortmovie, R.id.lf_hortshowing, R.id.lf_upcoming);
+
+        setClick(this,R.id.image_film_search_yes,R.id.text_film_ss, R.id.lf_hortmovie, R.id.lf_hortshowing, R.id.lf_upcoming, R.id.relay_film_search,R.id.image_film_search,R.id.image_film_search_yes);
+
 
         //初始化适配器
         upcomingAdapter = new MovieRecyAdapter(context);
@@ -200,6 +223,18 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
                 intentUpComing.putExtra("flag", 3);
                 ((MainActivity) context).startActivity(intentUpComing);
                 break;
+            case R.id.relay_film_search://点击显示整个搜索框
+                showSearch();
+                break;
+            case R.id.image_film_search://点击搜索的图片显示整个搜索框
+                showSearch();
+                break;
+            case R.id.image_film_search_yes://点击搜索的图片隐藏整个搜索框
+                hintSearch();
+                break;
+            case R.id.text_film_ss://点击搜索的图片隐藏整个搜索框
+                hintSearch();
+                break;
         }
     }
 
@@ -219,4 +254,47 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
             view.setLayoutParams(params);
         }
     }
+
+
+
+    /**
+     * 显示搜索框
+     */
+    private void showSearch() {
+        int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(filmsearchyes, "translationX", widthPixels, 0);
+        objectAnimator.setDuration(400);
+        objectAnimator.start();
+        filmsearchyes.setVisibility(View.VISIBLE);
+        filmsearch.setVisibility(View.GONE);
+    }
+
+    /**
+     * 隐藏搜索框
+     */
+    private void hintSearch() {
+        int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(filmsearchyes, "translationX", 0, widthPixels);
+        objectAnimator.setDuration(400);
+        objectAnimator.start();
+        //延时关闭1000毫秒
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                filmsearchyes.setVisibility(View.GONE);
+                filmsearch.setVisibility(View.VISIBLE);
+            }
+        }, 500);
+    }
+    //搜索的方法
+   /* private void Search() {
+        filmname = edfilm.getText().toString().trim();
+        if (TextUtils.isEmpty(filmname)) {
+            toast(context, "关键字不能为空~");
+            list1.setAdapter(recommendAdapter);
+            return;
+        }
+        dohttpSeach(cinema_name);
+    }*/
+
 }

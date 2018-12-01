@@ -22,41 +22,101 @@
             android:id="@+id/address"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
-            android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_10"
             android:src="@drawable/address_w" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
             android:layout_toRightOf="@id/address"
+            android:layout_marginTop="@dimen/dp_20"
             android:text="北京"
-            android:textColor="@color/colorD8d8d8"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/colorD8d8d8"/>
 
-        <LinearLayout
-            android:layout_width="@dimen/dp_100"
+        <RelativeLayout
+
+            android:layout_width="match_parent"
             android:layout_height="@dimen/dp_24"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="@dimen/fudp_20"
-            android:layout_marginTop="@dimen/dp_40"
-            android:background="@drawable/yellowchange"
-            android:gravity="center_vertical">
+            android:layout_marginTop="@dimen/dp_40">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_width="@dimen/dp_24"
-                android:layout_height="@dimen/dp_24"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:src="@mipmap/cinema_search" />
-        </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/relay_film_search"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="@dimen/fudp_20"
+                    android:background="@drawable/yellowchange">
+
+                    <ImageView
+                        android:id="@+id/image_film_search"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:src="@mipmap/cinema_search" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/relay_film_search_yes"
+                    android:layout_width="@dimen/dp_250"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="@dimen/fudp_20"
+                    android:background="@drawable/yellowchange"
+                  >
+
+                    <ImageView
+                        android:id="@+id/image_film_search_yes"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:src="@mipmap/cinema_search" />
+
+                    <EditText
+                        android:id="@+id/ed_film"
+                        android:layout_width="@dimen/dp_120"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_40"
+                        android:layout_toRightOf="@+id/image_cinema_search_yes"
+                        android:background="@null"
+                        android:textColor="@color/colorWhite" />
+
+                    <TextView
+                        android:layout_marginRight="@dimen/dp_30"
+                        android:id="@+id/text_film_ss"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_toRightOf="@+id/ed_cinema"
+                        android:gravity="center_vertical"
+                        android:text="搜索"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/colorWhite" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/relayout_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_330"
+            android:layout_height="@dimen/dp_300"
             android:layout_marginTop="@dimen/dp_100"
             android:clipChildren="false"
             android:padding="@dimen/dp_20">
@@ -77,18 +137,18 @@
 
         <LinearLayout
             android:id="@+id/layout_put_line"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_4"
             android:layout_below="@id/relayout_view"
-            android:background="@drawable/view_bg"
-            android:orientation="horizontal"></LinearLayout>
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/colorD8d8d8">
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_put_line"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_20">
 
             <com.bw.movie.view.ListFilmView
