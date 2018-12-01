@@ -16,6 +16,7 @@ import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
 import com.bw.movie.utils.Logger;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ActivityInformPersenter extends AppDelegate implements View.OnClickListener {
     private Context context;
     private TextView inform_message;
-    private RecyclerView inform_rv;
+    private XRecyclerView inform_rv;
     private CircleImageView inform_cv_leftreturn;
     private String message1;
     private String status1;
@@ -88,6 +89,24 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
         });
         //设置适配器
         inform_rv.setAdapter(informRvAdapter);
+        //xrecyccler 刷新
+        //开启上拉加载
+        inform_rv.setPullRefreshEnabled(true);
+        inform_rv.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                //下拉刷新
+                //网络加载方法
+                dohttpInform();
+            }
+
+            @Override
+            public void onLoadMore() {
+                //上拉加载
+                //网络加载方法
+                dohttpInform();
+            }
+        });
     }
 
     //状态改变的网络请求数据
@@ -137,6 +156,10 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                 //设置适配器去外面实例化适配器
                 //给适配器设置集合
                 informRvAdapter.setList(result);
+                //下拉刷新关闭
+                inform_rv.refreshComplete();
+                //上拉加载关闭
+                inform_rv.loadMoreComplete();
                 break;
             case 1:
                 //打印数据
@@ -170,7 +193,7 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
     private void initwidget() {
         //获取控件强转提上去
         inform_message = (TextView) getView(R.id.inform_message);
-        inform_rv = (RecyclerView) getView(R.id.inform_rv);
+        inform_rv = (XRecyclerView) getView(R.id.inform_rv);
         inform_cv_leftreturn = (CircleImageView) getView(R.id.inform_cv_leftreturn);
         //点击事件
         inform_cv_leftreturn.setOnClickListener(this);

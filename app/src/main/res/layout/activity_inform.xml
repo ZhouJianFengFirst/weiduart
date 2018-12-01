@@ -24,14 +24,14 @@
         android:textColor="@color/color333333"
         android:layout_marginTop="@dimen/dp_30"
         />
-    <android.support.v7.widget.RecyclerView
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/dp_24"
         android:layout_marginRight="@dimen/dp_24"
         android:layout_marginTop="10dp"
         android:id="@+id/inform_rv"
-        ></android.support.v7.widget.RecyclerView>
+        ></com.jcodecraeer.xrecyclerview.XRecyclerView>
 
     </LinearLayout>
 

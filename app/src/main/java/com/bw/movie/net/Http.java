@@ -35,10 +35,13 @@ public class Http {
     public static final String INFORM_URL = "/movieApi/tool/v1/verify/findAllSysMsgList";
     public static final String INFORMCHECKED_URL = "/movieApi/tool/v1/verify/changeSysMsgStatus";
     public static final String INFORMNUM_URL = "/movieApi/tool/v1/verify/findUnreadMessageCount";
+    public static final String NEWEST_URL = "/movieApi/tool/v1/findNewVersion";
+    public static final String HISTORY_URL = "/movieApi/user/v1/verify/findUserBuyTicketRecordList";
 
     //影片关注
     public static final String FOLLOW_MOVIE = "/movieApi/movie/v1/verify/followMovie";
 
     //影片取消关注
     public static final String CANCEL_MOVIE = "/movieApi/movie/v1/verify/cancelFollowMovie";
+    public static final String FINDMOVIE_URL = "/movieApi/movie/v1/findMoviesDetail";
 }

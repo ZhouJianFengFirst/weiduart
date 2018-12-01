@@ -9,6 +9,12 @@ import com.bw.movie.base.recycle.RecycleAdapter;
 import com.bw.movie.base.viewholder.ViewHolder;
 import com.bw.movie.entity.SelectInformBean;
 
+/**
+ * 作者：mafuyan
+ * 时间：2018/11/30
+ * 作用：系统消息通知适配器
+ */
+
 public class InformRvAdapter extends RecycleAdapter<SelectInformBean.ResultBean> {
 
     private OnShowListener onShowListener;

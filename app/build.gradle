@@ -43,4 +43,5 @@ dependencies {
     implementation project(':xlistviewlib')
     implementation 'com.android.support:design:28.+'
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+    implementation project(':xrecyclerview')
 }

@@ -29,7 +29,6 @@ public class ActivityMessage extends BaseActivity<ActivityMessagePersenter> {
     @Override
     public void onResume() {
         super.onResume();
-
 //        //获取sp里面的数据userId sessionId 调用工具类强转自己需要的类型 提上去调用
         String message1 = (String) SpUtil.getSpData(this,"message", "");
         String status1 = (String) SpUtil.getSpData(this,"status", "");

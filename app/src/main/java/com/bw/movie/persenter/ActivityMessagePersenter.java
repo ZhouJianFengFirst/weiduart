@@ -104,37 +104,6 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
 
     }
 
-    //请求网络数据
-    private void dohttpSelect() {
-        //new hasmap
-        HashMap<String, String> map = new HashMap<>();
-        //往map里面存值
-        map.put("userId", userId1);
-        map.put("sessionId", sessionId1);
-        //请求get字符串方法 传网址类型随机数0,1
-        /* getString(selecturl,0,map);*/
-        //调用head请求方法传接口的数据,传类型和map
-        handGetString(Http.SELECT_URL, 0, map);
-        Logger.i("id", map.get("userId") + "哈哈哈" + map.get("sessionId"));
-    }
-
-    //调用成功方法
-    @Override
-    public void successString(String data, int type) {
-        super.successString(data, type);
-        //选择判断tyep上面的类型
-        switch (type) {
-            case 0:
-                Logger.i("信息", data);
-                //new gson from
-                MessageSelectBean messageSelectBean = new Gson().fromJson(data, MessageSelectBean.class);
-                //获取对象
-                MessageSelectBean.ResultBean result = messageSelectBean.getResult();
-                break;
-
-        }
-
-    }
 
     //初始化控件方法
     private void initwidget() {
@@ -345,7 +314,6 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         }
     }
 
-    //裁剪方法
     // 调用系统的裁剪
     public void cropPhoto(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
@@ -377,8 +345,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         this.id1 = id1;
         this.lastLoginTime1 = lastLoginTime1;
         this.sex1 = sex1;
-//        //请求获取我的信息网络请求
-//        dohttpSelect();
+
         //给控件重新赋值
         message_tv_name.setText(nickName1);
         //判断=1=2

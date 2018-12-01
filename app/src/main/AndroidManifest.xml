@@ -33,7 +33,6 @@
         <activity android:name=".activitys.ActivityAttention" />
         <activity android:name=".activitys.ActivityHistory" />
         <activity android:name=".activitys.ActivityOpinion" />
-        <activity android:name=".activitys.ActivityNewest" />
         <activity android:name=".activitys.ActivityCinemaDetails" />
         <activity android:name=".activitys.ActivityOpinionSuccess" />
         <activity android:name=".activitys.ActivityResetPwd" />

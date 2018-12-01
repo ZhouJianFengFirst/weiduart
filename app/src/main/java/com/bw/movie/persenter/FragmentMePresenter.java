@@ -1,14 +1,10 @@
 package com.bw.movie.persenter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityAttention;
@@ -16,13 +12,16 @@ import com.bw.movie.activitys.ActivityHistory;
 import com.bw.movie.activitys.ActivityInform;
 import com.bw.movie.activitys.ActivityLogin;
 import com.bw.movie.activitys.ActivityMessage;
-import com.bw.movie.activitys.ActivityNewest;
 import com.bw.movie.activitys.ActivityOpinion;
-import com.bw.movie.activitys.MainActivity;
+import com.bw.movie.entity.NewestBean;
 import com.bw.movie.mvp.view.AppDelegate;
+import com.bw.movie.net.Http;
 import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
+
+import java.util.HashMap;
 
 /**
  * 作者：mafuyan
@@ -51,6 +50,7 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
     private String id1;
     private String lastLoginTime1;
     private String sex1;
+    private String ak="0110010010000";
 
     @Override
     protected int getLayoutId() {
@@ -104,8 +104,8 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                 Boolean islogin = (Boolean) SpUtil.getSpData(context, "isLogin", false);
                 //判断islogin
                 if (islogin) {
-                    //吐司已经登录
-                    toast(context, "已登录");
+//                    //吐司已经登录
+//                    toast(context, "已登录");
                     //跳转信息
                     context.startActivity(new Intent(context, ActivityMessage.class));
                 } else {
@@ -124,8 +124,8 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                 Boolean islogin2 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
                 //判断islogin
                 if (islogin2) {
-                    //吐司已经登录
-                    toast(context, "已登录");
+//                    //吐司已经登录
+//                    toast(context, "已登录");
                     //跳转信息
                     context.startActivity(new Intent(context, ActivityInform.class));
                 } else {
@@ -143,8 +143,8 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                 Boolean islogin1 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
                 //判断islogin
                 if (islogin1) {
-                    //吐司已经登录
-                    toast(context, "已登录");
+//                    //吐司已经登录
+//                    toast(context, "已登录");
                     //跳转信息
                     context.startActivity(new Intent(context, ActivityMessage.class));
                 } else {
@@ -176,9 +176,61 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                 //吐司这是我的最新版本
 //                Toast.makeText(context,"这是我的最新版本",Toast.LENGTH_SHORT).show();
                 //跳转页面上下文
-                context.startActivity(new Intent(context, ActivityNewest.class));
+//                context.startActivity(new Intent(context, ActivityNewest.class));
+                //获取登录状态islogin
+                Boolean islogin3 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+                //判断islogin
+                if (islogin3) {
+//                    //吐司已经登录
+//                    toast(context, "已登录");
+                    //请求网络数据方法最新版本
+                    dohttpNewest();
+                } else {
+                    //吐司已经登录
+                    toast(context, "请先登录");
+                    //跳转登录
+                    context.startActivity(new Intent(context, ActivityLogin.class));
+                }
                 break;
         }
+    }
+
+    //最新版本判断方法
+    private void dohttpNewest() {
+        //newhasmap
+        HashMap<String,String> map=new HashMap<>();
+        //往map里面存值
+        map.put("userId",userId1);
+        map.put("sessionId",sessionId1);
+        map.put("ak",ak);
+        //get hand请求数据
+        handGetString(Http.NEWEST_URL,3,map);
+        Logger.i("版本更新",map.get("userId")+map.get("sessionId")+"版本号"+map.get("ak"));
+    }
+
+    //成功方法
+    @Override
+    public void successString(String data, int type) {
+        super.successString(data, type);
+        //选择版本类型
+        switch(type){
+            case 3:
+                //打印数据
+                Logger.i("版本数据信息查询成功","哈哈"+data);
+                //new gson  data bean
+                NewestBean newestBean = new Gson().fromJson(data, NewestBean.class);
+                //吐司最新版本
+                toast(context,"已经是最新版本");
+                break;
+        }
+    }
+
+    //失败方法
+    @Override
+    public void failString(String msg) {
+        super.failString(msg);
+        //吐司最新版本
+        toast(context,"失败了");
     }
 
     //获取到的值

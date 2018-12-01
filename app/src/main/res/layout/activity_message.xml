@@ -205,7 +205,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="登录后的邮箱"
+                android:text="123456@163.com"
                 android:textColor="@color/color999999"
                 android:textSize="@dimen/sp_14" />
 
