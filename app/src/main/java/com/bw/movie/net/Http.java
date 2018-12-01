@@ -21,6 +21,8 @@ public class Http {
     public static final String CINEMASEARCH_URL = "/movieApi/cinema/v1/findAllCinemas";
     //影院评论
     public static final String CINEMARIGHT_URL = "/movieApi/cinema/v1/findAllCinemaComment";
+    //影院评论点赞
+    public static final String CINEMARIGHT_DZ_URL = "/movieApi/cinema/v1/verify/cinemaCommentGreat";
     //根据影院id 查影片
     public static final String CINEMAFLOW_URL = "/movieApi/movie/v1/findMovieListByCinemaId";
     //影院关注
@@ -29,6 +31,7 @@ public class Http {
     public static final String CINEMAHEART_NO_URL = "/movieApi/cinema/v1/verify/cancelFollowCinema";
     //影院影片查影片场次
     public static final String CINEMASESSION_URL = "/movieApi/movie/v1/findMovieScheduleList";
+
     //我的页面接口
     public static final String SELECT_URL = "/movieApi/user/v1/verify/findUserHomeInfo";
     public static final String UPDATA_URL = "/movieApi/user/v1/verify/modifyUserInfo";

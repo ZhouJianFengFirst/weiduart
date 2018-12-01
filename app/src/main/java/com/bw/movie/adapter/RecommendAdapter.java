@@ -75,11 +75,11 @@ public class RecommendAdapter extends BaseAdapter {
         myViewHolder.item_re_te2.setText(list.get(i).getAddress());
         //设置是否喜欢
         if (list.get(i).isFollowCinema()) {
-//                 myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);
-            myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_islike);
-        } else {
-            myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);
+                 myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);
 //            myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_islike);
+        } else {
+//            myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);
+            myViewHolder.item_re_img1.setImageResource(R.mipmap.cinema_islike);
         }
         //条目点击事件
         myViewHolder.lin_cinema_lay.setOnClickListener(new View.OnClickListener() {

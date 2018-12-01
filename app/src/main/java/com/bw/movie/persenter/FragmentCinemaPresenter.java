@@ -2,6 +2,7 @@ package com.bw.movie.persenter;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -16,9 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.activitys.ActivityMap;
 import com.bw.movie.adapter.RecommendAdapter;
 import com.bw.movie.adapter.RecommendSearchAdapter;
 import com.bw.movie.entity.CinemaSearchBean;
+import com.bw.movie.entity.DiscussDzBean;
 import com.bw.movie.entity.recommendBean;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
@@ -200,9 +203,33 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
                 break;
             case 3:
                 Logger.i("关注",data);
+                DiscussDzBean discussDzBean = new Gson().fromJson(data, DiscussDzBean.class);
+                if (discussDzBean.getMessage().equals("关注成功")) {
+                    toast(context,"关注成功~");
+                }   else if(discussDzBean.getMessage().equals("取消关注成功")){
+                    toast(context,"取消关注成功~");
+                }else if(discussDzBean.getMessage().equals("请先登录")){
+                    toast(context, "请先登录~");
+                }else if(discussDzBean.getMessage().equals("请先登录")){
+                    toast(context, "取消关注失败~");
+                }else if(discussDzBean.getMessage().equals("不能重复关注")){
+                    toast(context, "不能重复关注~");
+                }
                 break;
             case 4:
                 Logger.i("取关",data);
+                DiscussDzBean discussDzBean1 = new Gson().fromJson(data, DiscussDzBean.class);
+                if (discussDzBean1.getMessage().equals("关注成功")) {
+                    toast(context,"关注成功~");
+                }   else if(discussDzBean1.getMessage().equals("取消关注成功")){
+                    toast(context,"取消关注成功~");
+                }else if(discussDzBean1.getMessage().equals("请先登录")){
+                    toast(context, "请先登录~");
+                }else if(discussDzBean1.getMessage().equals("请先登录")){
+                    toast(context, "取消关注失败~");
+                }else if(discussDzBean1.getMessage().equals("不能重复关注")){
+                    toast(context, "不能重复关注~");
+                }
                 break;
         }
     }
@@ -216,7 +243,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         relay = (RelativeLayout) getView(R.id.relay_cinema_search);
         relay_yes = (RelativeLayout) getView(R.id.relay_cinema_search_yes);
         search = (ImageView) getView(R.id.image_cinema_search);
-        setClick(this, R.id.text_cinema_recommend, R.id.text_cinema_nearby, R.id.relay_cinema_search, R.id.text_cinema_ss);
+        setClick(this,R.id.image_cinema_seat,R.id.text_cinema_recommend, R.id.text_cinema_nearby, R.id.relay_cinema_search, R.id.text_cinema_ss);
     }
     //点击事件
     @Override
@@ -245,7 +272,10 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
                 Search();//搜索
                 hintSearch();//隐藏搜索框
                 break;
-
+            case R.id.image_cinema_seat:
+                toast(context,"定位");
+//                context.startActivity(new Intent(context, ActivityMap.class));
+                break;
 
         }
     }

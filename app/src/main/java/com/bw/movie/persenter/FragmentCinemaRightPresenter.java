@@ -12,6 +12,7 @@ import com.bw.movie.activitys.ActivityCinemaDetails;
 import com.bw.movie.adapter.DiscussAdapter;
 import com.bw.movie.entity.CinemaDetailsBean;
 import com.bw.movie.entity.DiscussBean;
+import com.bw.movie.entity.DiscussDzBean;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
 import com.bw.movie.utils.Logger;
@@ -33,7 +34,9 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
     private String page = "1";
     private String count = "20";
     private DiscussAdapter discussAdapter;
-    private String message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1,cinema_name;
+    private String message1, status1, sessionId1, userId1, headPic1, nickName1, phone1, birthday1, id1, lastLoginTime1, sex1, cinema_name;
+//    private static int TYPE = 0;//判断是否点赞成功
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_cinema_right;
@@ -52,18 +55,31 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
         initwidget();
         discussAdapter = new DiscussAdapter(context);
         recy.setAdapter(discussAdapter);
+        //适配器点击事件回调
+        discussAdapter.ruselt(new DiscussAdapter.SetOnItem() {
+            @Override
+            public void success(DiscussBean.ResultBean resultBean, int dzId) {
+                HashMap map = new HashMap();
+                map.put("userId", userId1);
+                map.put("sessionId", sessionId1);
+                HashMap fmap = new HashMap();
+                fmap.put("commentId", dzId);
+                handPostString(Http.CINEMARIGHT_DZ_URL, 1, map, fmap);
+            }
+        });
+
     }
 
     //请求评论的接口
     private void dohttp() {
         HashMap map = new HashMap();
-        map.put("userId",userId1);
-        map.put("sessionId",sessionId1);
+        map.put("userId", userId1);
+        map.put("sessionId", sessionId1);
         map.put("cinemaId", id);
         map.put("page", page);
         map.put("count", count);
         getString(Http.CINEMARIGHT_URL, 0, map);
-        Logger.i("详情右侧",userId1+"hjk"+sessionId1+"ef"+id);
+        Logger.i("详情右侧", userId1 + "hjk" + sessionId1 + "ef" + id);
     }
 
     @Override
@@ -71,9 +87,21 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
         super.successString(data, type);
         switch (type) {
             case 0:
+                Logger.i("平路列表",data);
                 DiscussBean discussBean = new Gson().fromJson(data, DiscussBean.class);
                 List<DiscussBean.ResultBean> result = discussBean.getResult();
                 discussAdapter.setList(result);
+                break;
+            case 1:
+                Logger.i("评论点赞data", data);
+                DiscussDzBean discussDzBean = new Gson().fromJson(data, DiscussDzBean.class);
+                if (discussDzBean.getMessage().equals("点赞成功")) {
+                    Logger.i("评论点赞", discussDzBean.getMessage());
+                }   else if(discussDzBean.getMessage().equals("不能重复点赞")){
+                    toast(context,"您已经点过赞了~");
+                }else if(discussDzBean.getMessage().equals("请先登录")){
+                    toast(context, "请先登录");
+                }
                 break;
         }
     }
@@ -85,6 +113,7 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recy.setLayoutManager(linearLayoutManager);
     }
+
     //获取到的值
     public void setData(String message1, String status1, String sessionId1, String userId1, String headPic1, String nickName1, String phone1, String birthday1, String id1, String lastLoginTime1, String sex1) {
         //this.名称=名称提上去
@@ -99,7 +128,7 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
         this.id1 = id1;
         this.lastLoginTime1 = lastLoginTime1;
         this.sex1 = sex1;
-        Logger.i("影院",nickName1);
+        Logger.i("影院", nickName1);
         dohttp();
     }
 

@@ -46,9 +46,6 @@ public interface BaseService {
     //get 把querymap 改成headermap注解  headget
     @GET
     Observable<ResponseBody> HeadGet(@Url String url, @HeaderMap Map<String, String> map);
-
-
-
     //    @Headers({
 //            "ak:0110010010000",
 //            "Content-Type:application/x-www-form-urlencoded"
@@ -59,8 +56,6 @@ public interface BaseService {
 
     @GET
     Observable<ResponseBody> HeadOrQueryGet(@Url String url, @HeaderMap Map<String, String> hap ,@QueryMap Map<String, String> qmap);
-
-
 
    @Headers({
            "ak:0110010010000",

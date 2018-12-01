@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityCinemaDetails;
+import com.bw.movie.activitys.ActivityMap;
 import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.adapter.CinemaFlowAdapter;
 import com.bw.movie.adapter.CinemaSessionsAdapter;
@@ -58,6 +59,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private CinemaFlowAdapter cinemaFlowAdapter;
     private CinemaSessionsAdapter cinemaSessionsAdapter;
     private TextView rescy_text;
+    private ImageView seat;
 
     @Override
     protected int getLayoutId() {
@@ -94,7 +96,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         flow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
-                dohttpsession(position+1);
+                dohttpsession(position + 1);
             }
         });
 
@@ -141,14 +143,14 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
                 cinemaFlowAdapter.setList(flowlist);
                 break;
             case 2:
-                Logger.i("影片场次",data);
+                Logger.i("影片场次", data);
                 CinemaSessionBean cinemaSessionBean = new Gson().fromJson(data, CinemaSessionBean.class);
                 List<CinemaSessionBean.ResultBean> sessionlist = cinemaSessionBean.getResult();
-                if(sessionlist.size()>1){
+                if (sessionlist.size() > 1) {
                     rescy_text.setVisibility(View.GONE);
                     rescy.setVisibility(View.VISIBLE);
                     cinemaSessionsAdapter.setList(sessionlist);
-                }else {
+                } else {
                     rescy_text.setVisibility(View.VISIBLE);
                     rescy.setVisibility(View.GONE);
                 }
@@ -159,6 +161,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     //找id的方法
     private void initwidget() {
         simp = (SimpleDraweeView) getView(R.id.simp_cinemadetails_simp);
+        seat = (ImageView) getView(R.id.image_cinemadetails_seat);
         name = (TextView) getView(R.id.text_cinemadetails_name);
         teseat = (TextView) getView(R.id.text_cinemadetails_seat);
         rescy_text = (TextView) getView(R.id.text_cinema_rescy);
@@ -170,7 +173,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         left = (View) getView(R.id.view_cinemadetails_left);
         right = (View) getView(R.id.view_cinemadetails_right);
         flow = (RecyclerCoverFlow) getView(R.id.rcf_cinema_flow);
-        setClick(this, R.id.image_cinemadetails_seat, R.id.image_cinemadetails_left, R.id.text_cinemadetails_name, R.id.text_cinemadetails_seat, R.id.simp_cinemadetails_simp, R.id.image_cinema_down, R.id.text_cinemadetails_pl, R.id.text_cinemadetails_xq);
+        setClick(this,R.id.image_cinemadetails_seat, R.id.image_cinemadetails_left, R.id.text_cinemadetails_name, R.id.text_cinemadetails_seat, R.id.simp_cinemadetails_simp, R.id.image_cinema_down, R.id.text_cinemadetails_pl, R.id.text_cinemadetails_xq);
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -182,6 +185,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.image_cinemadetails_seat://定位
+                context.startActivity(new Intent(context, ActivityMap.class));
                 break;
             case R.id.image_cinemadetails_left://返回
                 ((ActivityCinemaDetails) context).finish();
@@ -208,7 +212,6 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
                 right.setVisibility(View.VISIBLE);
                 supportFragmentManager.beginTransaction().replace(R.id.fram_cinema, fragmentCinemaRight).commit();
                 break;
-
         }
     }
 
