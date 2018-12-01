@@ -22,20 +22,21 @@
             android:id="@+id/address"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
-            android:layout_marginTop="@dimen/dp_20"
             android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_20"
             android:src="@drawable/address_w" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/address"
             android:layout_marginTop="@dimen/dp_20"
+            android:layout_toRightOf="@id/address"
             android:text="北京"
-            android:textSize="@dimen/sp_16"
-            android:textColor="@color/colorD8d8d8"/>
+            android:textColor="@color/colorD8d8d8"
+            android:textSize="@dimen/sp_16" />
 
         <LinearLayout
-            android:layout_width="@dimen/dp_50"
+            android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_24"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -55,7 +56,7 @@
         <RelativeLayout
             android:id="@+id/relayout_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_300"
+            android:layout_height="@dimen/dp_330"
             android:layout_marginTop="@dimen/dp_100"
             android:clipChildren="false"
             android:padding="@dimen/dp_20">
@@ -76,18 +77,18 @@
 
         <LinearLayout
             android:id="@+id/layout_put_line"
-            android:layout_below="@id/relayout_view"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="@dimen/dp_1"
-            android:background="@color/colorD8d8d8">
-
-        </LinearLayout>
+            android:layout_height="@dimen/dp_4"
+            android:layout_below="@id/relayout_view"
+            android:background="@drawable/view_bg"
+            android:orientation="horizontal"></LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_put_line"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_20">
 
             <com.bw.movie.view.ListFilmView

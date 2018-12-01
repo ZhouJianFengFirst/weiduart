@@ -35,7 +35,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
     private static final int SOONMOVIELIST_CONTENT = 0x123;
     private static final int HOTMOVIELIST_CONTENT = 0x124;
     private static final int RELEAASEMOVIELIST_CONTENT = 0x125;
-    private HortMovieEntity movieEntity;
+    private HortMovieEntity hortMovie, hortShowing, upComming;
     private int flage = 1;
     private int hortshowingpage = 1;
     private int hortshowingcont = 10;
@@ -163,10 +163,23 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int movieId = movieEntity.getResult().get(position).getId();
+
                 Intent intent = new Intent(context, ActivityFilmDetails.class);
-                intent.putExtra("movieId", movieId);
-                ((ActivityFilm) context).startActivity(intent);
+                switch (flage) {
+                    case 1:
+                        intent.putExtra("movieId", hortMovie.getResult().get(position-1).getId());
+                        ((ActivityFilm) context).startActivity(intent);
+                        break;
+                    case 2:
+                        intent.putExtra("movieId", hortShowing.getResult().get(position-1).getId());
+                        ((ActivityFilm) context).startActivity(intent);
+                        break;
+                    case 3:
+                        intent.putExtra("movieId", upComming.getResult().get(position-1).getId());
+                        ((ActivityFilm) context).startActivity(intent);
+                        break;
+                }
+
             }
         });
         listView.setXListViewListener(new XListView.IXListViewListener() {
@@ -305,8 +318,10 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
      * @param hortMovieData
      */
     public void setHortMovieData(String hortMovieData) {
+        flage = 1;
+        this.hortMovie = null;
         HortMovieEntity entity = new Gson().fromJson(hortMovieData, HortMovieEntity.class);
-        this.movieEntity = entity;
+        this.hortMovie = entity;
         moviesize = entity.getResult().size();
         filmAdapter.setHortList(entity.getResult());
     }
@@ -317,8 +332,10 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
      * @param hortShowingData
      */
     public void setHortShowingData(String hortShowingData) {
+        flage = 2;
+        this.hortShowing = null;
         HortMovieEntity entity = new Gson().fromJson(hortShowingData, HortMovieEntity.class);
-        this.movieEntity = entity;
+        this.hortShowing = entity;
         moviesize = entity.getResult().size();
         filmAdapter.setHortList(entity.getResult());
     }
@@ -329,8 +346,10 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
      * @param upCommingData
      */
     public void setUpCommingData(String upCommingData) {
+        flage = 3;
+        this.upComming = null;
         HortMovieEntity entity = new Gson().fromJson(upCommingData, HortMovieEntity.class);
-        this.movieEntity = entity;
+        this.upComming = entity;
         moviesize = entity.getResult().size();
         filmAdapter.setHortList(entity.getResult());
     }

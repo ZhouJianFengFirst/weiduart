@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_24"
+        android:layout_height="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_30">
 
         <LinearLayout
@@ -26,8 +26,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:gravity="center"
-                android:text="北京"
-                android:textColor="@color/colorBlack" />
+                android:text="北京" />
         </LinearLayout>
 
         <RelativeLayout
@@ -90,26 +89,26 @@
 
     </LinearLayout>
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/dp_24"
-    android:layout_marginRight="@dimen/dp_24"
-    android:layout_marginTop="@dimen/dp_10">
-
-    <com.example.xlistviewlib.XListView
-        android:id="@+id/xshowlist"
-        android:descendantFocusability="blocksDescendants"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_10">
 
-    <ImageView
-        android:id="@+id/backimage"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
-        android:layout_marginBottom="@dimen/dp_20"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/left_return" />
-</RelativeLayout>
+        <com.example.xlistviewlib.XListView
+            android:id="@+id/xshowlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants" />
+
+        <ImageView
+            android:id="@+id/backimage"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:src="@drawable/left_return" />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -6,16 +6,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_129"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_height="@dimen/dp_150"
         android:layout_marginBottom="@dimen/dp_20"
-        android:layout_marginLeft="@dimen/dp_24"
-        android:layout_marginRight="@dimen/dp_24">
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_20">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sm_background"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_123"
+            android:layout_height="@dimen/dp_130"
             android:layout_alignParentBottom="true"
             android:scaleType="centerCrop"
             android:src="@drawable/iteamback"
@@ -24,11 +24,11 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sm_film_image"
             android:layout_width="@dimen/dp_103"
-            android:layout_height="@dimen/dp_129"
-            app:roundedCornerRadius="@dimen/dp_4"
+            android:layout_height="@dimen/dp_150"
             android:layout_marginBottom="@dimen/dp_10"
             android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10" />
+            android:layout_marginRight="@dimen/dp_10"
+            app:roundedCornerRadius="@dimen/dp_4" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,22 +42,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="title"
-                android:textColor="@color/colorD8d8d8" />
+                android:textColor="@color/colorD8d8d8"
+                android:textSize="@dimen/sp_20" />
 
             <RelativeLayout
                 android:id="@+id/layout_heart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10">
+
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/sm_select"
-                    android:layout_width="@dimen/dp_24"
-                    android:layout_height="@dimen/dp_24"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
                     android:src="@drawable/heart_no" />
             </RelativeLayout>
-
 
             <TextView
                 android:id="@+id/txt_content"
@@ -65,11 +66,12 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/txt_title"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="content"
+                android:ellipsize="end"
                 android:lines="4"
                 android:maxEms="20"
-                android:ellipsize="end"
-                android:textColor="@color/colorD8d8d8" />
+                android:text="content"
+                android:textColor="@color/colorD8d8d8"
+                android:textSize="@dimen/dp_18" />
 
         </RelativeLayout>
 

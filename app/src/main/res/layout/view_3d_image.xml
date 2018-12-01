@@ -6,12 +6,12 @@
 
     <RelativeLayout
         android:layout_width="@dimen/dp_200"
-        android:layout_height="@dimen/dp_300">
+        android:layout_height="@dimen/dp_330">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/iv"
             android:layout_width="@dimen/dp_220"
-            android:layout_height="@dimen/dp_312"
+            android:layout_height="@dimen/dp_330"
             app:roundedCornerRadius="@dimen/dp_8dp" />
 
         <TextView

@@ -17,12 +17,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dp_20"
-                android:textColor="@color/colorBlack"
                 android:text="热门电影"/>
             <View
                 android:layout_below="@id/txt_hortmovie"
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_6"
                 android:background="@drawable/purplechange"/>
 
             <ImageView

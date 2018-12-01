@@ -24,5 +24,9 @@
     <string name="hort_showing">正在热映</string>
     <string name="upcoming">即将上映</string>
     <string name="register_txt_name">昵称</string>
+    <string name="film_review">影评</string>
+    <string name="film_photo">剧照</string>
+    <string name="prevue">预告</string>
+    <string name="details">详情</string>
 
 </resources>

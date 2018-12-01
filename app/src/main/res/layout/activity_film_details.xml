@@ -13,10 +13,12 @@
         android:id="@+id/sm_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:alpha="0.2"
         android:scaleType="centerCrop"
         android:src="@drawable/details_bg" />
 
     <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_30"
         android:layout_marginLeft="@dimen/dp_30"
@@ -24,8 +26,8 @@
 
         <ImageView
             android:id="@+id/titlimage"
-            android:layout_width="@dimen/dp_24"
-            android:layout_height="@dimen/dp_24"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
             android:layout_centerVertical="true"
             android:src="@drawable/com_icon_movie_default" />
 
@@ -33,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginLeft="@dimen/dp_10"
             android:layout_toRightOf="@id/titlimage"
             android:text="影院详情"
             android:textColor="@color/colorWhite"
@@ -41,16 +43,108 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sm_give"
-            android:layout_width="@dimen/dp_24"
-            android:layout_height="@dimen/dp_24"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_30" />
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/txt_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relative"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_60"
+        android:textColor="@color/colorD8d8d8"
+        android:textSize="@dimen/dp_24" />
 
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sm_film_image"
+        android:layout_width="@dimen/dp_259dp"
+        android:layout_height="@dimen/dp_360dp"
+        android:layout_below="@id/txt_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_30" />
 
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layou_bottom"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_60"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_details"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/square_purple_solid_bg"
+            android:text="@string/details"
+            android:textColor="@color/colorD8d8d8" />
+
+        <Button
+            android:id="@+id/btn_prevue"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/square_purple_solid_bg"
+            android:text="@string/prevue"
+            android:textColor="@color/colorD8d8d8" />
+
+        <Button
+            android:id="@+id/btn_photo"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/square_purple_solid_bg"
+            android:text="@string/film_photo"
+            android:textColor="@color/colorD8d8d8" />
+
+        <Button
+            android:id="@+id/btn_film"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/square_purple_solid_bg"
+            android:text="@string/film_review"
+            android:textColor="@color/colorD8d8d8" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layou_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginTop="@dimen/sp_12">
+
+        <ImageView
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/left_return" />
+
+        <TextView
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/yellowsolid_bg"
+            android:gravity="center"
+            android:text="选票"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/dp_20" />
+
+    </RelativeLayout>
 </RelativeLayout>
