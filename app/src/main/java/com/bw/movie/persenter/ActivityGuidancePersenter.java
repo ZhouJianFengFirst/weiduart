@@ -108,7 +108,7 @@ public class ActivityGuidancePersenter extends AppDelegate {
         for (int i = 0; i < imgs.size(); i++) {
             ImageView image = new ImageView(mcontext);
             if (page == i) {
-                image.setImageResource(R.drawable.pwp_bg);
+                image.setImageResource(R.drawable.circle_guidance_yes);
             } else {
                 image.setImageResource(R.drawable.circle_guidance_no);
             }

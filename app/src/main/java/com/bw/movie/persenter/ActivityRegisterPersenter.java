@@ -79,14 +79,6 @@ public class ActivityRegisterPersenter extends AppDelegate {
             toast("提示", "姓名不能为空", 1);
             return;
         }
-        if (TextUtils.isEmpty(registerpass)) {
-            toast("提示", "密码不能为空", 1);
-            return;
-        }
-        if ( TextUtils.isEmpty(registeraffirmpass)) {
-            toast("提示", "密码不能为空", 1);
-            return;
-        }
         if (TextUtils.isEmpty(registersex)) {
             toast("提示", "性别不能为空", 1);
             return;
@@ -95,12 +87,20 @@ public class ActivityRegisterPersenter extends AppDelegate {
             toast("提示", "日期不能为空", 1);
             return;
         }
-        if ( TextUtils.isEmpty(registerphone)) {
+        if (TextUtils.isEmpty(registerphone)) {
             toast("提示", "手机号不能为空", 1);
             return;
         }
-        if ( TextUtils.isEmpty(registeremil)) {
+        if (TextUtils.isEmpty(registeremil)) {
             toast("提示", "邮箱不能为空", 1);
+            return;
+        }
+        if (TextUtils.isEmpty(registerpass)) {
+            toast("提示", "密码不能为空", 1);
+            return;
+        }
+        if (TextUtils.isEmpty(registeraffirmpass)) {
+            toast("提示", "密码不能为空", 1);
             return;
         }
         if (!registerpass.equals(registeraffirmpass)) {
@@ -161,30 +161,30 @@ public class ActivityRegisterPersenter extends AppDelegate {
         });
     }
 
-   /* @Override
-    public void successString(String data, int type) {
-        super.successString(data, type);
-        switch (type) {
-            case REGISTER_URL:
-                Gson gson = new Gson();
-                LoginBean loginBean = gson.fromJson(data, LoginBean.class);
-                if ("0000".equals(loginBean.getStatus())) {
-                    Logger.d("ttttt", "成功");
-                    Logger.d("tttttt", data + "成功");
-                } else {
-                    Logger.d("qqq", "失败");
-                    Logger.d("qqq", data + "失败");
-                }
-                break;
-        }
-    }
+    /* @Override
+     public void successString(String data, int type) {
+         super.successString(data, type);
+         switch (type) {
+             case REGISTER_URL:
+                 Gson gson = new Gson();
+                 LoginBean loginBean = gson.fromJson(data, LoginBean.class);
+                 if ("0000".equals(loginBean.getStatus())) {
+                     Logger.d("ttttt", "成功");
+                     Logger.d("tttttt", data + "成功");
+                 } else {
+                     Logger.d("qqq", "失败");
+                     Logger.d("qqq", data + "失败");
+                 }
+                 break;
+         }
+     }
 
-    @Override
-    public void failString(String msg) {
-        super.failString(msg);
-        Logger.d("ffff", msg);
-    }
-*/
+     @Override
+     public void failString(String msg) {
+         super.failString(msg);
+         Logger.d("ffff", msg);
+     }
+ */
     private void initwidget() {
         edname = (EditText) getView(R.id.register_ed_name);
         edate = (EditText) getView(R.id.register_ed_date);
