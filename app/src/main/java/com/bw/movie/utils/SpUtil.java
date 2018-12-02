@@ -17,7 +17,7 @@ public class SpUtil {
 
 
     // 获取sharedpreferences中的数据
-    public static Object getSpData(Context context,String key, Object value) {
+    public static Object getSpData(Context context, String key, Object value) {
         sp = context.getSharedPreferences(SPCONFIG, context.MODE_PRIVATE);
         edit = sp.edit();
         String type = value.getClass().getSimpleName();
@@ -35,7 +35,7 @@ public class SpUtil {
         return null;
     }
 
-    public static void saveData(Context context,String key, Object value) {
+    public static void saveData(Context context, String key, Object value) {
         sp = context.getSharedPreferences(SPCONFIG, context.MODE_PRIVATE);
         edit = sp.edit();
         String type = value.getClass().getSimpleName();
@@ -46,7 +46,7 @@ public class SpUtil {
         } else if ("Boolean".equals(type)) {
             edit.putBoolean(key, (Boolean) value);
         } else if ("Long".equals(type)) {
-             edit.putLong(key, (Long) value);
+            edit.putLong(key, (Long) value);
         } else if ("String".equals(type)) {
             edit.putString(key, (String) value);
         }
@@ -54,9 +54,8 @@ public class SpUtil {
 
     }
 
-//    /*清空*/
-//    public static SpUtil clear() {
-//        edit.clear();
-//        return this;
-//    }
+    //   清空
+    public static void clear() {
+        edit.clear();
+    }
 }

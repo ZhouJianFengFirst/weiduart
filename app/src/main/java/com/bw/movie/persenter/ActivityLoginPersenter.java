@@ -57,6 +57,7 @@ public class ActivityLoginPersenter extends AppDelegate {
     private TextView txtjustregister;
     private String loginphone;
     private boolean flag = false;
+    private boolean auto = false;
 
     @Override
     protected int getLayoutId() {
@@ -67,32 +68,28 @@ public class ActivityLoginPersenter extends AppDelegate {
     public void initData() {
         super.initData();
         initwidget();
-        /*
-         * 首次进来判断是否登录
-         * */
-        boolean isLogin = (boolean) SpUtil.getSpData(mcontext,"isLogin", false);
-        if (isLogin) {
-            boolean isremenber = (boolean) SpUtil.getSpData(mcontext,"isRemenber", false);
-
+        boolean isAuto = (boolean) SpUtil.getSpData(mcontext, "isAuto", false);
+        if (!isAuto) {
+            boolean isremenber = (boolean) SpUtil.getSpData(mcontext, "isRemenber", false);
             /*
              * 判断是否记住密码
              * */
             if (isremenber) {
                 //将账号和密码都设置到文本中
-                String phone = (String) SpUtil.getSpData(mcontext,"phone","");
-                String pwd = (String) SpUtil.getSpData(mcontext,"pwd","");
+                String phone = (String) SpUtil.getSpData(mcontext, "phone", "");
+                String pwd = (String) SpUtil.getSpData(mcontext, "pwd", "");
                 edphone.setText(phone);
                 edpass.setText(pwd);
-               /* boolean isAuto = (boolean) SpUtil.getInserter(mcontext).getSpData("isAuto", false);
-                if (isAuto) {
-                    //跳转界面
-                    Intent intent = new Intent(mcontext, MainActivity.class);
-                    ((ActivityLogin) mcontext).startActivity(intent);
-                    Logger.d("ttttt","已自动登录！！");
-                }*/
             }
+        } else {
+            //跳转界面
+            Intent intent = new Intent(mcontext, MainActivity.class);
+            ((ActivityLogin) mcontext).startActivity(intent);
+            ((ActivityLogin) mcontext).finish();
 
         }
+
+
         setClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,10 +107,11 @@ public class ActivityLoginPersenter extends AppDelegate {
                         pwdShow(edpass, imglookpass);
                         break;
                     case R.id.login_img_repass://点击是否记住密码
-                        setCk(imgrepass);
+                        setCkR();
                         break;
                     case R.id.login_img_smlogin://点击是否自动登录
-                        setCk(imgsmlogin);
+
+                        setCkSM();
                         break;
                 }
             }
@@ -137,26 +135,29 @@ public class ActivityLoginPersenter extends AppDelegate {
             public void SuccessRequest(String data) {
                 Gson gson = new Gson();
                 LoginBean loginBean = gson.fromJson(data, LoginBean.class);
-                SharedUtil.put(mcontext,"phones", loginBean.getResult().getUserInfo().getPhone());
-                SharedUtil.put(mcontext,"sex", loginBean.getResult().getUserInfo().getSex() + "");
-                SpUtil.saveData(mcontext,"message", loginBean.getMessage());
-                SpUtil.saveData(mcontext,"status", loginBean.getStatus());
-                SpUtil.saveData(mcontext,"sessionId", loginBean.getResult().getSessionId());
-                SpUtil.saveData(mcontext,"userId", loginBean.getResult().getUserId() + "");
-                SpUtil.saveData(mcontext,"headPic", loginBean.getResult().getUserInfo().getHeadPic());
-                SpUtil.saveData(mcontext,"nickName", loginBean.getResult().getUserInfo().getNickName());
-                SpUtil.saveData(mcontext,"phone", loginBean.getResult().getUserInfo().getPhone());
-                SpUtil.saveData(mcontext,"birthday", loginBean.getResult().getUserInfo().getBirthday() + "");
-                SpUtil.saveData(mcontext,"id", loginBean.getResult().getUserInfo().getId() + "");
-                SpUtil.saveData(mcontext,"lastLoginTime", loginBean.getResult().getUserInfo().getLastLoginTime() + "");
-                SpUtil.saveData(mcontext,"sex", loginBean.getResult().getUserInfo().getSex() + "");
-                SpUtil.saveData(mcontext,"isLogin", true);
-                if (flag) {
-                    SpUtil.saveData(mcontext,"pwd", loginpass);
-                    SpUtil.saveData(mcontext,"isRemenber", true);
-                    SpUtil.saveData(mcontext,"isAuto", true);
+                SharedUtil.put(mcontext, "phones", loginBean.getResult().getUserInfo().getPhone());
+                SharedUtil.put(mcontext, "sex", loginBean.getResult().getUserInfo().getSex() + "");
+                SpUtil.saveData(mcontext, "message", loginBean.getMessage());
+                SpUtil.saveData(mcontext, "status", loginBean.getStatus());
+                SpUtil.saveData(mcontext, "sessionId", loginBean.getResult().getSessionId());
+                SpUtil.saveData(mcontext, "userId", loginBean.getResult().getUserId() + "");
+                SpUtil.saveData(mcontext, "headPic", loginBean.getResult().getUserInfo().getHeadPic());
+                SpUtil.saveData(mcontext, "nickName", loginBean.getResult().getUserInfo().getNickName());
+                SpUtil.saveData(mcontext, "phone", loginBean.getResult().getUserInfo().getPhone());
+                SpUtil.saveData(mcontext, "birthday", loginBean.getResult().getUserInfo().getBirthday() + "");
+                SpUtil.saveData(mcontext, "id", loginBean.getResult().getUserInfo().getId() + "");
+                SpUtil.saveData(mcontext, "lastLoginTime", loginBean.getResult().getUserInfo().getLastLoginTime() + "");
+                SpUtil.saveData(mcontext, "sex", loginBean.getResult().getUserInfo().getSex() + "");
+                SpUtil.saveData(mcontext, "isLogin", true);
+                if (auto) {
+                    SpUtil.saveData(mcontext, "isAuto", true);
+
+
+                } else if (flag) {
+                    SpUtil.saveData(mcontext, "pwd", loginpass);
+                    SpUtil.saveData(mcontext, "isRemenber", true);
                 } else {
-//                    SpUtil.clear();
+                    SpUtil.clear();
                 }
                 toast("登录", "登录成功", 1);
                 /*
@@ -166,10 +167,11 @@ public class ActivityLoginPersenter extends AppDelegate {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        ((ActivityLogin) mcontext).startActivity(new Intent(mcontext, MainActivity.class));
                         ((ActivityLogin) mcontext).finish();
                     }
                 }).start();
@@ -185,14 +187,27 @@ public class ActivityLoginPersenter extends AppDelegate {
     /*
      * 判断记住密码
      * */
-    private void setCk(ImageView img) {
+    private void setCkR() {
         if (!flag) {
-            img.setImageResource(R.drawable.login_ck_yes);
+            imgrepass.setImageResource(R.drawable.login_ck_yes);
         } else {
-            img.setImageResource(R.drawable.login_ck_no);
+            imgrepass.setImageResource(R.drawable.login_ck_no);
         }
         //每次置反
         flag = !flag;
+    }
+
+    /*
+     * 判断是否自动登录
+     * */
+    private void setCkSM() {
+        if (!auto) {
+            imgsmlogin.setImageResource(R.drawable.login_ck_yes);
+        } else {
+            imgsmlogin.setImageResource(R.drawable.login_ck_no);
+        }
+        //每次置反
+        auto = !auto;
     }
 
     /*

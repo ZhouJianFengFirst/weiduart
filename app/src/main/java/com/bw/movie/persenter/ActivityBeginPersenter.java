@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityBegin;
+import com.bw.movie.activitys.ActivityGuidance;
 import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.mvp.view.AppDelegate;
 
@@ -39,7 +40,7 @@ public class ActivityBeginPersenter extends AppDelegate {
 //                //停止发送消息
                 handler.removeCallbacksAndMessages(null);
 //                //用上下文直接跳转
-                mcontext.startActivity(new Intent(mcontext, MainActivity.class));
+                mcontext.startActivity(new Intent(mcontext, ActivityGuidance.class));
                 //本页面强转上下文  结束
                 ((ActivityBegin) mcontext).finish();
 
@@ -67,9 +68,7 @@ public class ActivityBeginPersenter extends AppDelegate {
             public void onClick(View v) {
                 //停止发送消息
                 handler.removeCallbacksAndMessages(null);
-                mcontext.startActivity(new Intent(mcontext, MainActivity.class));
-                Log.d("ShowActivity", "哈哈哈");
-
+                mcontext.startActivity(new Intent(mcontext,ActivityGuidance.class));
                 ((ActivityBegin) mcontext).finish();
             }
         }, R.id.begin_bt_jump);
