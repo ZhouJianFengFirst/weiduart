@@ -34,7 +34,7 @@
                 android:layout_height="@dimen/dp_37"
                 android:layout_weight="1"
                 android:background="@drawable/my_item"
-                android:hint="男填1女填2"
+                android:hint="请输入性别"
                 android:padding="@dimen/dp_5" />
 
             <TextView

@@ -7,8 +7,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.activitys.ActivityUpdateName;
 import com.bw.movie.activitys.ActivityUpdateSex;
+import com.bw.movie.entity.UpdateBean;
 import com.bw.movie.mvp.view.AppDelegate;
+import com.bw.movie.net.Http;
+import com.bw.movie.utils.Logger;
+import com.bw.movie.utils.SpUtil;
+import com.google.gson.Gson;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -60,9 +68,9 @@ public class ActivityUpdateSexPersenter extends AppDelegate implements View.OnCl
         //判断性别男1女2
         if("1".equals(sex1)){
             update_sex.setText("男");
-        }else if("2".equals(sex1)){
+        }else if ("2".equals(sex1)){
             update_sex.setText("女");
-        }else{
+        } else{
             //吐司输入错误请重新输入
             toast(context,"输入错误请重新输入");
         }
@@ -85,16 +93,82 @@ public class ActivityUpdateSexPersenter extends AppDelegate implements View.OnCl
         //选择点击事件
         switch(view.getId()){
             case R.id.update_sex_ok:
-                //吐司修改密码成功
-                toast(context,"修改性别成功");
-                //销毁本页面
-                ((ActivityUpdateSex)context).finish();
+                //修改性别请求网络
+                dohttpUpdataSex();
                 break;
             case R.id.update_sex_cv_leftreturn:
                 //销毁本页面
                 ((ActivityUpdateSex)context).finish();
                 break;
         }
+    }
+
+    //修改性别请求网络
+    private void dohttpUpdataSex() {
+        //获取输入框的内容
+        String sex = update_sex.getText().toString().trim();
+        //定义一个字符串性别初始化1
+        String sex3="1";
+        //判断性别男1女2
+        if("男".equals(sex)){
+            //给定义的性别赋值1
+            sex3="1";
+        }else if ("女".equals(sex)){
+            //给定义的性别赋值2
+            sex3="2";
+        } else{
+            //吐司输入错误请重新输入
+            toast(context,"输入错误请重新输入");
+        }
+        //new hasmap
+        HashMap<String,String> hmap=new HashMap<>();
+        HashMap<String,String> fmap=new HashMap<>();
+        //往map集合里添加
+        hmap.put("userId", userId1);
+        hmap.put("sessionId", sessionId1);
+        //入参的数据
+        fmap.put("sex",sex3);
+        fmap.put("nickName",nickName1);
+        fmap.put("email","123456@163.com");
+        //post请求数据 传网址类型0 map集合
+        handPostString(Http.UPDATA_URL,0,hmap,fmap);
+        Logger.i("map里","性别用户id"+hmap.get("userId")+"sessId"+hmap.get("sessionId")+"输入后的性别"+fmap.get("sex"));
+    }
+    //成功方法
+    @Override
+    public void successString(String data, int type) {
+        super.successString(data, type);
+        //选择类型
+        switch (type){
+            case 0:
+                //打印
+                Logger.i("修改性别数据","哈哈哈"+data);
+                //new gson form
+                UpdateBean updateBean = new Gson().fromJson(data, UpdateBean.class);
+                //判断message 网络异常,请联系管理员
+                if("网络异常,请联系管理员".equals(updateBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context,"网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }
+                Logger.i("修改性别后",updateBean.getResult().getSex()+"");
+                //存到sp
+                SpUtil.saveData(context,"sex",updateBean.getResult().getSex()+"");
+                String sex2 = (String) SpUtil.getSpData(context,"sex", "");
+                Logger.i("存到sp的sex",sex2);
+                //吐司修改密码成功
+                toast(context,"修改性别成功");
+                //销毁本页面
+                ((ActivityUpdateSex)context).finish();
+                break;
+        }
+    }
+
+    @Override
+    public void failString(String msg) {
+        super.failString(msg);
+        Logger.i("修改昵称失败",msg);
     }
 
     public void setData(String message1, String status1, String sessionId1, String userId1, String headPic1, String nickName1, String phone1, String birthday1, String id1, String lastLoginTime1, String sex1) {

@@ -35,6 +35,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/my_item"
                 android:hint="请输入邮箱"
+                android:text="123456@163.com"
                 android:padding="@dimen/dp_5" />
 
             <TextView

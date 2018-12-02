@@ -8,11 +8,14 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityUpdateName;
+import com.bw.movie.entity.UpdateBean;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
 import com.bw.movie.net.HttpRequestListener;
 import com.bw.movie.net.OkHttpHelper;
 import com.bw.movie.utils.Logger;
+import com.bw.movie.utils.SpUtil;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 
@@ -67,7 +70,6 @@ public class ActivityUpdateNamePersenter extends AppDelegate implements View.OnC
          nickname1 = intent.getStringExtra("nickName1");
         //赋值给新控件
         update_name.setText(nickname1);
-
     }
 
     private void dohttpUpdateName() {
@@ -82,7 +84,7 @@ public class ActivityUpdateNamePersenter extends AppDelegate implements View.OnC
         //入参的数据
         fmap.put("nickName",name);
         fmap.put("sex","2");
-        fmap.put("email","12343256@qq.com");
+        fmap.put("email","123456@163.com");
         //post请求数据 传网址类型0 map集合
         handPostString(Http.UPDATA_URL,0,hmap,fmap);
         Logger.i("map里","用户id"+hmap.get("userId")+"sessId"+hmap.get("sessionId")+fmap.get("nickName"));
@@ -95,8 +97,26 @@ public class ActivityUpdateNamePersenter extends AppDelegate implements View.OnC
         switch (type){
             case 0:
                 //打印
-                Logger.i("数据","哈哈哈"+data);
+                Logger.i("修改昵称数据","哈哈哈"+data);
+
                 //new gson form
+                UpdateBean updateBean = new Gson().fromJson(data, UpdateBean.class);
+                //判断message 网络异常,请联系管理员
+                if("网络异常,请联系管理员".equals(updateBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context,"网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }
+                Logger.i("修改后",updateBean.getResult().getNickName());
+                //存到sp
+                SpUtil.saveData(context,"nickName",updateBean.getResult().getNickName());
+                String nickName2 = (String) SpUtil.getSpData(context,"nickName", "");
+                Logger.i("存到sp的name",nickName2);
+                //吐司修改密码成功
+                toast(context,"修改昵称成功");
+                //销毁本页面
+                ((ActivityUpdateName)context).finish();
                 break;
         }
     }
@@ -104,7 +124,7 @@ public class ActivityUpdateNamePersenter extends AppDelegate implements View.OnC
     @Override
     public void failString(String msg) {
         super.failString(msg);
-        Logger.i("失败",msg);
+        Logger.i("修改昵称失败",msg);
     }
 
     //初始化数据方法
@@ -125,10 +145,6 @@ public class ActivityUpdateNamePersenter extends AppDelegate implements View.OnC
                 //在获取sp值的这个方法请求网络数据
                 //请求网络数据
                 dohttpUpdateName();
-                //吐司修改密码成功
-                toast(context,"修改昵称成功");
-                //销毁本页面
-                ((ActivityUpdateName)context).finish();
                 break;
             case R.id.update_name_cv_leftreturn:
                 //销毁本页面

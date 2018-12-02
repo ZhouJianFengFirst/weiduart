@@ -72,7 +72,7 @@ public class ActivityUpdateEmailPersenter extends AppDelegate implements View.On
         switch(view.getId()){
             case R.id.update_email_ok:
                 //吐司修改密码成功
-                toast(context,"修改邮箱成功");
+                toast(context,"邮箱不能修改因为登录接口和查询用户信息接口里都没有email参数");
                 //销毁本页面
                 ((ActivityUpdateEmail)context).finish();
                 break;

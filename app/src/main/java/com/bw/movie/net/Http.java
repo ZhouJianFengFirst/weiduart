@@ -40,6 +40,8 @@ public class Http {
     public static final String INFORMNUM_URL = "/movieApi/tool/v1/verify/findUnreadMessageCount";
     public static final String NEWEST_URL = "/movieApi/tool/v1/findNewVersion";
     public static final String HISTORY_URL = "/movieApi/user/v1/verify/findUserBuyTicketRecordList";
+    public static final String RESETPWD_URL = "/movieApi/user/v1/verify/modifyUserPwd";
+
 
     //影片关注
     public static final String FOLLOW_MOVIE = "/movieApi/movie/v1/verify/followMovie";
