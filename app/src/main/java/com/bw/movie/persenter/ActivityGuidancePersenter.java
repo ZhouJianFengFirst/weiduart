@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bw.movie.activitys.ActivityLogin;
 import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityBegin;
@@ -42,14 +43,16 @@ public class ActivityGuidancePersenter extends AppDelegate {
     public void initData() {
         super.initData();
         initwidget();
-        boolean isfirst = (boolean) SpUtil.getSpData(mcontext,"isFirst", false);
-        if (isfirst) {
-            mcontext.startActivity(new Intent(mcontext, ActivityBegin.class));
+
+        boolean isfirst = (boolean) SpUtil.getSpData(mcontext, "isFirst", false);
+        if (!isfirst) {
+            mcontext.startActivity(new Intent(mcontext, ActivityLogin.class));
             //销毁
             ((ActivityGuidance) mcontext).finish();
 
+
         } else {
-            SpUtil.saveData(mcontext,"isFirst", true);
+            SpUtil.saveData(mcontext, "isFirst", true);
             StartAdapter startAdapter = new StartAdapter(imgs, mcontext);
             vpguidance.setAdapter(startAdapter);
             pointe(0);
@@ -79,9 +82,8 @@ public class ActivityGuidancePersenter extends AppDelegate {
                         public void onClick(View v) {
                             switch (v.getId()) {
                                 case R.id.gm_bt_jump:
-                                    mcontext.startActivity(new Intent(mcontext,  ActivityBegin.class));
+                                    mcontext.startActivity(new Intent(mcontext, ActivityLogin.class));
                                     ((ActivityGuidance) mcontext).finish();
-
                                     break;
                             }
                         }
