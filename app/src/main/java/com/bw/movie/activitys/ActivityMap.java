@@ -23,11 +23,10 @@ public class ActivityMap extends AppCompatActivity implements LocationSource, AM
 
     private MapView mMapView;
     private AMap aMap;
+    private CircleImageView map_cv_leftreturn;
     private OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
-    private AMapLocationClientOption mLocationOption;
-    private CircleImageView map_cv_leftreturn;
-
+    private  AMapLocationClientOption mLocationOption;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,13 +75,13 @@ public class ActivityMap extends AppCompatActivity implements LocationSource, AM
 
     private void initwidget() {
         //找控件强转
-        map_cv_leftreturn=(CircleImageView)findViewById(R.id.map_cv_leftreturn);
+        map_cv_leftreturn = (CircleImageView) findViewById(R.id.map_cv_leftreturn);
         //点击事件
         map_cv_leftreturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //销毁本页面activity
-               finish();
+                finish();
             }
         });
     }
@@ -92,7 +91,7 @@ public class ActivityMap extends AppCompatActivity implements LocationSource, AM
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
         mMapView.onDestroy();
-        if(null != mlocationClient){
+        if (null != mlocationClient) {
             mlocationClient.onDestroy();
         }
     }
@@ -118,8 +117,8 @@ public class ActivityMap extends AppCompatActivity implements LocationSource, AM
         mMapView.onSaveInstanceState(outState);
     }
 
-    //定位监听
 
+    //定位监听
     /**
      * 激活定位
      */
