@@ -62,6 +62,7 @@
                     <!--android:text="北京"-->
                     <!--android:textColor="@color/colorBlack" />-->
                 <Spinner
+                    android:id="@+id/cinema_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/city">       <!--通过entries属性指定一个下拉列表项，是一个数组资源-->

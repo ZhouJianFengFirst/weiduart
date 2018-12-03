@@ -35,6 +35,7 @@ public class Pop implements View.OnClickListener{
             popupWindow.setFocusable(true);
             popupWindow.setOutsideTouchable(true);
             popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);//弹出动画
             popupWindow.showAtLocation(popview, Gravity.BOTTOM, 0, 0);//show()
             view.findViewById(R.id.popup_select_take_photo).setOnClickListener(this);
             view.findViewById(R.id.popup_select_take_picture).setOnClickListener(this);
@@ -52,8 +53,10 @@ public class Pop implements View.OnClickListener{
                 listener.onSelectPicture();
 
             } else if (i == R.id.popup_select_take_cancel) {
+                popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);//弹出动画
                 listener.onCancel();
             }
+            popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);//弹出动画
             //点击完了之后隐藏
             popupWindow.dismiss();
         }

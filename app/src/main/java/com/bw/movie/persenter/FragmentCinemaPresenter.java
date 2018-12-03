@@ -13,12 +13,14 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -61,6 +63,8 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
     private int count = 20;
     private int page = 1;
     private boolean isRe = false;
+    private Spinner cinema_spinner;
+    private String str;
 
     @Override
     protected int getLayoutId() {
@@ -75,11 +79,12 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
     @Override
     public void initData() {
         super.initData();
-        //获取城市数据
-        initCityData();
         //获取经纬度
         getlongitude();
+        //初始化控件
         initwidget();
+        //获取城市数据
+        initCityData();
         dohttp(page);
         //实例化适配器
         recommendAdapter = new RecommendAdapter(context);
@@ -110,8 +115,66 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         doAdapterListener();
     }
 
-    //城市数据
+    //城市数据下拉框
     private void initCityData() {
+        str = (String) cinema_spinner.getSelectedItem();
+        cinema_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                //拿到被选择项的值
+                str = (String) cinema_spinner.getSelectedItem();
+                //把该值传给 TextView
+                Logger.i("选择框", str);
+                if(str.equals("天津")){
+                    longitude="117.20";
+                    latitude="39.12";
+                }else if(str.equals("上海")){
+                    longitude="121.47";
+                    latitude="31.23";
+                }else if(str.equals("榆次")){
+                    longitude="112.75";
+                    latitude="37.68";
+                }else if(str.equals("衡水")){
+                    longitude="115.68";
+                    latitude="37.73";
+                }else if(str.equals("太原")){
+                    longitude="112.55";
+                    latitude="37.87";
+                }else if(str.equals("郑州")){
+                    longitude="113.62";
+                    latitude="34.75";
+                }else if(str.equals("石家庄")){
+                    longitude="114.52";
+                    latitude="38.05";
+                }else if(str.equals("深圳")){
+                    longitude="114.05";
+                    latitude="22.55";
+                }else if(str.equals("成都")){
+                    longitude="104.07";
+                    latitude="30.67";
+                }else if(str.equals("广州")){
+                    longitude="113.27";
+                    latitude="23.13";
+                }else if(str.equals("北京")){
+                   return;
+                }
+                //改完后切换数据
+                dohttp1(page, longitude, latitude);
+                toast(context,"已切换到"+str+"经纬度"+longitude+"=="+latitude);
+                isRe = true;
+                nearby.setBackgroundResource(R.drawable.square_purple);
+                recommend.setBackgroundResource(R.drawable.square_gray);
+                nearby.setTextColor(Color.WHITE);
+                recommend.setTextColor(Color.BLACK);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+
+            }
+        });
     }
 
     //获取经纬度
@@ -304,6 +367,8 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         relay = (RelativeLayout) getView(R.id.relay_cinema_search);
         relay_yes = (RelativeLayout) getView(R.id.relay_cinema_search_yes);
         search = (ImageView) getView(R.id.image_cinema_search);
+        cinema_spinner = (Spinner) getView(R.id.cinema_spinner);
+//        getView(R.id.)
         setClick(this, R.id.image_cinema_seat, R.id.text_cinema_recommend, R.id.text_cinema_nearby, R.id.relay_cinema_search, R.id.text_cinema_ss);
     }
 
