@@ -28,5 +28,10 @@
     <color name="color90333333">#90333333</color>
     <color name="color444444">#444444</color>
     <color name="color60333333">#60333333</color>
+    <color name="color59B29C">#59B29C</color>
+    <color name="split_line">#11112233</color>
+    <color name="colorF0F0F0">#F0F0F0</color>
+    <color name="colorB0B0B0">#B0B0B0</color>
+    <color name="color57C5E8">#57C5E8</color>
 
 </resources>
