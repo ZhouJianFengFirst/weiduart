@@ -39,23 +39,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_30"
         android:orientation="horizontal">
-
         <ImageView
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/register_icon_sex" />
+        <com.bw.movie.view.SexBox
 
-        <EditText
             android:id="@+id/register_ed_sex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_7"
-            android:background="@null"
-            android:hint="@string/register_txt_sex"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorWhite" />
+            android:layout_marginLeft="@dimen/dp_10">
+        </com.bw.movie.view.SexBox>
     </LinearLayout>
 
     <View
@@ -75,15 +72,16 @@
             android:layout_height="wrap_content"
             android:src="@drawable/register_icon_date" />
 
-        <EditText
-            android:id="@+id/register_ed_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_7"
-            android:background="@null"
-            android:hint="@string/register_txt_date"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorWhite" />
+         <TextView
+                   android:id="@+id/register_ed_date"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="@dimen/dp_7"
+                   android:background="@null"
+                   android:hint="@string/register_txt_date"
+                   android:textColor="@color/colorWhite"
+                   android:textColorHint="@color/colorWhite" />
+
     </LinearLayout>
 
     <View

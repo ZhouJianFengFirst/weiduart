@@ -156,6 +156,7 @@ public class ActivityLoginPersenter extends AppDelegate {
                 } else if (flag) {
                     SpUtil.saveData(mcontext, "pwd", loginpass);
                     SpUtil.saveData(mcontext, "isRemenber", true);
+
                 } else {
                     SpUtil.clear();
                 }
