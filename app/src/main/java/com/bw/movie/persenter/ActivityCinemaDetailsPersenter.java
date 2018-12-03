@@ -32,6 +32,7 @@ import com.bw.movie.utils.Logger;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,6 +61,8 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private CinemaSessionsAdapter cinemaSessionsAdapter;
     private TextView rescy_text;
     private ImageView seat;
+    private LinearLayout line;
+    private List<CinemaFlowBean.ResultBean> flowlist=new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -96,6 +99,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         flow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
+                putLine(position);
                 dohttpsession(position + 1);
             }
         });
@@ -139,7 +143,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
                 break;
             case 1:
                 CinemaFlowBean cinemaFlowBean = new Gson().fromJson(data, CinemaFlowBean.class);
-                List<CinemaFlowBean.ResultBean> flowlist = cinemaFlowBean.getResult();
+                  flowlist = cinemaFlowBean.getResult();
                 cinemaFlowAdapter.setList(flowlist);
                 break;
             case 2:
@@ -173,6 +177,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         left = (View) getView(R.id.view_cinemadetails_left);
         right = (View) getView(R.id.view_cinemadetails_right);
         flow = (RecyclerCoverFlow) getView(R.id.rcf_cinema_flow);
+        line = (LinearLayout) getView(R.id.layout_cinema_line);
         setClick(this,R.id.image_cinemadetails_seat, R.id.image_cinemadetails_left, R.id.text_cinemadetails_name, R.id.text_cinemadetails_seat, R.id.simp_cinemadetails_simp, R.id.image_cinema_down, R.id.text_cinemadetails_pl, R.id.text_cinemadetails_xq);
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -241,4 +246,20 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         tan.setVisibility(View.VISIBLE);
     }
 
+    public void putLine(int page) {
+        line.removeAllViews();
+        for (int i = 0; i < flowlist.size(); i++) {
+            View view = new View(context);
+            if (page == i) {
+                view.setBackgroundResource(R.drawable.purplechange);
+            } else {
+                view.setBackgroundResource(R.drawable.square_gray);
+            }
+            line.addView(view);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
+            params.weight = 3;
+            params.height = 3;
+            view.setLayoutParams(params);
+        }
+    }
 }

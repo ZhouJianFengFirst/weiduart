@@ -17,6 +17,8 @@ public class Http {
     public static final String CINEMADETAILS_URL = "/movieApi/cinema/v1/findCinemaInfo";
     // 影院推荐与附近
     public static final String CINEMARE_URL = "/movieApi/cinema/v1/findRecommendCinemas";
+    //所有影院
+    public static final String CINEMAALL_URL = "/movieApi/cinema/v1/findAllCinemas";
     //影院搜索
     public static final String CINEMASEARCH_URL = "/movieApi/cinema/v1/findAllCinemas";
     //影院评论

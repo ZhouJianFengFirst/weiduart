@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ import com.bw.movie.entity.DiscussDzBean;
 import com.bw.movie.entity.recommendBean;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
+import com.bw.movie.utils.LocationUtils;
 import com.bw.movie.utils.Logger;
 import com.example.xlistviewlib.XListView;
 import com.google.gson.Gson;
@@ -53,6 +56,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
     private String message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1,cinema_name;
     private int count=20;
     private int page = 1;
+    private boolean isRe=false;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_cinema;
@@ -64,28 +68,46 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
     @Override
     public void initData() {
         super.initData();
+        //获取经纬度
+        getlongitude();
         initwidget();
         dohttp(page);
         //实例化适配器
         recommendAdapter = new RecommendAdapter(context);
         recommendSearchAdapter = new RecommendSearchAdapter(context);
-        list1.setAdapter(recommendAdapter);
         //设置上拉下拉    list1.setPullLoadEnable(true);
         list1.setXListViewListener(new XListView.IXListViewListener() {
             @Override
             public void onRefresh() {
-                dohttp(page);
+                if(isRe){
+                    dohttp1(page, longitude, latitude);
+                }else if(!isRe){
+                    dohttp(page);
+                }
             }
 
             @Override
             public void onLoadMore() {
                 page++;
-                dohttp(page);
+                if(isRe){
+                    dohttp1(page, longitude, latitude);
+                }else if(!isRe){
+                    dohttp(page);
+                }
 //                toast(context,"没有更多了");
             }
         });
        //设置关注的回调
         doAdapterListener();
+    }
+    //获取经纬度
+    private void getlongitude() {
+        Location location = LocationUtils.getInstance(context).showLocation();
+        if (location != null) {
+            longitude = String.valueOf(location.getLatitude());
+            latitude = String.valueOf(location.getLongitude());
+            Log.i("FLY.LocationUtils", "纬度"+latitude+"经度"+longitude);
+        }
     }
     //设置关注的回调
     private void doAdapterListener() {
@@ -141,18 +163,30 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
     }
     //请求推荐网络
     private void dohttp(int page) {
+        if(userId1==null){
+            userId1="18";
+        }
+        if(sessionId1==null){
+            sessionId1="15320748258726";
+        }
         HashMap map = new HashMap();
         map.put("userId",userId1);
         map.put("sessionId", sessionId1);
         map.put("page", page);
         map.put("count",count);
         //请求推荐
-        getString(Http.CINEMARE_URL, 0, map);
+        getString(Http.CINEMAALL_URL, 0, map);
         list1.stopRefresh();
 //        list1.stopLoadMore();
     }
     //请求附近网络
     private void dohttp1(int page, String longitude, String latitude) {
+        if(userId1==null){
+            userId1="18";
+        }
+        if(sessionId1==null){
+            sessionId1="15320748258726";
+        }
         HashMap map1 = new HashMap();
         map1.put("userId",userId1);
         map1.put("sessionId", sessionId1);
@@ -162,6 +196,8 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         map1.put("latitude", latitude);
         //请求附近
         getString(Http.CINEMARE_URL, 1, map1);
+        list1.stopRefresh();
+        Logger.i("网络里的经纬度",longitude+"经度"+latitude);
     }
     //请求搜索
     private void dohttpSeach(String cinema_name) {
@@ -178,16 +214,21 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
     @Override
     public void successString(String data, int type) {
         super.successString(data, type);
-        Logger.d("Tagger",data);
         switch (type) {
             case 0:
-                recommendBean recommendBean = new Gson().fromJson(data, recommendBean.class);
-                List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> nearbyCinemaList = recommendBean.getResult().getNearbyCinemaList();
-                recommendAdapter.setList(nearbyCinemaList);
+                Logger.i("fujinwangluo","我执行了"+data);
+//                recommendBean recommendBean = new Gson().fromJson(data, recommendBean.class);
+//                List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> nearbyCinemaList = recommendBean.getResult().getNearbyCinemaList();
+                CinemaSearchBean cinemaSearchBean1 = new Gson().fromJson(data, CinemaSearchBean.class);
+                List<CinemaSearchBean.ResultBean> searchlist1 = cinemaSearchBean1.getResult();
+                list1.setAdapter(recommendSearchAdapter);
+                recommendSearchAdapter.setList(searchlist1);
                 break;
             case 1:
+                Logger.i("tuijianwangluo","我执行了"+data);
                 recommendBean recommendBean1 = new Gson().fromJson(data, recommendBean.class);
                 List<com.bw.movie.entity.recommendBean.ResultBean.NearbyCinemaListBean> nearbyCinemaList1 = recommendBean1.getResult().getNearbyCinemaList();
+                list1.setAdapter(recommendAdapter);
                 recommendAdapter.setList(nearbyCinemaList1);
                 break;
             case 2:
@@ -251,7 +292,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         switch (view.getId()) {
             case R.id.text_cinema_recommend:
                 dohttp(page);
-                list1.setAdapter(recommendAdapter);
+                isRe=false;
                 nearby.setBackgroundResource(R.drawable.square_gray);
                 recommend.setBackgroundResource(R.drawable.square_purple);
                 recommend.setTextColor(Color.WHITE);
@@ -259,7 +300,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
                 break;
             case R.id.text_cinema_nearby:
                 dohttp1(page, longitude, latitude);
-                list1.setAdapter(recommendAdapter);
+                isRe=true;
                 nearby.setBackgroundResource(R.drawable.square_purple);
                 recommend.setBackgroundResource(R.drawable.square_gray);
                 nearby.setTextColor(Color.WHITE);
@@ -284,7 +325,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
         cinema_name = ed.getText().toString().trim();
         if (TextUtils.isEmpty(cinema_name)) {
             toast(context, "关键字不能为空~");
-            list1.setAdapter(recommendAdapter);
+            dohttp(page);
             return;
         }
         dohttpSeach(cinema_name);

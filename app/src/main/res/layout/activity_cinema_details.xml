@@ -72,6 +72,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_300"
                 android:layout_below="@+id/lin_cinema_lay_xq" />
+
+            <LinearLayout
+                android:id="@+id/layout_cinema_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_3"
+                android:layout_below="@id/rcf_cinema_flow"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/colorD8d8d8"
+                android:orientation="horizontal"></LinearLayout>
         </RelativeLayout>
 
         <!--票价列表-->
@@ -88,16 +97,16 @@
                 android:layout_marginRight="@dimen/dp_20" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/text_cinema_rescy"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="暂未上映…"
-                android:gravity="center"
-                android:textSize="@dimen/sp_30"
-                android:textColor="@color/color666666"
                 android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_20" />
+                android:layout_marginRight="@dimen/dp_20"
+                android:gravity="center"
+                android:text="暂未上映…"
+                android:textColor="@color/color666666"
+                android:textSize="@dimen/sp_30"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/image_cinemadetails_left"
@@ -107,7 +116,9 @@
                 android:layout_marginBottom="@dimen/dp_20"
                 android:layout_marginLeft="@dimen/dp_24"
                 android:src="@drawable/left_return" />
+
         </RelativeLayout>
+
     </LinearLayout>
 
     <!--弹出的详情和评论默认gong-->

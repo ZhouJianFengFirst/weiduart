@@ -142,7 +142,6 @@
             android:orientation="horizontal"
             android:layout_height="@dimen/dp_1"
             android:background="@color/colorD8d8d8">
-
         </LinearLayout>
 
         <RelativeLayout
