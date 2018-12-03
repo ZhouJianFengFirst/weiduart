@@ -121,9 +121,9 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                 //跳转页面上下文
 //                context.startActivity(new Intent(context, ActivityInform.class));
                 //获取登录状态islogin
-                Boolean islogin2 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+                Boolean islogin1 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
                 //判断islogin
-                if (islogin2) {
+                if (islogin1) {
 //                    //吐司已经登录
 //                    toast(context, "已登录");
                     //跳转信息
@@ -140,9 +140,9 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
 //                Toast.makeText(context,"这是我的信息",Toast.LENGTH_SHORT).show();
                 //跳转页面上下文
                 //获取登录状态islogin
-                Boolean islogin1 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+                Boolean islogin2 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
                 //判断islogin
-                if (islogin1) {
+                if (islogin2) {
 //                    //吐司已经登录
 //                    toast(context, "已登录");
                     //跳转信息
@@ -157,20 +157,56 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
             case R.id.me_Liner_attention:
                 //吐司这是我的关注
 //                Toast.makeText(context,"这是我的关注",Toast.LENGTH_SHORT).show();
-                //跳转页面上下文
-                context.startActivity(new Intent(context, ActivityAttention.class));
+                //获取登录状态islogin
+                Boolean islogin3 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+                //判断islogin
+                if (islogin3) {
+//                    //吐司已经登录
+//                    toast(context, "已登录");
+                    //跳转信息
+                    context.startActivity(new Intent(context, ActivityAttention.class));
+                } else {
+                    //吐司已经登录
+                    toast(context, "请先登录");
+                    //跳转页面上下文
+                    context.startActivity(new Intent(context, ActivityLogin.class));
+                }
                 break;
             case R.id.me_Liner_history:
                 //吐司这是我的购票记录
 //                Toast.makeText(context,"这是我的购票记录",Toast.LENGTH_SHORT).show();
-                //跳转页面上下文
-                context.startActivity(new Intent(context, ActivityHistory.class));
+                //获取登录状态islogin
+                Boolean islogin4 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+                //判断islogin
+                if (islogin4) {
+//                    //吐司已经登录
+//                    toast(context, "已登录");
+                    //跳转信息
+                    context.startActivity(new Intent(context, ActivityHistory.class));
+                } else {
+                    //吐司已经登录
+                    toast(context, "请先登录");
+                    //跳转页面上下文
+                    context.startActivity(new Intent(context, ActivityLogin.class));
+                }
                 break;
             case R.id.me_Liner_opinion:
                 //吐司这是我的意见反馈
 //                Toast.makeText(context,"这是我的意见反馈",Toast.LENGTH_SHORT).show();
-                //跳转页面上下文
-                context.startActivity(new Intent(context, ActivityOpinion.class));
+                //获取登录状态islogin
+                Boolean islogin5 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+                //判断islogin
+                if (islogin5) {
+//                    //吐司已经登录
+//                    toast(context, "已登录");
+                    //跳转信息
+                    context.startActivity(new Intent(context, ActivityOpinion.class));
+                } else {
+                    //吐司已经登录
+                    toast(context, "请先登录");
+                    //跳转页面上下文
+                    context.startActivity(new Intent(context, ActivityLogin.class));
+                }
                 break;
             case R.id.me_Liner_newest:
                 //吐司这是我的最新版本
@@ -178,9 +214,9 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                 //跳转页面上下文
 //                context.startActivity(new Intent(context, ActivityNewest.class));
                 //获取登录状态islogin
-                Boolean islogin3 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
+                Boolean islogin6 = (Boolean) SpUtil.getSpData(context, "isLogin", false);
                 //判断islogin
-                if (islogin3) {
+                if (islogin6) {
 //                    //吐司已经登录
 //                    toast(context, "已登录");
                     //请求网络数据方法最新版本
