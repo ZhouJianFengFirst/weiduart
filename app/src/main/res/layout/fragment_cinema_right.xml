@@ -5,9 +5,60 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/right_cinema_recy"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/right_cinema_recy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/image_cinemadetails_write"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/dp_400"
+            android:layout_marginRight="@dimen/dp_24"
+            android:src="@mipmap/cinema_write" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/cinema_lin_pl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="340dp"
+            android:background="@color/color80ebebeb"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/cinema_ed_pl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp_5"
+                android:layout_weight="1"
+                android:background="@drawable/square_gray"
+                android:hint="请输入评论内容…" />
+
+            <TextView
+                android:id="@+id/cinema_te_pl"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_5"
+                android:background="@drawable/square_gray"
+                android:gravity="center"
+                android:text="发表"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_16" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

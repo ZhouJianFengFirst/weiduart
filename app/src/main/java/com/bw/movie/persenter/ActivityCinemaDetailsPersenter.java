@@ -103,7 +103,6 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
                 dohttpsession(position + 1);
             }
         });
-
     }
 
     //请求影院场次

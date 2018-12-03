@@ -5,7 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityCinemaDetails;
@@ -26,7 +31,7 @@ import java.util.List;
  * 时间：2018/11/27 18:52
  * 作用：电影院评论
  */
-public class FragmentCinemaRightPresenter extends AppDelegate {
+public class FragmentCinemaRightPresenter extends AppDelegate implements View.OnClickListener {
 
     private Context context;
     private RecyclerView recy;
@@ -35,6 +40,10 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
     private String count = "20";
     private DiscussAdapter discussAdapter;
     private String message1, status1, sessionId1, userId1, headPic1, nickName1, phone1, birthday1, id1, lastLoginTime1, sex1, cinema_name;
+    private ImageView write;
+    private LinearLayout lin_pl;
+    private TextView te_pl;
+    private EditText ed_pl;
 //    private static int TYPE = 0;//判断是否点赞成功
 
     @Override
@@ -87,7 +96,7 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
         super.successString(data, type);
         switch (type) {
             case 0:
-                Logger.i("平路列表",data);
+                Logger.i("平路列表", data);
                 DiscussBean discussBean = new Gson().fromJson(data, DiscussBean.class);
                 List<DiscussBean.ResultBean> result = discussBean.getResult();
                 discussAdapter.setList(result);
@@ -97,18 +106,42 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
                 DiscussDzBean discussDzBean = new Gson().fromJson(data, DiscussDzBean.class);
                 if (discussDzBean.getMessage().equals("点赞成功")) {
                     Logger.i("评论点赞", discussDzBean.getMessage());
-                }   else if(discussDzBean.getMessage().equals("不能重复点赞")){
-                    toast(context,"您已经点过赞了~");
-                }else if(discussDzBean.getMessage().equals("请先登录")){
+                } else if (discussDzBean.getMessage().equals("不能重复点赞")) {
+                    toast(context, "您已经点过赞了~");
+                } else if (discussDzBean.getMessage().equals("请先登录")) {
                     toast(context, "请先登录");
+                }
+                break;
+            case 2:
+                Logger.i("发表评论", data);
+                DiscussDzBean discussDzBean1 = new Gson().fromJson(data, DiscussDzBean.class);
+                if(discussDzBean1.getMessage().equals("请先登陆")){
+                    toast(context,"登录信息已过期~");
+                    return;
+                }else if(discussDzBean1.getMessage().equals("评论成功")){
+                    toast(context,"评论成功~");
+                    dohttp();
+                    lin_pl.setVisibility(View.GONE);
+                    write.setVisibility(View.VISIBLE);
                 }
                 break;
         }
     }
 
+    @Override
+    public void failString(String msg) {
+        super.failString(msg);
+        Logger.i("请求失败","原因"+msg);
+    }
+
     //找控件的方法
     private void initwidget() {
         recy = (RecyclerView) getView(R.id.right_cinema_recy);
+        write = (ImageView) getView(R.id.image_cinemadetails_write);
+        lin_pl = (LinearLayout) getView(R.id.cinema_lin_pl);
+        te_pl = (TextView) getView(R.id.cinema_te_pl);
+        ed_pl = (EditText) getView(R.id.cinema_ed_pl);
+        setClick(this, R.id.image_cinemadetails_write, R.id.cinema_te_pl);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recy.setLayoutManager(linearLayoutManager);
@@ -132,4 +165,29 @@ public class FragmentCinemaRightPresenter extends AppDelegate {
         dohttp();
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.image_cinemadetails_write:
+                lin_pl.setVisibility(View.VISIBLE);
+                write.setVisibility(View.GONE);
+                break;
+            case R.id.cinema_te_pl:
+                String s = ed_pl.getText().toString();
+                if (TextUtils.isEmpty(s)) {
+                    toast(context, "评论内容不能为空~");
+                    lin_pl.setVisibility(View.GONE);
+                    write.setVisibility(View.VISIBLE);
+                    return;
+                }
+                HashMap hmap = new HashMap();
+                hmap.put("userId", userId1);
+                hmap.put("sessionId", sessionId1);
+                HashMap fmap = new HashMap();
+                fmap.put("cinemaId",id);
+                fmap.put("commentContent",s);
+                handPostString(Http.CINEMARIGHT_WRITE_URL,2,hmap,fmap);
+                break;
+        }
+    }
 }

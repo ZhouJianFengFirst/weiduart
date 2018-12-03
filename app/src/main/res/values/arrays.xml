@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="city">
+    <!--String citys[] = {"北京", "天津", "上海","榆次", "衡水","太原", "郑州", "石家庄", "深圳", "成都", "广州",};-->
+    <item>北京</item>
+    <item>天津</item>
+    <item>上海</item>
+    <item>榆次</item>
+    <item>衡水</item>
+    <item>太原</item>
+    <item>郑州</item>
+    <item>石家庄</item>
+    <item>深圳</item>
+    <item>成都</item>
+    <item>广州</item>
+</string-array>
+
+</resources>

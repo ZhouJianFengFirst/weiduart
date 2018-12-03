@@ -21,8 +21,10 @@ public class Http {
     public static final String CINEMAALL_URL = "/movieApi/cinema/v1/findAllCinemas";
     //影院搜索
     public static final String CINEMASEARCH_URL = "/movieApi/cinema/v1/findAllCinemas";
-    //影院评论
+    //影院评论列表
     public static final String CINEMARIGHT_URL = "/movieApi/cinema/v1/findAllCinemaComment";
+    //影院发表评论
+    public static final String CINEMARIGHT_WRITE_URL = "/movieApi/cinema/v1/verify/cinemaComment";
     //影院评论点赞
     public static final String CINEMARIGHT_DZ_URL = "/movieApi/cinema/v1/verify/cinemaCommentGreat";
     //根据影院id 查影片

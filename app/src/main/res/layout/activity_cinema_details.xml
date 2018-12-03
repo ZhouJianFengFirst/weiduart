@@ -118,7 +118,6 @@
                 android:src="@drawable/left_return" />
 
         </RelativeLayout>
-
     </LinearLayout>
 
     <!--弹出的详情和评论默认gong-->
@@ -190,6 +189,7 @@
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="match_parent"
                 android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_20"
                 android:src="@mipmap/cinema_down" />
 
         </LinearLayout>
