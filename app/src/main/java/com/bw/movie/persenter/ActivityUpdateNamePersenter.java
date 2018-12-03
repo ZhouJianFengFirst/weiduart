@@ -98,7 +98,6 @@ public class ActivityUpdateNamePersenter extends AppDelegate implements View.OnC
             case 0:
                 //打印
                 Logger.i("修改昵称数据","哈哈哈"+data);
-
                 //new gson form
                 UpdateBean updateBean = new Gson().fromJson(data, UpdateBean.class);
                 //判断message 网络异常,请联系管理员

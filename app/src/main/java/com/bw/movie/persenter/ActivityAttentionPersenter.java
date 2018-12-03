@@ -189,6 +189,13 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
                 Logger.i("集合1", data);
                 //new gson from
                 MessageSelectBean messageSelectBean = new Gson().fromJson(data, MessageSelectBean.class);
+                //判断message 网络异常,请联系管理员
+                if("网络异常,请联系管理员".equals(messageSelectBean.getMessage())) {
+                    //吐司网络异常，请联系管理员
+                    toast(context, "网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }
                 //获取对象集合
                 List<MessageSelectBean.ResultBean.MovieListBean> movieList = messageSelectBean.getResult().getMovieList();
                 //去外面实例化设置适配器
@@ -202,6 +209,13 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
                 Logger.i("集合2", data);
                 //new gson from
                 MessageSelectBean messageSelectBean1 = new Gson().fromJson(data, MessageSelectBean.class);
+                //判断message 网络异常,请联系管理员
+                if("网络异常,请联系管理员".equals(messageSelectBean1.getMessage())) {
+                    //吐司网络异常，请联系管理员
+                    toast(context, "网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }
                 //获取对象集合
                 List<MessageSelectBean.ResultBean.CinemasListBean> cinemasList = messageSelectBean1.getResult().getCinemasList();
                 //去外面设置适配器
@@ -214,6 +228,7 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
 
         }
     }
+
     //失败方法
     @Override
     public void failString(String msg) {

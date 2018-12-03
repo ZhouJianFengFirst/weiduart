@@ -219,6 +219,13 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                 Logger.i("版本数据信息查询成功","哈哈"+data);
                 //new gson  data bean
                 NewestBean newestBean = new Gson().fromJson(data, NewestBean.class);
+                //判断message 网络异常,请联系管理员
+                if("网络异常,请联系管理员".equals(newestBean.getMessage())) {
+                    //吐司网络异常，请联系管理员
+                    toast(context, "网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }
                 //吐司最新版本
                 toast(context,"已经是最新版本");
                 break;

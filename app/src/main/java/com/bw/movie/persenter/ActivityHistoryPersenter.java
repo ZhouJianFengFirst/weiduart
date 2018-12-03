@@ -155,6 +155,13 @@ public class ActivityHistoryPersenter extends AppDelegate implements View.OnClic
                 Logger.i("历史数据接口","哈哈哈"+data);
                 //newgsOn  data  bean
                 HistoryBean historyBean = new Gson().fromJson(data, HistoryBean.class);
+                //判断message 网络异常,请联系管理员
+                if("网络异常,请联系管理员".equals(historyBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context,"网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }
                 //去外面设置适配器
                 //在这设置集合
                 historyvAdapter.setList(historyBean.getResult());

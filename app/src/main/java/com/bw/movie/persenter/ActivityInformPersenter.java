@@ -151,6 +151,13 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                 Logger.i("系统信息数据", "哈哈" + data);
                 //new gson from
                 SelectInformBean selectInformBean = new Gson().fromJson(data, SelectInformBean.class);
+                //判断message 网络异常,请联系管理员
+                if("网络异常,请联系管理员".equals(selectInformBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context,"网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }
                 //获取bean类的集合返回值
                  result = selectInformBean.getResult();
                 //设置适配器去外面实例化适配器
@@ -166,6 +173,13 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                 Logger.i("状态改变", "哈哈" + data);
                 //new  gson  data bean
                 InformCheckedBean informCheckedBean = new Gson().fromJson(data, InformCheckedBean.class);
+                //判断message 网络异常,请联系管理员
+                if("网络异常,请联系管理员".equals(informCheckedBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context,"网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }
 //                int status = Integer.parseInt(informCheckedBean.getStatus());
 //                result.get(0).setStatus(status);
 //                informRvAdapter.setList(result);
@@ -175,6 +189,13 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                 Logger.i("系统消息数量", "哈哈" + data);
                 //new  gson  data bean
                 InformNumBean informNumBean = new Gson().fromJson(data, InformNumBean.class);
+                //判断message 网络异常,请联系管理员
+                if("网络异常,请联系管理员".equals(informNumBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context,"网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }
                 //给控件赋值
                 inform_message.setText("系统消息("+informNumBean.getCount()+"条未读)");
                 break;
