@@ -137,9 +137,13 @@ public class ActivityOpinionPersenter extends AppDelegate implements View.OnClic
                     toast(context,"网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
                     return;
+                }else if ("请先登录".equals(opinionBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context, "登录过期,请重新登录");
+                    //吐司完直接返回 不往下执行
+                    return;
                 }else{
-                    //吐司意见反馈成功并且跳转反馈成功页面
-                    toast(context,"意见反馈成功");
+                    //打印log
                     Logger.i("意见反馈成功","成功"+opinionBean.getMessage());
                     //强转上下文跳转
                     context.startActivity(new Intent(context, ActivityOpinionSuccess.class));

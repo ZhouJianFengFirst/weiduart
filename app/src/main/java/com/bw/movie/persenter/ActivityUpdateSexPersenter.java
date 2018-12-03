@@ -153,6 +153,11 @@ public class ActivityUpdateSexPersenter extends AppDelegate implements View.OnCl
                     toast(context, "网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
                     return;
+                }else if ("请先登录".equals(updateBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context, "登录过期,请重新登录");
+                    //吐司完直接返回 不往下执行
+                    return;
                 }
                 Logger.i("修改性别后", updateBean.getResult().getSex() + "");
                 //存到sp

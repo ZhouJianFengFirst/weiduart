@@ -161,6 +161,11 @@ public class ActivityHistoryPersenter extends AppDelegate implements View.OnClic
                     toast(context,"网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
                     return;
+                }else if ("请先登录".equals(historyBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context, "登录过期,请重新登录");
+                    //吐司完直接返回 不往下执行
+                    return;
                 }
                 //去外面设置适配器
                 //在这设置集合

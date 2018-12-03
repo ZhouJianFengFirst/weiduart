@@ -50,7 +50,7 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
     private String page = "1";
     private String count = "5";
     private InformRvAdapter informRvAdapter;
-    private List<SelectInformBean.ResultBean> result=new ArrayList<>();
+    private List<SelectInformBean.ResultBean> result = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -118,10 +118,10 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
         map.put("userId", userId1);
         map.put("sessionId", sessionId1);
         //传入参
-        hmap.put("id", index+"");
+        hmap.put("id", index + "");
         //get header请求
         HeadOrQuertGet(Http.INFORMCHECKED_URL, 1, map, hmap);
-        Logger.i("状态改变id",map.get("userId") + map.get("sessionId") +"状态id"+ hmap.get("id"));
+        Logger.i("状态改变id", map.get("userId") + map.get("sessionId") + "状态id" + hmap.get("id"));
     }
 
     //请求网络数据方法
@@ -152,14 +152,19 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                 //new gson from
                 SelectInformBean selectInformBean = new Gson().fromJson(data, SelectInformBean.class);
                 //判断message 网络异常,请联系管理员
-                if("网络异常,请联系管理员".equals(selectInformBean.getMessage())){
+                if ("网络异常,请联系管理员".equals(selectInformBean.getMessage())) {
                     //吐司网络异常，请联系管理员
-                    toast(context,"网络异常,请联系管理员");
+                    toast(context, "网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }else if ("请先登录".equals(selectInformBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
                 }
                 //获取bean类的集合返回值
-                 result = selectInformBean.getResult();
+                result = selectInformBean.getResult();
                 //设置适配器去外面实例化适配器
                 //给适配器设置集合
                 informRvAdapter.setList(result);
@@ -174,9 +179,14 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                 //new  gson  data bean
                 InformCheckedBean informCheckedBean = new Gson().fromJson(data, InformCheckedBean.class);
                 //判断message 网络异常,请联系管理员
-                if("网络异常,请联系管理员".equals(informCheckedBean.getMessage())){
+                if ("网络异常,请联系管理员".equals(informCheckedBean.getMessage())) {
                     //吐司网络异常，请联系管理员
-                    toast(context,"网络异常,请联系管理员");
+                    toast(context, "网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }else if ("请先登录".equals(informCheckedBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
                 }
@@ -190,14 +200,19 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                 //new  gson  data bean
                 InformNumBean informNumBean = new Gson().fromJson(data, InformNumBean.class);
                 //判断message 网络异常,请联系管理员
-                if("网络异常,请联系管理员".equals(informNumBean.getMessage())){
+                if ("网络异常,请联系管理员".equals(informNumBean.getMessage())) {
                     //吐司网络异常，请联系管理员
-                    toast(context,"网络异常,请联系管理员");
+                    toast(context, "网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }else if ("请先登录".equals(informNumBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
                 }
                 //给控件赋值
-                inform_message.setText("系统消息("+informNumBean.getCount()+"条未读)");
+                inform_message.setText("系统消息(" + informNumBean.getCount() + "条未读)");
                 break;
         }
     }

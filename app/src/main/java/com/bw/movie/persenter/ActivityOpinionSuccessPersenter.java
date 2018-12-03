@@ -39,6 +39,8 @@ public class ActivityOpinionSuccessPersenter extends AppDelegate implements View
         super.initData();
         //初始化数据方法
         initwidget();
+        //吐司意见反馈成功并且跳转反馈成功页面
+        toast(context,"意见反馈成功");
     }
 
     //初始化控件方法
@@ -47,7 +49,6 @@ public class ActivityOpinionSuccessPersenter extends AppDelegate implements View
         opinionsuccess_cv_leftreturn=(CircleImageView)getView(R.id.opinionsuccess_cv_leftreturn);
         //点击事件
         opinionsuccess_cv_leftreturn.setOnClickListener(this);
-
     }
 
     @Override

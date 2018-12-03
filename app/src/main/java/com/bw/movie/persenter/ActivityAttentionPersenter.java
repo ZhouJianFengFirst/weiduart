@@ -195,6 +195,11 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
                     toast(context, "网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
                     return;
+                }else if ("请先登录".equals(messageSelectBean.getMessage())){
+                    //吐司网络异常，请联系管理员
+                    toast(context, "登录过期,请重新登录");
+                    //吐司完直接返回 不往下执行
+                    return;
                 }
                 //获取对象集合
                 List<MessageSelectBean.ResultBean.MovieListBean> movieList = messageSelectBean.getResult().getMovieList();
