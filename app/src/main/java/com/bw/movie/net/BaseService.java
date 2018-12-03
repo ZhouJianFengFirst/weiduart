@@ -39,9 +39,10 @@ public interface BaseService {
     })
     Observable<ResponseBody> post(@Url String url, @QueryMap Map<String, String> map);
 
+    //上传头像
     @Multipart
-    @POST("/file/upload")
-    Observable<ResponseBody> upload(@Part MultipartBody.Part part, @Query("uid") String uid);
+    @POST("/movieApi/user/v1/verify/uploadHeadPic")
+    Observable<ResponseBody> upload(@HeaderMap Map<String,String> map,@Part MultipartBody.Part part);
 
     //get 把querymap 改成headermap注解  headget
     @GET

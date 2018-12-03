@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.File;
 import java.util.Map;
 
 /**
@@ -30,4 +31,7 @@ public interface IDelegate {
     void getString(String url, int type, Map<String, String> map);
 
     void postString(String url, int type, Map<String, String> map);
+
+    //上传头像
+    void upLoad(File part, int type, Map<String, String> map);
 }

@@ -158,7 +158,6 @@ public abstract class AppDelegate implements IDelegate {
 
             @Override
             public void onNext(ResponseBody responseBody) {
-
                 if (responseBody != null) {
                     String data = null;
                     try {
@@ -181,7 +180,35 @@ public abstract class AppDelegate implements IDelegate {
         HttpHelper.getInstens().doPost(url, map, ob);
 
     }
+//上传头像
+    @Override
+    public void upLoad(File part, final int type, Map<String, String> map) {
+        if (map == null) {
+            map = new HashMap<>();
+        }
+        BaseObserver ob = new BaseObserver<ResponseBody>() {
+            @Override
+            public void onNext(ResponseBody responseBody) {
+                if (responseBody != null) {
+                    String data = null;
+                    try {
+                        data = responseBody.string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    successString(data, type);
+                } else {
+                    failString("请求错误");
+                }
+            }
+            @Override
+            public void onError(Throwable e) {
+                failString(e.getMessage());
+            }
+        };
+        HttpHelper.getInstens().upLoad(map,part,ob);
 
+    }
     public void successString(String data, int type) {
 
     }

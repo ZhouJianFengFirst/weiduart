@@ -18,6 +18,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.HeaderMap;
 
 /**
  * 作者：zhoujianfeng
@@ -71,18 +72,18 @@ public class HttpHelper {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ob);
     }
-
-    public void upLoad(File file, String uid, Observer ob) {
+    //上传头像
+    public void upLoad(Map<String,String> map,File file, Observer ob) {
 
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Toast.makeText(mCotext, "sd卡未挂载", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data;charset=utf-8"), file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData("file", "head.jpg", requestBody);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("image", "head.png",requestBody);
         retrofit.create(BaseService.class)
-                .upload(part, uid)
+                .upload(map,part)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ob);

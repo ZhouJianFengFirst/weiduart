@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +24,7 @@ import com.bw.movie.activitys.ActivityUpdateName;
 import com.bw.movie.activitys.ActivityUpdateSex;
 import com.bw.movie.entity.LoginBean;
 import com.bw.movie.entity.MessageSelectBean;
+import com.bw.movie.entity.UploadBean;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.BaseObserver;
 import com.bw.movie.net.Http;
@@ -35,10 +37,21 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 import static android.app.Activity.RESULT_OK;
@@ -75,12 +88,14 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     private String id1;
     private String lastLoginTime1;
     private String sex1;
-    private SimpleDraweeView message_cv_head;
+    private SimpleDraweeView message_sdv_head;
     private TextView message_tv_name;
     private TextView message_tv_sex;
     private TextView message_tv_date;
     private TextView message_tv_phone;
     private TextView message_tv_email;
+    //sd路径
+    private static String path = "/sdcard/myHead/";
 
     @Override
     protected int getLayoutId() {
@@ -104,7 +119,6 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
 
     }
 
-
     //初始化控件方法
     private void initwidget() {
         //获取控件强转提上去
@@ -118,7 +132,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         message_cv_leftreturn = (CircleImageView) getView(R.id.message_cv_leftreturn);
         message_tv_exit = (TextView) getView(R.id.message_tv_exit);
         chage_pop = (LinearLayout) getView(R.id.chage_pop);
-        message_cv_head = (SimpleDraweeView) getView(R.id.message_cv_head);
+        message_sdv_head = (SimpleDraweeView) getView(R.id.message_sdv_head);
         message_tv_name = (TextView) getView(R.id.message_tv_name);
         message_tv_sex = (TextView) getView(R.id.message_tv_sex);
         message_tv_date = (TextView) getView(R.id.message_tv_date);
@@ -264,7 +278,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         });
     }
 
-    //相册
+    //相机
     public void onCode0(int resultCode, Intent data) {
         //判断code==RESULT _OK
         if (resultCode == RESULT_OK) {
@@ -273,7 +287,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         }
     }
 
-    //相机
+    //相册
     public void onCode1(int resultCode) {
         //判断code==RESULT _OK
         if (resultCode == RESULT_OK) {
@@ -286,7 +300,6 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
 
     //裁剪回调方法
     public void onCode2(Intent data) {
-//        Toast.makeText(context,"哈哈"+data,Toast.LENGTH_SHORT).show();
         //先判断data非空
         if (data != null) {
             //data 获取extras 返回值
@@ -298,19 +311,54 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
             //extras .获取p传引号data返回值head  提上去Bitmap类型
             head = extras.getParcelable("data");
             //判断判断head非空
-//            if (head != null) {
+            if (head != null) {
+//                //上面封装的固定路径+引号/+pic图片名
+                String fileNname = path + "/" + pic;
+//                //Bitmap转换uri
+//                Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(((ActivityMessage) context).getContentResolver(), BitmapFactory.decodeFile(fileNname), null, null));
 //                //给头像设置imagebitmap 传head
-////                last_tou.setImageBitmap(head);
-////                //上面封装的固定路径+引号/+pic图片名
-//                String fileNname = path + "/" + pic;
-////                调用储存sd卡的方法 传head
-//                setPicToView(head);
-//                //调用ok上传 传个filename
-//                Log.i("上传的时候",fileNname);
-//                uploadImage(fileNname);
-//                //重新保存头像的方法
+//                message_sdv_head.setImageURI(uri);
+                // 调用储存sd卡的方法 传head
+                setPicToView(head);
+                //上传头像方法
+                uploadImage(fileNname);
+                //重新保存头像的方法
 //                setIcon();
-//            }
+            }
+        }
+    }
+    //上传头像
+    private void uploadImage(String path) {
+        File file = new File(path);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("userId", userId1);
+        map.put("sessionId", sessionId1);
+        upLoad(file, 0, map);
+    }
+
+    @Override
+    public void successString(String data, int type) {
+        super.successString(data, type);
+        switch (type) {
+            case 0:
+                Logger.i("修改头像返回", "哈哈" + data);
+                UploadBean uploadBean = new Gson().fromJson(data, UploadBean.class);
+                if (uploadBean.getMessage().equals("上传成功")) {
+                    toast(context, "上传成功");
+                } else if (uploadBean.getMessage().equals("请先登录")) {
+                    toast(context, "登录过期,请重新登录~");
+                    return;
+                }else   if("网络异常,请联系管理员".equals(uploadBean.getMessage())) {
+                    //吐司网络异常，请联系管理员
+                    toast(context, "网络异常,请联系管理员");
+                    //吐司完直接返回 不往下执行
+                    return;
+                }
+                //重新保存头像
+                SpUtil.saveData(context, "headPic", uploadBean.getHeadPath());
+                //重新给控件赋值
+                message_sdv_head.setImageURI(Uri.parse(uploadBean.getHeadPath()));
+                 break;
         }
     }
 
@@ -331,6 +379,32 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         ((ActivityMessage) context).startActivityForResult(intent, 2);
     }
 
+    //把头像缓存到sd卡的方法
+    private void setPicToView(Bitmap mBitmap) {
+        String sdStatus = Environment.getExternalStorageState();
+        if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+            return;
+        }
+        FileOutputStream b = null;
+        File file = new File(path);
+        file.mkdirs();// 创建文件夹
+        String fileName = path + "/head.png";//图片名字
+        try {
+            b = new FileOutputStream(fileName);
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                //关闭流
+                b.flush();
+                b.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     //获取到的值
     public void setData(String message1, String status1, String sessionId1, String userId1, String headPic1, String nickName1, String phone1, String birthday1, String id1, String lastLoginTime1, String sex1) {
         //this.名称=名称提上去
@@ -345,7 +419,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         this.id1 = id1;
         this.lastLoginTime1 = lastLoginTime1;
         this.sex1 = sex1;
-
+        Logger.i("头像", headPic1);
         //给控件重新赋值
         message_tv_name.setText(nickName1);
         //判断=1=2
@@ -356,6 +430,6 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         }
         message_tv_date.setText(birthday1);
         message_tv_phone.setText(phone1);
-        message_cv_head.setImageURI(Uri.parse(headPic1));
+        message_sdv_head.setImageURI(Uri.parse(headPic1));
     }
 }
