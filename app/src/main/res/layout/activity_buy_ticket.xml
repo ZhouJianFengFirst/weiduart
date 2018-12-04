@@ -1,54 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activitys.ActivityBuyTicket">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200"
-            android:background="@mipmap/cinema_bag"/>
+            android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/lin_cinema_lay_xq"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
-            android:layout_margin="@dimen/dp_24"
-            android:orientation="vertical">
-            <TextView
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_200"
+                android:background="@mipmap/cinema_bag" />
+
+            <LinearLayout
+                android:id="@+id/lin_cinema_lay_xq"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_18"
-                android:text="不会不会"
-                android:textColor="@color/colorWhite"/>
+                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_marginRight="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="不会不会"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_18" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="回家看看扩扩"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+
             <TextView
+                android:id="@+id/cinema_text_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_14"
-                android:text="回家看看扩扩"
-                android:textColor="@color/colorWhite"/>
-        </LinearLayout>
+                android:layout_below="@+id/lin_cinema_lay_xq"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_marginRight="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="电影名称(国语3D)"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_20" />
 
-        <TextView
+            <LinearLayout
+                android:id="@+id/lin_cinema_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cinema_text_name"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_marginRight="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_5"
+                android:background="@color/color80ffffff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/cinema_text_date"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="日期"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_18" />
+
+                <TextView
+                    android:id="@+id/cinema_text_move_hall"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="影厅"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_18" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lin_cinema_date"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_marginRight="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    app:placeholderImage="@drawable/buy_gray" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="可选"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_18" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    app:placeholderImage="@drawable/buy_yellow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="选中"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_18" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    app:placeholderImage="@drawable/buy_purple" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="已售"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_18" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    app:placeholderImage="@drawable/square_line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="最佳观影区"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_18" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"/>
+            android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_73"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_marginRight="@dimen/dp_24"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_34"
+                    android:text="合计:"
+                    android:textColor="@color/color333333"
+                    android:textSize="@dimen/sp_14" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:text="￥"
+                    android:textSize="@dimen/sp_14" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="53.9"
+                    android:textColor="@color/colorModena"
+                    android:textSize="@dimen/sp_36" />
 
-    </RelativeLayout>
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_marginLeft="@dimen/sp_36"
+                    app:placeholderImage="@drawable/pay_ok" />
 
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="@dimen/sp_38"
+                    android:layout_height="@dimen/sp_38"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    app:placeholderImage="@drawable/pay_no" />
 
+            </LinearLayout>
+        </RelativeLayout>
 
+    </LinearLayout>
 
-
-</LinearLayout>
+</RelativeLayout>

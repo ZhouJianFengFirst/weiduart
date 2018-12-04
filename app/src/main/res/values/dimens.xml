@@ -38,6 +38,8 @@
     <dimen name="sp_20">20sp</dimen>
     <!--影院页面需要dp-->
     <dimen name="dp_3">3dp</dimen>
+    <dimen name="dp_73">73dp</dimen>
+    <dimen name="dp_34">34dp</dimen>
     <dimen name="dp_36">36dp</dimen>
     <dimen name="dp_83">83dp</dimen>
     <dimen name="dp_32">32dp</dimen>
@@ -49,6 +51,9 @@
     <dimen name="dp_115">115dp</dimen>
     <dimen name="fudp_20">-20dp</dimen>
     <dimen name="sp_16">16sp</dimen>
+    <dimen name="sp_36">36sp</dimen>
+    <dimen name="sp_38">38sp</dimen>
+    <dimen name="sp_15">15sp</dimen>
     <!--引导页需要dp-->
     <dimen name="dp_205">205dp</dimen>
     <dimen name="dp_105">105dp</dimen>
