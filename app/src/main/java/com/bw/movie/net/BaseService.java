@@ -57,14 +57,18 @@ public interface BaseService {
     Observable<ResponseBody> HeadPost(@HeaderMap Map<String, String> hmap, @Url String url, @FieldMap Map<String, String> fmap);
 
     @GET
-    Observable<ResponseBody> HeadOrQueryGet(@Url String url, @HeaderMap Map<String, String> hap ,@QueryMap Map<String, String> qmap);
+    Observable<ResponseBody> HeadOrQueryGet(@Url String url, @HeaderMap Map<String, String> hap, @QueryMap Map<String, String> qmap);
 
-   @Headers({
-           "ak:0110010010000",
+    @Headers({
+            "ak:0110010010000",
             "Content-Type:application/x-www-form-urlencoded"
-   })
+    })
     @FormUrlEncoded
     @POST
-    Observable<ResponseBody> postRegister(@Url String url, @FieldMap Map<String, String> map);
+    Observable<ResponseBody> postForm(@Url String url, @FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST
+    Observable<ResponseBody> HeadOrFormPost(@Url String url, @HeaderMap Map<String, String> hap, @FieldMap Map<String, String> fmap);
 
 }

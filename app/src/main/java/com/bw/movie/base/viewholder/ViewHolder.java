@@ -9,12 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.squareup.picasso.Picasso;
 
 /**
  * 作者：xujiahui
  * 时间：2018/11/27
  * 作用：ViewHolder(recyclerview的Viewholder)
- * */
+ */
 public class ViewHolder extends RecyclerView.ViewHolder {
     private Context mContext;
     private SparseArray<View> views = new SparseArray<>();
@@ -54,19 +55,27 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         imageView.setImageResource(resource);
         return this;
     }
+
     //设置文本是否显示
     public ViewHolder setVisibilityText(int viewId, int resource) {
         TextView textView = (TextView) getView(viewId);
         textView.setVisibility(resource);
         return this;
     }
+
     public void setClick(View.OnClickListener listener, int... ids) {
         if (ids == null) {
             return;
         }
-        for (int id :ids) {
+        for (int id : ids) {
             getView(id).setOnClickListener(listener);
         }
+    }
+
+    public ViewHolder setImageUrl(int viewId, String url) {
+        ImageView imageView = (ImageView) getView(viewId);
+        Picasso.with(mContext).load(url).fit().into(imageView);
+        return this;
     }
 
     //如果想添加其他的方法请在下方添加参照setText如获取网络图片等....

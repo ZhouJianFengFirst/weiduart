@@ -1,11 +1,12 @@
 package com.bw.movie.entity;
 
 import java.util.List;
+
 /**
-*作者：gaojiabao
-*时间：2018/11/28 14:37
-*作用：附近影院与推荐影院bean
-*/
+ * 作者：gaojiabao
+ * 时间：2018/11/28 14:37
+ * 作用：附近影院与推荐影院bean
+ */
 public class recommendBean {
 
     /**

@@ -113,9 +113,24 @@ public class HttpHelper {
                 .subscribe(ob);
     }
 
-    public void registerPost(String url, Map<String, String> map, Observer ob) {
+    /**
+     * Post提交方式的Form
+     *
+     * @param url
+     * @param map
+     * @param ob
+     */
+    public void PostForm(String url, Map<String, String> map, Observer ob) {
         BaseService baseService = retrofit.create(BaseService.class);
-        baseService.postRegister(url,map)
+        baseService.postForm(url, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ob);
+    }
+
+    public void PostHeandOrFrom(String url, Map<String, String> hmap, Map<String, String> fmap, Observer ob) {
+        BaseService baseService = retrofit.create(BaseService.class);
+        baseService.HeadOrFormPost(url, hmap, fmap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ob);

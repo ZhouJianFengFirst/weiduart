@@ -53,5 +53,16 @@ public class Http {
 
     //影片取消关注
     public static final String CANCEL_MOVIE = "/movieApi/movie/v1/verify/cancelFollowMovie";
+
+    //影院详情
     public static final String FINDMOVIE_URL = "/movieApi/movie/v1/findMoviesDetail";
+
+    //查询评论
+    public static final String FINDALLMOVIE_COMMENT_URL = "/movieApi/movie/v1/findAllMovieComment";
+
+    //点赞
+    public static final String COMMENTGREAT_URL = "/movieApi/movie/v1/verify/movieCommentGreat";
+
+    //更加影片id查询出对应的影院
+    public static final String FINDCINEMAS_BYMOVIEID_URL = "/movieApi/movie/v1/findCinemasListByMovieId";
 }

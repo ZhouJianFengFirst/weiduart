@@ -64,7 +64,6 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
     public void initData() {
         super.initData();
         initWeght();
-
         //网络请求
         doHttp();
     }

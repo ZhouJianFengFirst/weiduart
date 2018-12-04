@@ -153,7 +153,7 @@ public class ActivityRegisterPersenter extends AppDelegate implements SexBox.Sex
         }*/
     /*    map.put("birthday", registerdate);*/
         map.put("email", registeremil);
-        HttpHelper.getInstens().registerPost("/movieApi/user/v1/registerUser", map, new BaseObserver<ResponseBody>() {
+        HttpHelper.getInstens().PostForm("/movieApi/user/v1/registerUser", map, new BaseObserver<ResponseBody>() {
 
             @Override
             public void onNext(ResponseBody responseBody) {

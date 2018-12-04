@@ -9,8 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.contract.Contract;
 import com.bw.movie.entity.HortMovieEntity;
-import com.bw.movie.utils.Logger;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -89,13 +89,9 @@ public class FileListAdapter extends BaseAdapter {
         private RelativeLayout layout_heart;
     }
 
-    public interface BackDataListener {
-        void followMovie(int movieId, boolean state);
-    }
+    private Contract.BackDataListener listener;
 
-    private BackDataListener listener;
-
-    public void setListener(BackDataListener listener) {
+    public void setListener(Contract.BackDataListener listener) {
         this.listener = listener;
     }
 }

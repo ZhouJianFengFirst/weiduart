@@ -30,5 +30,9 @@
     <string name="details">详情</string>
     <string name="register_txt_woman">女</string>
     <string name="register_txt_man">男</string>
+    <string name="comment_name">男</string>
+    <string name="still_name">急招</string>
+    <string name="prevue_name">预告</string>
+    <string name="select_cinema">请选择适合的影院</string>
 
 </resources>

@@ -131,12 +131,14 @@
         android:layout_marginTop="@dimen/sp_12">
 
         <ImageView
+            android:id="@+id/back_finsh"
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_100"
             android:layout_alignParentLeft="true"
             android:src="@drawable/left_return" />
 
         <TextView
+            android:id="@+id/txt_buy"
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_100"
             android:layout_alignParentRight="true"
@@ -145,6 +147,27 @@
             android:text="选票"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/dp_20" />
-
     </RelativeLayout>
+
+
+    <include
+        android:id="@+id/layout_details"
+        layout="@layout/layout_details"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/layout_prevue"
+        layout="@layout/layout_prevue"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/layout_still"
+        layout="@layout/layout_still"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/layou_film"
+        layout="@layout/layout_film"
+        android:visibility="gone" />
+
 </RelativeLayout>

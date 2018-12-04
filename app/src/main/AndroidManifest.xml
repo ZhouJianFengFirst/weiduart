@@ -43,12 +43,16 @@
         <activity android:name=".activitys.ActivityUpdateName" />
         <activity android:name=".activitys.ActivityUpdateSex" />
         <activity android:name=".activitys.ActivityUpdateEmail" />
-        <activity android:name=".activitys.ActivityFilmDetails" />
+        <activity
+            android:name=".activitys.ActivityFilmDetails"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity android:name=".activitys.ActivityBuyTicket" />
-        <activity android:name=".activitys.ActivityMap"/>
-
+        <activity android:name=".activitys.ActivityMap" />
+        <activity android:name=".activitys.ActivityCinemaList"/>
         <meta-data
-            android:name="com.amap.api.v2.apikey" android:value="2d5762dec9c3763eaef3e752171689c5">
+            android:name="com.amap.api.v2.apikey"
+            android:value="2d5762dec9c3763eaef3e752171689c5">
             <!-- 开发者申请的key -->
         </meta-data>
         <!-- 定位需要的服务 -->

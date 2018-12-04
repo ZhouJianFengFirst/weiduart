@@ -11,6 +11,7 @@ import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityFilm;
 import com.bw.movie.activitys.ActivityFilmDetails;
 import com.bw.movie.adapter.FileListAdapter;
+import com.bw.movie.contract.Contract;
 import com.bw.movie.entity.BackJson;
 import com.bw.movie.entity.HortMovieEntity;
 import com.bw.movie.mvp.view.AppDelegate;
@@ -26,7 +27,7 @@ import java.util.Map;
 /**
  *
  */
-public class ActivityFilmPersenter extends AppDelegate implements View.OnClickListener, FileListAdapter.BackDataListener {
+public class ActivityFilmPersenter extends AppDelegate implements View.OnClickListener, Contract.BackDataListener {
 
     private static final int FOLLOW_MOVIE_CONTENT = 0x126;
     private Context context;
@@ -167,15 +168,15 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
                 Intent intent = new Intent(context, ActivityFilmDetails.class);
                 switch (flage) {
                     case 1:
-                        intent.putExtra("movieId", hortMovie.getResult().get(position-1).getId());
+                        intent.putExtra("movieId", hortMovie.getResult().get(position - 1).getId());
                         ((ActivityFilm) context).startActivity(intent);
                         break;
                     case 2:
-                        intent.putExtra("movieId", hortShowing.getResult().get(position-1).getId());
+                        intent.putExtra("movieId", hortShowing.getResult().get(position - 1).getId());
                         ((ActivityFilm) context).startActivity(intent);
                         break;
                     case 3:
-                        intent.putExtra("movieId", upComming.getResult().get(position-1).getId());
+                        intent.putExtra("movieId", upComming.getResult().get(position - 1).getId());
                         ((ActivityFilm) context).startActivity(intent);
                         break;
                 }
@@ -241,6 +242,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
     }
 
     private void followMovieUser(String data) {
+
         BackJson backJson = new Gson().fromJson(data, BackJson.class);
         if ("0000".equals(backJson.getStatus())) {
             toast(context, backJson.getMessage());
@@ -248,6 +250,7 @@ public class ActivityFilmPersenter extends AppDelegate implements View.OnClickLi
         } else {
             toast(context, "取消关注失败");
         }
+
     }
 
     public void doHttp() {

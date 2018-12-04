@@ -84,10 +84,11 @@ public abstract class AppDelegate implements IDelegate {
         HttpHelper.getInstens().headGet(url, map, ob);
 
     }
-    @Override
-    public void handPostString(String url, final int type, Map<String, String> hmap,Map<String, String> fmap) {
 
-        if (fmap == null&&hmap==null){
+    @Override
+    public void handPostString(String url, final int type, Map<String, String> hmap, Map<String, String> fmap) {
+
+        if (fmap == null && hmap == null) {
             hmap = new HashMap<>();
             fmap = new HashMap<>();
         }
@@ -114,9 +115,10 @@ public abstract class AppDelegate implements IDelegate {
                 failString(e.getMessage());
             }
         };
-        HttpHelper.getInstens().headPost(url,hmap,fmap, ob);
+        HttpHelper.getInstens().headPost(url, hmap, fmap, ob);
 
     }
+
     @Override
     public void getString(String url, final int type, Map<String, String> map) {
 
@@ -180,7 +182,8 @@ public abstract class AppDelegate implements IDelegate {
         HttpHelper.getInstens().doPost(url, map, ob);
 
     }
-//上传头像
+
+    //上传头像
     @Override
     public void upLoad(File part, final int type, Map<String, String> map) {
         if (map == null) {
@@ -201,14 +204,16 @@ public abstract class AppDelegate implements IDelegate {
                     failString("请求错误");
                 }
             }
+
             @Override
             public void onError(Throwable e) {
                 failString(e.getMessage());
             }
         };
-        HttpHelper.getInstens().upLoad(map,part,ob);
+        HttpHelper.getInstens().upLoad(map, part, ob);
 
     }
+
     public void successString(String data, int type) {
 
     }
@@ -248,13 +253,32 @@ public abstract class AppDelegate implements IDelegate {
         }
     }
 
-    public void HeadOrQuertGet(String url, final int type, Map<String,String> hmap, Map<String,String> qmap) {
+    public void HeadOrQuertGet(String url, final int type, Map<String, String> hmap, Map<String, String> qmap) {
         HttpHelper.getInstens().headOrQueryGet(url, hmap, qmap, new BaseObserver<ResponseBody>() {
 
             @Override
             public void onNext(ResponseBody responseBody) {
                 try {
-                    successString(responseBody.string(),type);
+                    successString(responseBody.string(), type);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                failString(e.getMessage());
+            }
+        });
+    }
+
+    public void HeadOrFormPost(String url, final int type, Map<String, String> hmap, Map<String, String> fmap) {
+        HttpHelper.getInstens().PostHeandOrFrom(url, hmap, fmap, new BaseObserver<ResponseBody>() {
+
+            @Override
+            public void onNext(ResponseBody responseBody) {
+                try {
+                    successString(responseBody.string(), type);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

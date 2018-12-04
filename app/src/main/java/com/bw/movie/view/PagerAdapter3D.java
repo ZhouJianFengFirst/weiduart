@@ -1,6 +1,7 @@
 package com.bw.movie.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.activitys.ActivityFilmDetails;
+import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.entity.HortMovieEntity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -56,9 +59,17 @@ public class PagerAdapter3D extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.view_3d_image, null);
-        SimpleDraweeView smView = (SimpleDraweeView) view.findViewById(R.id.iv);
+        final SimpleDraweeView smView = (SimpleDraweeView) view.findViewById(R.id.iv);
+        smView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ActivityFilmDetails.class);
+                intent.putExtra("movieId", list.get(position).getId());
+                ((MainActivity) mContext).startActivity(intent);
+            }
+        });
         TextView txtView = view.findViewById(R.id.txt_title);
         txtView.setText(list.get(position).getName());
         smView.setImageURI(list.get(position).getImageUrl());
