@@ -1,3 +1,3 @@
 package com.bw.movie.activitys;
-public    class ActivityCinemaDetaolsList   {
+public    class ActivityCinemaDetaolsList {
 }
