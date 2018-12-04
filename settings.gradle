@@ -1,1 +1,1 @@
-include ':app','xlistviewlib','xrecyclerview'
+include ':app','xlistviewlib','xrecyclerview','SeatTable'

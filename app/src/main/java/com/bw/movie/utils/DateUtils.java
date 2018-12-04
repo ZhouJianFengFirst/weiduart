@@ -3,365 +3,407 @@
  */
 package com.bw.movie.utils;
 
-import android.annotation.SuppressLint;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-
-@SuppressLint("SimpleDateFormat")
-public final class DateUtils {
-
-    public static boolean isEmpty(String str) {
-        if (str == null || str.length() == 0) {
-            return true;
-        }
-        return false;
-    }
-
-
-    public static String format(Date date, String format) {
-
-        if (date == null || isEmpty(format)) {
-            return null;
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.format(date);
-    }
-
-    public static String format(long timeMillion, String format) {
-        if (timeMillion < 31507200000L) {
-            timeMillion *= 1000;
-        }
-        return format(new Date(timeMillion), format);
+public class DateUtils {
+//
+    public static String getTodayDateTime() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+                Locale.getDefault());
+        return format.format(new Date());
     }
 
     /**
-     * @param date   long 20140507
-     * @param format
-     * @return
-     */
-    public static String format(long date, long time, String format) {
-        try {
-            Date d = getDateFromNumber(date, time);
-            return format(d, format);
-        } catch (Exception e) {
-
-        }
-        return null;
-    }
-
-    /**
-     * 处理符合时间格式字符串
+     * 掉此方法输入所要转换的时间输入例如（"2014年06月14日16时09分00秒"）返回时间戳
      *
-     * @param dateStr
-     * @param format
-     * @return
-     */
-    public static Date parser(String dateStr, String format) {
-
-        if (isEmpty(dateStr) || isEmpty(format)) {
-            return null;
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        try {
-            return sdf.parse(dateStr);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            return null;
-        }
-    }
-
-
-    public static String getAmonthAgo(String format) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.MONTH, -1);
-        return format(calendar.getTime(), format);
-    }
-
-    public static String getAmonthAgo(Date endDate, String format) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(endDate);
-        calendar.add(Calendar.MONTH, -1);
-        return format(calendar.getTime(), format);
-    }
-
-    /**
-     * 处理非时间格式字符串如：date=20141010 time=163022
-     *
-     * @param date
      * @param time
      * @return
      */
-    public static Date getDateFromNumber(long date, long time) {
-
-        long year = date / 10000;
-        long month = (date % 10000) / 100;
-        long day = date % 100;
-        long hour = time / 10000;
-        long minute = (time % 10000) / 100;
-        long second = time % 100;
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, (int) year);
-        calendar.set(Calendar.MONTH, (int) month - 1);
-        calendar.set(Calendar.DAY_OF_MONTH, (int) day);
-
-        calendar.set(Calendar.HOUR_OF_DAY, (int) hour);
-        calendar.set(Calendar.MINUTE, (int) minute);
-        calendar.set(Calendar.SECOND, (int) second);
-
-        return calendar.getTime();
+    public String data(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒",
+                Locale.CHINA);
+        Date date;
+        String times = null;
+        try {
+            date = sdr.parse(time);
+            long l = date.getTime();
+            String stf = String.valueOf(l);
+            times = stf.substring(0, 10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return times;
     }
 
-    public static String getDateFromNumber(long date, long time, String format) {
-
-        return DateUtils.format(getDateFromNumber(date, time), format);
-
-    }
-
-    public static boolean isInOneMonth(String startDateStr, String endDateStr) {
-
-        Date start = parser(startDateStr, "yyyyMMdd");
-        if (start == null) {
-            return false;
-        }
-        Date end = parser(endDateStr, "yyyyMMdd");
-        if (end == null) {
-            return false;
-        }
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(end);
-        calendar.add(Calendar.MONTH, -1);
-
-        Date monthAgo = calendar.getTime();
-
-        if (start.compareTo(monthAgo) >= 0) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean isInOneMonth(Date startDate, Date endDate) {
-
-        if (startDate == null || endDate == null) {
-            return false;
-        }
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(endDate);
-        calendar.add(Calendar.MONTH, -1);
-
-        Date monthAgo = calendar.getTime();
-
-        if (startDate.compareTo(monthAgo) >= 0) {
-            return true;
-        }
-        return false;
+    public static String getTodayDateTimes() {
+        SimpleDateFormat format = new SimpleDateFormat("MM月dd日",
+                Locale.getDefault());
+        return format.format(new Date());
     }
 
     /**
-     * @return null 时间格式错误
-     */
-    public static String getTimeAgoString(String dateStr, String paramFormat) {
-        Date date = parser(dateStr, paramFormat);
-        if (date == null) {
-            return dateStr;
-        }
-        long timeMillion = date.getTime();
-        String result = getTimeAgoString(timeMillion, paramFormat);
-        if (isEmpty(result)) {
-            return dateStr;
-        }
-        return result;
-    }
-
-    /**
-     * @return null 时间格式错误
-     */
-    public static String getTimeAgoString(long timeMillion, String resultFormat) {
-
-        if (timeMillion < 31507200000L) {
-            timeMillion *= 1000;
-        }
-        long currTime = System.currentTimeMillis();
-
-        long timeSub = currTime - timeMillion;
-        if (timeSub < 0) {
-            return "刚刚";
-        }
-
-        if (timeSub < (3 * 60 * 1000)) {
-            return "刚刚";
-        }
-
-        if (timeSub < (60 * 60 * 1000)) {
-            long t = timeSub / (60 * 1000);
-            return t + "分钟前";
-        }
-
-//		if(timeSub < (60 * 60 * 1000)){
-//			return "半小时前";
-//		}
-
-        if (timeSub < (24 * 60 * 60 * 1000)) {
-            long t = timeSub / (60 * 60 * 1000);
-            return t + "小时前";
-        }
-
-        Calendar yesterday = Calendar.getInstance();
-        yesterday.setTimeInMillis(System.currentTimeMillis());
-        yesterday.add(Calendar.DAY_OF_MONTH, -1);
-        yesterday.set(Calendar.HOUR, 0);
-        yesterday.set(Calendar.MINUTE, 0);
-        yesterday.set(Calendar.SECOND, 0);
-        yesterday.set(Calendar.MILLISECOND, 0);
-
-        if (timeMillion > yesterday.getTimeInMillis()) {
-
-            return "昨天" + format(timeMillion, "HH:mm");
-        }
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timeMillion);
-        int defYear = calendar.get(Calendar.YEAR);
-
-        Calendar currCalendar = Calendar.getInstance();
-        currCalendar.setTimeInMillis(System.currentTimeMillis());
-        int currYear = currCalendar.get(Calendar.YEAR);
-        if (defYear == currYear) {
-            return format(timeMillion, "MM-dd HH:mm");
-        } else {
-            return format(timeMillion, "yyyy-MM-dd");
-        }
-
-    }
-
-
-    public static Date getDateByMillis(long time) {
-        if (time <= 0) {
-            return null;
-        }
-        Date dat = new Date(time);
-        return dat;
-    }
-
-    public static String getStringDate(Date date) {
-
-        if (date == null) {
-            return "";
-        }
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        return format.format(date);
-
-
-    }
-
-    public static String getStringDateByMillis(long time) {
-
-        return getStringDate(getDateByMillis(time));
-
-
-    }
-
-    public static boolean isToday(long time) {
-        Calendar calendar = Calendar.getInstance();
-
-
-        return true;
-
-    }
-
-    /**
-     * 知我
-     */
-
-    private static final SimpleDateFormat FORMATTER_INPUT = new SimpleDateFormat(
-            "EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
-    private static final SimpleDateFormat FORMATTER_OUTPUT = new SimpleDateFormat(
-            "yyyy年MM月dd日 HH:mm");
-    private static final SimpleDateFormat FORMATTER_INPUT2 = new SimpleDateFormat(
-            "yyyyMMddHHmmss");
-    private static final SimpleDateFormat FORMATTER_INPUT3 = new SimpleDateFormat(
-            "yyyy-MM-dd");
-
-    /**
-     * 格式化日期
+     * 获取当前时间
      *
-     * @param date
      * @return
      */
-    public static String paserDate(String date) {
+    public static String getCurrentTime_Today() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        return sdf.format(new java.util.Date());
+    }
+
+    /**
+     * 调此方法输入所要转换的时间输入例如（"2014-06-14-16-09-00"）返回时间戳
+     *
+     * @param time
+     * @return
+     */
+    public static String dataOne(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss",
+                Locale.CHINA);
+        Date date;
+        String times = null;
         try {
-            Date myDate = FORMATTER_INPUT2.parse(date);
-            Date curDate = new Date();
-            long dif = curDate.getTime() - myDate.getTime();
+            date = sdr.parse(time);
+            long l = date.getTime();
+            String stf = String.valueOf(l);
+            times = stf.substring(0, 10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return times;
+    }
 
-            long temp = 0l;
-            if (isToday(myDate)) {
-                if (dif < 0) {
-                    return "1秒前";
-                }
+    public static String getTimestamp(String time, String type) {
+        SimpleDateFormat sdr = new SimpleDateFormat(type, Locale.CHINA);
+        Date date;
+        String times = null;
+        try {
+            date = sdr.parse(time);
+            long l = date.getTime();
+            String stf = String.valueOf(l);
+            times = stf.substring(0, 10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return times;
+    }
 
-                temp = dif / (60L * 60L * 1000L);
-                if (temp > 0) {
+    /**
+     * 调用此方法输入所要转换的时间戳输入例如（1402733340）输出（"2014年06月14日16时09分00秒"）
+     *
+     * @param time
+     * @return
+     */
+    public static String times(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        return times;
 
-                    return temp + "小时前";
-                }
-                temp = dif / (60 * 1000L);
-                if (temp > 0) {
+    }
 
-                    return temp + "分钟前";
-                }
-                temp = dif / (1000L);
-                if (temp > 0) {
-                    return temp + "秒前";
-                }
-            }
+    /**
+     * 调用此方法输入所要转换的时间戳输入例如（1402733340）输出（"2014-06-14  16:09:00"）
+     *
+     * @param time
+     * @return
+     */
+    public static String timedate(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        return times;
 
-            return FORMATTER_OUTPUT.format(myDate);
+    }
 
-        } catch (ParseException e) {
+    /**
+     * 调用此方法输入所要转换的时间戳输入例如（1402733340）输出（"2014年06月14日16:09"）
+     *
+     * @param time
+     * @return
+     */
+    public static String timet(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy年MM月dd日  HH:mm");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        return times;
+
+    }
+
+    /**
+     * @param time斜杠分开
+     * @return
+     */
+    public static String timeslash(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy/MM/dd,HH:mm");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        return times;
+
+    }
+
+    /**
+     * @param time斜杠分开
+     * @return
+     */
+    public static String timeslashData(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy/MM/dd");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+//		int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(lcc * 1000L));
+        return times;
+
+    }
+
+    /**
+     * @param time斜杠分开
+     * @return
+     */
+    public static String timeMinute(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("HH:mm");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        return times;
+
+    }
+
+    public static String tim(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyyMMdd HH:mm");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        return times;
+    }
+
+    public static String time(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        return times;
+    }
+
+    // 调用此方法输入所要转换的时间戳例如（1402733340）输出（"2014年06月14日16时09分00秒"）
+    public static String times(long timeStamp) {
+        SimpleDateFormat sdr = new SimpleDateFormat("MM月dd日  #  HH:mm");
+        return sdr.format(new Date(timeStamp)).replaceAll("#",
+                getWeek(timeStamp));
+
+    }
+
+    private static String getWeek(long timeStamp) {
+        int mydate = 0;
+        String week = null;
+        Calendar cd = Calendar.getInstance();
+        cd.setTime(new Date(timeStamp));
+        mydate = cd.get(Calendar.DAY_OF_WEEK);
+        // 获取指定日期转换成星期几
+        if (mydate == 1) {
+            week = "周日";
+        } else if (mydate == 2) {
+            week = "周一";
+        } else if (mydate == 3) {
+            week = "周二";
+        } else if (mydate == 4) {
+            week = "周三";
+        } else if (mydate == 5) {
+            week = "周四";
+        } else if (mydate == 6) {
+            week = "周五";
+        } else if (mydate == 7) {
+            week = "周六";
+        }
+        return week;
+    }
+
+    // 并用分割符把时间分成时间数组
+
+    /**
+     * 调用此方法输入所要转换的时间戳输入例如（1402733340）输出（"2014-06-14-16-09-00"）
+     *
+     * @param time
+     * @return
+     */
+    public String timesOne(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        return times;
+
+    }
+
+    public static String timesTwo(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        return times;
+
+    }
+
+    /**
+     * 并用分割符把时间分成时间数组
+     *
+     * @param time
+     * @return
+     */
+    public static String[] timestamp(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        String[] fenge = times.split("[年月日时分秒]");
+        return fenge;
+    }
+
+    /**
+     * 根据传递的类型格式化时间
+     *
+     * @param str
+     * @param type 例如：yy-MM-dd
+     * @return
+     */
+    public static String getDateTimeByMillisecond(String str, String type) {
+
+        Date date = new Date(Long.valueOf(str));
+
+        SimpleDateFormat format = new SimpleDateFormat(type);
+
+        String time = format.format(date);
+
+        return time;
+    }
+
+    /**
+     * 分割符把时间分成时间数组
+     *
+     * @param time
+     * @return
+     */
+    public String[] division(String time) {
+
+        String[] fenge = time.split("[年月日时分秒]");
+
+        return fenge;
+
+    }
+
+    /**
+     * 输入时间戳变星期
+     *
+     * @param time
+     * @return
+     */
+    public static String changeweek(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        Date date = null;
+        int mydate = 0;
+        String week = null;
+        try {
+            date = sdr.parse(times);
+            Calendar cd = Calendar.getInstance();
+            cd.setTime(date);
+            mydate = cd.get(Calendar.DAY_OF_WEEK);
+            // 获取指定日期转换成星期几
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return null;
+        if (mydate == 1) {
+            week = "星期日";
+        } else if (mydate == 2) {
+            week = "星期一";
+        } else if (mydate == 3) {
+            week = "星期二";
+        } else if (mydate == 4) {
+            week = "星期三";
+        } else if (mydate == 5) {
+            week = "星期四";
+        } else if (mydate == 6) {
+            week = "星期五";
+        } else if (mydate == 7) {
+            week = "星期六";
+        }
+        return week;
+
     }
 
     /**
-     * 判断传入的日期是否是今天
+     * 获取日期和星期　例如：２０１４－１１－１３　１１:００　星期一
      *
-     * @param mDate
+     * @param time
+     * @param type
      * @return
      */
-    public static boolean isToday(Date mDate) {
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd");
-        String todayStr = format.format(date);
-        String mStr = format.format(mDate);
+    public static String getDateAndWeek(String time, String type) {
+        return getDateTimeByMillisecond(time + "000", type) + "  "
+                + changeweekOne(time);
+    }
 
-        SimpleDateFormat mm = new SimpleDateFormat("MM");
-        SimpleDateFormat yy = new SimpleDateFormat("yyyy");
-        if (!(yy.format(date).equals(yy.format(mDate)))) {
-            return false;
-        } else {
-
-            if (!(mm.format(date).equals(mm.format(mDate)))) {
-                return false;
-            } else {
-                if (todayStr.equals(mStr)) {
-                    return true;
-                } else {
-                    return false;
-                }
-
-            }
+    /**
+     * 输入时间戳变星期
+     *
+     * @param time
+     * @return
+     */
+    public static String changeweekOne(String time) {
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        Date date = null;
+        int mydate = 0;
+        String week = null;
+        try {
+            date = sdr.parse(times);
+            Calendar cd = Calendar.getInstance();
+            cd.setTime(date);
+            mydate = cd.get(Calendar.DAY_OF_WEEK);
+            // 获取指定日期转换成星期几
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+        if (mydate == 1) {
+            week = "星期日";
+        } else if (mydate == 2) {
+            week = "星期一";
+        } else if (mydate == 3) {
+            week = "星期二";
+        } else if (mydate == 4) {
+            week = "星期三";
+        } else if (mydate == 5) {
+            week = "星期四";
+        } else if (mydate == 6) {
+            week = "星期五";
+        } else if (mydate == 7) {
+            week = "星期六";
+        }
+        return week;
+
     }
 
     /**
@@ -370,63 +412,87 @@ public final class DateUtils {
      * @return
      */
     public static String getCurrentTime() {
-        Date date = new Date();
-        return paserDate(FORMATTER_INPUT2.format(date));
-    }
-
-    public static String getCurrentTime2() {
-        Date date = new Date();
-        SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
-        return ymd.format(date);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return sdf.format(new java.util.Date());
     }
 
     /**
-     * 由手机时间判断是否是周末
-     */
-    public static boolean isWeekEnd() {
-
-        int week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        // Log.d("Time", "week="+week);
-        if (week == Calendar.SATURDAY || week == Calendar.SUNDAY)
-            return true;
-        else
-            return false;
-
-    }
-
-    /**
-     * 判断当前日期是星期几
+     * 输入日期如（2014年06月14日16时09分00秒）返回（星期数）
      *
-     * @param
-     * @return dayForWeek 判断结果
-     * @Exception 发生异常
+     * @param time
+     * @return
      */
-    public static String dayForWeek(Calendar c) {
-        int dayForWeek = 0;
-        if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-            dayForWeek = 7;
-        } else {
-            dayForWeek = c.get(Calendar.DAY_OF_WEEK) - 1;
+    public String week(String time) {
+        Date date = null;
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+        int mydate = 0;
+        String week = null;
+        try {
+            date = sdr.parse(time);
+            Calendar cd = Calendar.getInstance();
+            cd.setTime(date);
+            mydate = cd.get(Calendar.DAY_OF_WEEK);
+            // 获取指定日期转换成星期几
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        switch (dayForWeek) {
-            case 1:
-                return "周一";
-            case 2:
-                return "周二";
-            case 3:
-                return "周三";
-            case 4:
-                return "周四";
-            case 5:
-                return "周五";
-            case 6:
-                return "周六";
-            case 7:
-                return "周日";
-            default:
-                return "";
+        if (mydate == 1) {
+            week = "星期日";
+        } else if (mydate == 2) {
+            week = "星期一";
+        } else if (mydate == 3) {
+            week = "星期二";
+        } else if (mydate == 4) {
+            week = "星期三";
+        } else if (mydate == 5) {
+            week = "星期四";
+        } else if (mydate == 6) {
+            week = "星期五";
+        } else if (mydate == 7) {
+            week = "星期六";
         }
+        return week;
     }
 
-
+    /**
+     * 输入日期如（2014-06-14-16-09-00）返回（星期数）
+     *
+     * @param time
+     * @return
+     */
+    public String weekOne(String time) {
+        Date date = null;
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        int mydate = 0;
+        String week = null;
+        try {
+            date = sdr.parse(time);
+            Calendar cd = Calendar.getInstance();
+            cd.setTime(date);
+            mydate = cd.get(Calendar.DAY_OF_WEEK);
+            // 获取指定日期转换成星期几
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if (mydate == 1) {
+            week = "星期日";
+        } else if (mydate == 2) {
+            week = "星期一";
+        } else if (mydate == 3) {
+            week = "星期二";
+        } else if (mydate == 4) {
+            week = "星期三";
+        } else if (mydate == 5) {
+            week = "星期四";
+        } else if (mydate == 6) {
+            week = "星期五";
+        } else if (mydate == 7) {
+            week = "星期六";
+        }
+        return week;
+    }
 }
+
+

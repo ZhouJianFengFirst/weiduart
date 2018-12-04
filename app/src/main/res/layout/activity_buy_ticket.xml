@@ -17,7 +17,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_200"
+                android:layout_height="@dimen/dp_240"
                 android:background="@mipmap/cinema_bag" />
 
             <LinearLayout
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_24"
                 android:layout_marginRight="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_24"
                 android:orientation="vertical">
 
                 <TextView
@@ -95,6 +95,7 @@
                 android:layout_marginLeft="@dimen/dp_24"
                 android:layout_marginRight="@dimen/dp_24"
                 android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <com.facebook.drawee.view.SimpleDraweeView
@@ -158,14 +159,27 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_73"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/dp_20">
+                <com.qfdqc.views.seattable.SeatTable
+                    android:id="@+id/seatView"
+                    android:background="#ffffff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_90"
                 android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/fudp_20"
                 android:layout_marginLeft="@dimen/dp_24"
                 android:layout_marginRight="@dimen/dp_24"
+                android:background="@drawable/my_item"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
