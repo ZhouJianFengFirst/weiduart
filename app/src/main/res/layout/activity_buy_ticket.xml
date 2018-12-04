@@ -6,11 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".activitys.ActivityBuyTicket">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="@dimen/sp_30"
-        android:text="购票页面"
-        android:gravity="center"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:background="@mipmap/cinema_bag"/>
+
+        <LinearLayout
+            android:id="@+id/lin_cinema_lay_xq"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:layout_margin="@dimen/dp_24"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_18"
+                android:text="不会不会"
+                android:textColor="@color/colorWhite"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_14"
+                android:text="回家看看扩扩"
+                android:textColor="@color/colorWhite"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"/>
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
 </LinearLayout>
