@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityResetPwd;
 import com.bw.movie.mvp.view.AppDelegate;
+import com.bw.movie.utils.EncryptUtil;
 import com.bw.movie.utils.Logger;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -138,6 +139,8 @@ public class ActivityResetPwdPersenter extends AppDelegate implements View.OnCli
         this.lastLoginTime1 = lastLoginTime1;
         this.sex1 = sex1;
         this.pwd1 = pwd1;
-        Logger.i("旧密码", pwd1 + "回家");
+        //解密密码
+        String decrypt = EncryptUtil.decrypt(pwd1);
+        Logger.i("旧密码", decrypt + "回家");
     }
 }
