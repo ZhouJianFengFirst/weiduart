@@ -8,8 +8,8 @@ import com.bw.movie.base.recycle.RecycleAdapter;
 import com.bw.movie.base.viewholder.ViewHolder;
 import com.bw.movie.contract.Contract;
 import com.bw.movie.entity.CommentEntity;
-import com.bw.movie.utils.DateUtils;
 import com.bw.movie.utils.Logger;
+import com.example.xlistviewlib.DateUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 public class CommentAdapter extends RecycleAdapter<CommentEntity.ResultBean> {

@@ -15,7 +15,6 @@ import com.bw.movie.entity.LoginBean;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.BaseObserver;
 import com.bw.movie.net.HttpHelper;
-import com.bw.movie.utils.DateUtils;
 import com.bw.movie.utils.EncryptUtil;
 import com.bw.movie.utils.Logger;
 import com.bw.movie.view.SexBox;

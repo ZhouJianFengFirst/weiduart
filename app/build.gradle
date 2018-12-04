@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.bw.movie"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -16,6 +16,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 greendao {
@@ -48,4 +52,7 @@ dependencies {
     implementation 'com.yanzhenjie:permission:2.0.0-rc4'
     implementation 'com.bigkoo:pickerview:2.1.1'
     implementation project(':SeatTable')
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
+
 }
