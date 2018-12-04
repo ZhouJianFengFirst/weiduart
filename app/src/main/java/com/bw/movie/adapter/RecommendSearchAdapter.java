@@ -97,12 +97,12 @@ public class RecommendSearchAdapter extends BaseAdapter {
             public void onClick(View view) {
                 if(list.get(i).isFollowCinema()){
                     list.get(i).setFollowCinema(false);
-                    setOnHeart.success(list,i);
+                    setOnHeart.success(list, list.get(i).getId());
 //                    setOnHeartQg.success(list,i);
                 }else{
                     list.get(i).setFollowCinema(true);
 //                    setOnHeart.success(list,i);
-                    setOnHeartQg.success(list,i);
+                    setOnHeartQg.success(list, list.get(i).getId());
                 }
                 notifyDataSetChanged();
             }

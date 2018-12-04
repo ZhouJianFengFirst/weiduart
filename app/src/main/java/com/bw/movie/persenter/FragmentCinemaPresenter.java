@@ -197,7 +197,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
                 hmap.put("userId", userId1);
                 hmap.put("sessionId", sessionId1);
                 HashMap qmap = new HashMap();
-                qmap.put("cinemaId", "1");
+                qmap.put("cinemaId", i);
                 HeadOrQuertGet(Http.CINEMAHEART_URL, 3, hmap, qmap);
             }
         });
@@ -209,7 +209,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
                 hmap.put("userId", userId1);
                 hmap.put("sessionId", sessionId1);
                 HashMap qmap = new HashMap();
-                qmap.put("cinemaId", "1");
+                qmap.put("cinemaId", i);
                 HeadOrQuertGet(Http.CINEMAHEART_NO_URL, 3, hmap, qmap);
             }
         });
@@ -221,7 +221,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
                 hmap.put("userId", userId1);
                 hmap.put("sessionId", sessionId1);
                 HashMap qmap = new HashMap();
-                qmap.put("cinemaId", "1");
+                qmap.put("cinemaId", i);
                 HeadOrQuertGet(Http.CINEMAHEART_NO_URL, 4, hmap, qmap);
             }
         });
@@ -233,7 +233,7 @@ public class FragmentCinemaPresenter extends AppDelegate implements View.OnClick
                 hmap.put("userId", userId1);
                 hmap.put("sessionId", sessionId1);
                 HashMap qmap = new HashMap();
-                qmap.put("cinemaId", "1");
+                qmap.put("cinemaId", i);
                 HeadOrQuertGet(Http.CINEMAHEART_URL, 4, hmap, qmap);
             }
         });

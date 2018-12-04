@@ -47,5 +47,5 @@ dependencies {
     implementation project(':xrecyclerview')
     implementation 'com.yanzhenjie:permission:2.0.0-rc4'
     implementation 'com.bigkoo:pickerview:2.1.1'
-
+    implementation project(':SeatTable')
 }
