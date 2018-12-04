@@ -13,4 +13,8 @@ public interface Contract {
         void backFocus(boolean focus, int CinemaId);
     }
 
+    interface BackMovieIdListener {
+        void backMovieId(int id);
+    }
+
 }

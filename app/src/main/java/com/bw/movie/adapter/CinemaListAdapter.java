@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityCinemaDetails;
+import com.bw.movie.activitys.ActivityCinemaDetaolsList;
 import com.bw.movie.contract.Contract;
 import com.bw.movie.entity.CinemaListBean;
 import com.bw.movie.entity.recommendBean;
@@ -84,10 +85,11 @@ public class CinemaListAdapter extends BaseAdapter {
         myViewHolder.lin_cinema_lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ActivityCinemaDetails.class);
-                intent.putExtra("id", list.get(i).getId() + "");
+                backMovieIdListener.backMovieId(list.get(i).getId());
+                /*Intent intent = new Intent(context, ActivityCinemaDetaolsList.class);
+                intent.putExtra("movieId", list.get(i).getId());
                 //跳转影院详情
-                context.startActivity(intent);
+                context.startActivity(intent);*/
             }
         });
         //喜欢点击事件
@@ -109,6 +111,12 @@ public class CinemaListAdapter extends BaseAdapter {
     }
 
     public Contract.BackIsFocusListener listener;
+
+    public Contract.BackMovieIdListener backMovieIdListener;
+
+    public void setBackMovieIdListener(Contract.BackMovieIdListener backMovieIdListener) {
+        this.backMovieIdListener = backMovieIdListener;
+    }
 
     public void setListener(Contract.BackIsFocusListener listener) {
         this.listener = listener;

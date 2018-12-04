@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.activitys.ActivityCinemaDetaolsList;
 import com.bw.movie.activitys.ActivityCinemaList;
 import com.bw.movie.adapter.CinemaListAdapter;
 import com.bw.movie.contract.Contract;
@@ -19,7 +20,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ActivityCinemaListPersenter extends AppDelegate implements Contract.BackIsFocusListener {
+public class ActivityCinemaListPersenter extends AppDelegate implements Contract.BackIsFocusListener, Contract.BackMovieIdListener {
 
     private static final int FINDCINEMAS_BYMOVIE_CONTENT = 0x201;
     private static final int CINEMAHEART_CONTENT = 0x202;
@@ -29,7 +30,7 @@ public class ActivityCinemaListPersenter extends AppDelegate implements Contract
     private XListView listView;
     private CinemaListAdapter cinemaListAdapter;
     private String filmName;
-    private int movieId;
+    private int filmId;
 
     @Override
     public void initData() {
@@ -37,13 +38,13 @@ public class ActivityCinemaListPersenter extends AppDelegate implements Contract
 
         //获取movieId
         Intent intent = ((ActivityCinemaList) context).getIntent();
-        movieId = intent.getIntExtra("movieId", 0);
+        filmId = intent.getIntExtra("filmId", 0);
         filmName = intent.getStringExtra("filmName");
         //初始化控件
         initWeight();
 
         //网络请求
-        getCinemaData(movieId);
+        getCinemaData(filmId);
 
     }
 
@@ -66,16 +67,16 @@ public class ActivityCinemaListPersenter extends AppDelegate implements Contract
         //初始化adapter
         cinemaListAdapter = new CinemaListAdapter(context);
         cinemaListAdapter.setListener(this);
+        cinemaListAdapter.setBackMovieIdListener(this);
         listView.setAdapter(cinemaListAdapter);
     }
 
     /**
-     *
-     * @param movieId
+     * @param filmId
      */
-    private void getCinemaData(int movieId) {
+    private void getCinemaData(int filmId) {
         Map<String, String> map = new HashMap<>();
-        map.put("movieId", movieId + "");
+        map.put("movieId", filmId + "");
         getString(Http.FINDCINEMAS_BYMOVIEID_URL, FINDCINEMAS_BYMOVIE_CONTENT, map);
     }
 
@@ -159,7 +160,7 @@ public class ActivityCinemaListPersenter extends AppDelegate implements Contract
         BackJson backJson = new Gson().fromJson(data, BackJson.class);
         if ("0000".equals(backJson.getStatus())) {
             toast(context, backJson.getMessage());
-            getCinemaData(movieId);
+            getCinemaData(filmId);
         } else {
             toast(context, backJson.getMessage());
         }
@@ -170,9 +171,18 @@ public class ActivityCinemaListPersenter extends AppDelegate implements Contract
         BackJson backJson = new Gson().fromJson(data, BackJson.class);
         if ("0000".equals(backJson.getStatus())) {
             toast(context, backJson.getMessage());
-            getCinemaData(movieId);
+            getCinemaData(filmId);
         } else {
             toast(context, backJson.getMessage());
         }
+    }
+
+    @Override
+    public void backMovieId(int movieId) {
+        Intent intent = new Intent(context, ActivityCinemaDetaolsList.class);
+        intent.putExtra("movieId", movieId);
+        intent.putExtra("filmId", filmId);
+        //跳转影院详情
+        context.startActivity(intent);
     }
 }

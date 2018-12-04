@@ -65,4 +65,6 @@ public class Http {
 
     //更加影片id查询出对应的影院
     public static final String FINDCINEMAS_BYMOVIEID_URL = "/movieApi/movie/v1/findCinemasListByMovieId";
+
+
 }

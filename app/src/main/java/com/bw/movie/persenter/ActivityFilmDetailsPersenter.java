@@ -374,7 +374,7 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
 
     private void BuyTicket() {
         Intent intent = new Intent(mContext, ActivityCinemaList.class);
-        intent.putExtra("movieId", movieId);
+        intent.putExtra("filmId", movieId);
         intent.putExtra("filmName", filmMessageEntity.getResult().getName());
         ((ActivityFilmDetails) mContext).startActivity(intent);
     }

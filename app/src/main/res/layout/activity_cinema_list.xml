@@ -41,13 +41,13 @@
     </RelativeLayout>
 
 
-    <ListView
-        android:id="@+id/list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/show_cinema_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/linear"
         android:layout_marginLeft="@dimen/dp_24"
         android:layout_marginRight="@dimen/dp_24"
-        android:layout_marginTop="@dimen/dp_10"></ListView>
+        android:layout_marginTop="@dimen/dp_10"></android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
