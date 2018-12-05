@@ -36,6 +36,7 @@ import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +55,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private Context context;
     private SimpleDraweeView simp;
     private TextView name, teseat,rescy_text;
-    private RecyclerView rescy;
+    private XRecyclerView rescy;
     private LinearLayout tan, xq, pl,line;
     private FrameLayout fram;
     private View left, right;
@@ -69,6 +70,8 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private String message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1,id;
     private List<CinemaFlowBean.ResultBean> flowlist = new ArrayList<>();
     private List<CinemaSessionBean.ResultBean> sessionlist = new ArrayList<>();
+    private int flag;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_cinema_details;
@@ -103,10 +106,21 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         flow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
+                flag=position;
                 putLine(position);
                 Logger.d("Tagger", flowlist.get(position).getName());
                 int moveid = flowlist.get(position).getId();
                 dohttpsession(moveid);
+            }
+        });
+        rescy.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                rescy.refreshComplete();
+            }
+
+            @Override
+            public void onLoadMore() {
             }
         });
 
@@ -119,6 +133,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         map3.put("movieId", movieId);
         SpUtil.saveData(context, "cinemasId", id);
         getString(Http.CINEMASESSION_URL, 2, map3);
+        rescy.refreshComplete();
     }
 
     //请求画廊轮播数据
@@ -181,7 +196,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         name = (TextView) getView(R.id.text_cinemadetails_name);
         teseat = (TextView) getView(R.id.text_cinemadetails_seat);
         rescy_text = (TextView) getView(R.id.text_cinema_rescy);
-        rescy = (RecyclerView) getView(R.id.recyview_cinema_rescy);
+        rescy = (XRecyclerView) getView(R.id.recyview_cinema_rescy);
         tan = (LinearLayout) getView(R.id.lin_cinema_tan);
         xq = (LinearLayout) getView(R.id.text_cinemadetails_xq);
         pl = (LinearLayout) getView(R.id.text_cinemadetails_pl);
@@ -238,7 +253,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         int hight = context.getResources().getDisplayMetrics().heightPixels;
         //向下的动画
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(tan, "translationY", 500, hight);
-        objectAnimator.setDuration(400);
+        objectAnimator.setDuration(00);
         objectAnimator.start();
         //延时关闭1000毫秒
         new Handler().postDelayed(new Runnable() {
@@ -252,8 +267,8 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     //弹出详情
     private void showDetail() {
         int height = context.getResources().getDisplayMetrics().heightPixels;
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(tan, "translationY", height, 500);
-        objectAnimator.setDuration(400);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(tan, "translationY", height, 550);
+        objectAnimator.setDuration(500);
         objectAnimator.start();
         tan.setVisibility(View.VISIBLE);
     }
@@ -297,7 +312,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     @Override
     public void back(int postion) {
         Intent intent = new Intent(context, ActivityBuyTicket.class);
-        intent.putExtra("ccid", sessionlist.get(postion).getId());
+        intent.putExtra("ccid", sessionlist.get(postion).getId()+"");
         intent.putExtra("ccbegintime", sessionlist.get(postion).getBeginTime());
         intent.putExtra("ccendtime", sessionlist.get(postion).getEndTime());
         intent.putExtra("cctime", sessionlist.get(postion).getDuration());
@@ -305,8 +320,8 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         intent.putExtra("seatsTotal", sessionlist.get(postion).getSeatsTotal());
         intent.putExtra("seatsUseCount", sessionlist.get(postion).getSeatsUseCount());
         intent.putExtra("status", sessionlist.get(postion).getStatus());
-        SpUtil.saveData(context, "movename", flowlist.get(postion).getName());
-        SpUtil.saveData(context, "movieId", flowlist.get(postion).getId());
+        SpUtil.saveData(context, "movename", flowlist.get(flag).getName());
+        SpUtil.saveData(context, "movieId", flowlist.get(flag).getId());
         context.startActivity(intent);
     }
 }

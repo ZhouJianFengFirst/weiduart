@@ -64,6 +64,7 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
     private CommentAdapter commentAdapter;
     private int movieId;
     private FilmMessageEntity filmMessageEntity;
+    private int heightpixels;
 
     /**
      * 初始化上下文
@@ -324,8 +325,9 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
      * @param to
      */
     public void setAnimation(View view, int in, int to) {
+        heightpixels = mContext.getResources().getDisplayMetrics().heightPixels;
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationY", in, to);
-        animator.setDuration(1000);
+        animator.setDuration(500);
         animator.start();
     }
 
@@ -333,35 +335,35 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_details:
-                setAnimation(layoutDetalis, 1600, 0);
+                setAnimation(layoutDetalis, heightpixels, 550);
                 layoutDetalis.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_prevue:
-                setAnimation(layout_prevue, 1600, 0);
+                setAnimation(layout_prevue, heightpixels, 550);
                 layout_prevue.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_photo:
-                setAnimation(layoutStill, 1600, 0);
+                setAnimation(layoutStill, heightpixels, 550);
                 layoutStill.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_film:
-                setAnimation(layouFilm, 1600, 0);
+                setAnimation(layouFilm, heightpixels, 550);
                 layouFilm.setVisibility(View.VISIBLE);
                 break;
             case R.id.iv_down:
-                setAnimation(layoutDetalis, 0, 1600);
+                setAnimation(layoutDetalis, 550, heightpixels);
                 break;
             case R.id.iv_down1:
-                setAnimation(layout_prevue, 0, 1600);
+                setAnimation(layout_prevue, 550, heightpixels);
                 break;
             case R.id.back_finsh:
                 ((ActivityFilmDetails) mContext).finish();
                 break;
             case R.id.iv_down2:
-                setAnimation(layoutStill, 0, 1600);
+                setAnimation(layoutStill, 550, heightpixels);
                 break;
             case R.id.iv_down3:
-                setAnimation(layouFilm, 0, 1600);
+                setAnimation(layouFilm, 550, heightpixels);
                 break;
             case R.id.sm_give:
                 give();

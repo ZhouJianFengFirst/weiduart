@@ -22,6 +22,7 @@ import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
 import com.bw.movie.utils.Logger;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ import java.util.List;
 public class FragmentCinemaRightPresenter extends AppDelegate implements View.OnClickListener {
 
     private Context context;
-    private RecyclerView recy;
+    private XRecyclerView recy;
     private String id;
     private String page = "1";
     private String count = "20";
@@ -64,6 +65,17 @@ public class FragmentCinemaRightPresenter extends AppDelegate implements View.On
         initwidget();
         discussAdapter = new DiscussAdapter(context);
         recy.setAdapter(discussAdapter);
+        recy.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                dohttp();
+            }
+
+            @Override
+            public void onLoadMore() {
+                dohttp();
+            }
+        });
         //适配器点击事件回调
         discussAdapter.ruselt(new DiscussAdapter.SetOnItem() {
             @Override
@@ -89,6 +101,7 @@ public class FragmentCinemaRightPresenter extends AppDelegate implements View.On
         map.put("count", count);
         getString(Http.CINEMARIGHT_URL, 0, map);
         Logger.i("详情右侧", userId1 + "hjk" + sessionId1 + "ef" + id);
+        recy.refreshComplete();
     }
 
     @Override
@@ -136,7 +149,7 @@ public class FragmentCinemaRightPresenter extends AppDelegate implements View.On
 
     //找控件的方法
     private void initwidget() {
-        recy = (RecyclerView) getView(R.id.right_cinema_recy);
+        recy = (XRecyclerView) getView(R.id.right_cinema_recy);
         write = (ImageView) getView(R.id.image_cinemadetails_write);
         lin_pl = (LinearLayout) getView(R.id.cinema_lin_pl);
         te_pl = (TextView) getView(R.id.cinema_te_pl);

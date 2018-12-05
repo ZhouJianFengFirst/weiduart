@@ -89,7 +89,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp_20">
 
-            <android.support.v7.widget.RecyclerView
+            <com.jcodecraeer.xrecyclerview.XRecyclerView
                 android:id="@+id/recyview_cinema_rescy"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
