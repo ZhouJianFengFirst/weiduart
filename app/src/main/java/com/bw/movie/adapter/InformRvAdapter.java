@@ -8,6 +8,7 @@ import com.bw.movie.R;
 import com.bw.movie.base.recycle.RecycleAdapter;
 import com.bw.movie.base.viewholder.ViewHolder;
 import com.bw.movie.entity.SelectInformBean;
+import com.example.xlistviewlib.DateUtils;
 
 /**
  * 作者：mafuyan
@@ -35,7 +36,7 @@ public class InformRvAdapter extends RecycleAdapter<SelectInformBean.ResultBean>
         viewHolder.setText(R.id.inform_rv_title, resultBean.getTitle());
         viewHolder.setText(R.id.inform_rv_desc, resultBean.getContent());
         //赋值时间+空字符串
-        viewHolder.setText(R.id.inform_rv_date, resultBean.getPushTime() + "");
+        viewHolder.setText(R.id.inform_rv_date, DateUtils.format(resultBean.getPushTime(), "yyyy-MM-dd HH:mm"));
         //判断是否已读 0是未读 1是已读
         if (resultBean.getStatus() == 0) {
             //未读的的话就显示

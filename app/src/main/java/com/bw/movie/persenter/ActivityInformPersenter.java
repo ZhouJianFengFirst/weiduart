@@ -48,7 +48,8 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
     private String lastLoginTime1;
     private String sex1;
     private String page = "1";
-    private String count = "5";
+    //消息系统的数量条目
+    private String count = "500";
     private InformRvAdapter informRvAdapter;
     private List<SelectInformBean.ResultBean> result = new ArrayList<>();
 
@@ -190,6 +191,8 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                     //吐司完直接返回 不往下执行
                     return;
                 }
+                //状态改变完重新请求未读消息 及时更新
+                dohttpInformNum();
 //                int status = Integer.parseInt(informCheckedBean.getStatus());
 //                result.get(0).setStatus(status);
 //                informRvAdapter.setList(result);

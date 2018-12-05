@@ -25,6 +25,7 @@ import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.Pop;
 import com.bw.movie.utils.SharedUtil;
 import com.bw.movie.utils.SpUtil;
+import com.example.xlistviewlib.DateUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
@@ -410,7 +411,8 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         } else if ("2".equals(sex1)) {
             message_tv_sex.setText("女");
         }
-        message_tv_date.setText(birthday1);
+        //出生日期
+        message_tv_date.setText(DateUtils.format(Long.parseLong(birthday1),"yyyy-MM-dd"));
         message_tv_phone.setText(phone1);
         message_sdv_head.setImageURI(Uri.parse(headPic1));
     }
