@@ -47,7 +47,8 @@ public class Http {
     public static final String RESETPWD_URL = "/movieApi/user/v1/verify/modifyUserPwd";
     public static final String OPINION_URL = "/movieApi/tool/v1/verify/recordFeedBack";
     public static final String UPLOAD_URL = "/movieApi/user/v1/verify/uploadHeadPic";
-
+    public static final String SELECTMOVIE_URL = "/movieApi/movie/v1/verify/findMoviePageList";
+    public static final String SELECTFILM_URL = "/movieApi/cinema/v1/verify/findCinemaPageList";
     //影片关注
     public static final String FOLLOW_MOVIE = "/movieApi/movie/v1/verify/followMovie";
 

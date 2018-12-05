@@ -9,7 +9,8 @@ import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityAttention;
 import com.bw.movie.adapter.AttentionCinemaAdapter;
 import com.bw.movie.adapter.AttentionMovieAdapter;
-import com.bw.movie.entity.MessageSelectBean;
+import com.bw.movie.entity.SelectFilmBean;
+import com.bw.movie.entity.SelectMovieBean;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
 import com.bw.movie.utils.Logger;
@@ -25,7 +26,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 作者：mafuyan
  * 时间：2018/11/28
  * 作用：ActivityAttentionPersenter(我的关注页面)
- * */
+ */
 
 //继承APPDelegate
 public class ActivityAttentionPersenter extends AppDelegate implements View.OnClickListener {
@@ -47,6 +48,9 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
     private String sex1;
     private AttentionMovieAdapter attentionMovieAdapter;
     private AttentionCinemaAdapter attentionCinemaAdapter;
+    private int page = 1;
+    private String count = "10";
+    private boolean isRe = false;
 
     @Override
     protected int getLayoutId() {
@@ -58,7 +62,7 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
     @Override
     public void initContext(Context context) {
         //删了super这行提上去上下文
-        this.context=context;
+        this.context = context;
     }
 
     //重写初始化数据方法
@@ -68,27 +72,37 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
         //初始化数据方法
         initwidget();
         //实例化适配器 提上去
-         attentionMovieAdapter=new AttentionMovieAdapter(context);
+        attentionMovieAdapter = new AttentionMovieAdapter(context);
         //实例化影院适配器
-         attentionCinemaAdapter=new AttentionCinemaAdapter(context);
-         //开启上拉加载为true
+        attentionCinemaAdapter = new AttentionCinemaAdapter(context);
+        //开启上拉加载为true
         attention_xlv.setPullLoadEnable(true);
-         //监听上拉刷新下拉刷新
+        //监听上拉刷新下拉刷新
         attention_xlv.setXListViewListener(new XListView.IXListViewListener() {
             @Override
             public void onRefresh() {
-                //下拉刷新
-                //请求数据
-                dohttpAttentionOne();
-                dohttpAttentionTwo();
+//                //下拉刷新
+//                //请求数据
+                if (isRe) {
+                    dohttpAttentionTwo();
+                } else if (!isRe) {
+                    dohttpAttentionOne();
+                }
             }
 
             @Override
             public void onLoadMore() {
+
                 //上拉加载
                 //请求数据
-                dohttpAttentionOne();
-                dohttpAttentionTwo();
+                if (isRe) {
+                    dohttpAttentionTwo();
+                } else if (!isRe) {
+                    dohttpAttentionOne();
+                }
+//                //page++页面加加
+//                page++;
+//                Logger.i("页数",page+"");
             }
         });
     }
@@ -96,10 +110,10 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
     //初始化控件方法
     private void initwidget() {
         //获取控件强转提上去
-        attention_tv_film=(TextView)getView(R.id.attention_tv_film);
-        attention_tv_cinema=(TextView)getView(R.id.attention_tv_cinema);
-        attention_xlv=(XListView)getView(R.id.attention_xlv);
-        attention_cv_leftreturn=(CircleImageView)getView(R.id.attention_cv_leftreturn);
+        attention_tv_film = (TextView) getView(R.id.attention_tv_film);
+        attention_tv_cinema = (TextView) getView(R.id.attention_tv_cinema);
+        attention_xlv = (XListView) getView(R.id.attention_xlv);
+        attention_cv_leftreturn = (CircleImageView) getView(R.id.attention_cv_leftreturn);
 
         //点击事件
         attention_tv_film.setOnClickListener(this);
@@ -110,8 +124,11 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
     @Override
     public void onClick(View view) {
         //选择点击事件
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.attention_tv_film:
+                //关注one
+                dohttpAttentionOne();
+                isRe = false;
                 //吐司
 //                toast(context,"电影");
                 //给控件重新赋值 给背景改变 设置背景resource
@@ -123,12 +140,11 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
                 attention_tv_cinema.setBackgroundResource(R.drawable.square_gray);
                 //字体变颜色黑色
                 attention_tv_cinema.setTextColor(Color.BLACK);
-                //关注one
-                dohttpAttentionOne();
-                //设置电影适配器
-                attention_xlv.setAdapter(attentionMovieAdapter);
                 break;
             case R.id.attention_tv_cinema:
+                //关注two
+                dohttpAttentionTwo();
+                isRe = true;
                 //吐司
 //                toast(context,"影院");
                 //给控件重新赋值 给背景改变 设置背景resource
@@ -140,14 +156,10 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
                 attention_tv_cinema.setBackgroundResource(R.drawable.purplechange);
                 //字体变颜色黑色
                 attention_tv_cinema.setTextColor(Color.WHITE);
-                //关注two
-                dohttpAttentionTwo();
-                //设置影院适配器
-                attention_xlv.setAdapter(attentionCinemaAdapter);
                 break;
             case R.id.attention_cv_leftreturn:
                 //销毁强转上下文页面
-                ((ActivityAttention)context).finish();
+                ((ActivityAttention) context).finish();
                 break;
         }
     }
@@ -159,11 +171,16 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
         //往map里面存值
         map.put("userId", userId1);
         map.put("sessionId", sessionId1);
+        HashMap<String, String> qmap = new HashMap<>();
+        qmap.put("page", String.valueOf(page));
+        qmap.put("count", count);
         //请求get字符串方法 传网址类型随机数0,1
-        /* getString(selecturl,0,map);*/
         //调用head请求方法传接口的数据,传类型和map
-        handGetString(Http.SELECT_URL, 1, map);
-        Logger.i("第二个集合id", map.get("userId") + "哈哈哈" + map.get("sessionId"));
+        HeadOrQuertGet(Http.SELECTFILM_URL, 1, map, qmap);
+        Logger.i("第二个集合id", map.get("userId") + "哈哈哈" + map.get("sessionId") + qmap.get("page") + qmap.get("count"));
+        //设置停止下拉刷新
+        attention_xlv.stopRefresh();
+        attention_xlv.stopLoadMore();
     }
 
     //关注查询1
@@ -173,12 +190,18 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
         //往map里面存值
         map.put("userId", userId1);
         map.put("sessionId", sessionId1);
+        HashMap<String, String> qmap = new HashMap<>();
+        qmap.put("page", String.valueOf(page));
+        qmap.put("count", count);
         //请求get字符串方法 传网址类型随机数0,1
-        /* getString(selecturl,0,map);*/
         //调用head请求方法传接口的数据,传类型和map
-        handGetString(Http.SELECT_URL, 0, map);
-        Logger.i("第一个集合id", map.get("userId") + "哈哈哈" + map.get("sessionId"));
+        HeadOrQuertGet(Http.SELECTMOVIE_URL, 0, map, qmap);
+        Logger.i("第一个集合id", map.get("userId") + "哈哈哈" + map.get("sessionId") + qmap.get("page") + qmap.get("count"));
+        //设置停止下拉刷新
+        attention_xlv.stopRefresh();
+        attention_xlv.stopLoadMore();
     }
+
     //调用成功方法
     @Override
     public void successString(String data, int type) {
@@ -188,47 +211,51 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
             case 0:
                 Logger.i("集合1", data);
                 //new gson from
-                MessageSelectBean messageSelectBean = new Gson().fromJson(data, MessageSelectBean.class);
+                SelectMovieBean selectMovieBean = new Gson().fromJson(data, SelectMovieBean.class);
                 //判断message 网络异常,请联系管理员
-                if("网络异常,请联系管理员".equals(messageSelectBean.getMessage())) {
+                if ("网络异常,请联系管理员".equals(selectMovieBean.getMessage())) {
                     //吐司网络异常，请联系管理员
                     toast(context, "网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
                     return;
-                }else if ("请先登录".equals(messageSelectBean.getMessage())){
+                } else if ("请先登录".equals(selectMovieBean.getMessage())) {
                     //吐司网络异常，请联系管理员
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
                 }
                 //获取对象集合
-                List<MessageSelectBean.ResultBean.MovieListBean> movieList = messageSelectBean.getResult().getMovieList();
+                List<SelectMovieBean.ResultBean> result = selectMovieBean.getResult();
+                attention_xlv.setAdapter(attentionMovieAdapter);
                 //去外面实例化设置适配器
                 //在这设置集合
-                attentionMovieAdapter.setList(movieList);
-                //设置停止下拉刷新
-                attention_xlv.stopRefresh();
-                attention_xlv.stopLoadMore();
+                attentionMovieAdapter.setList(result);
+
                 break;
             case 1:
                 Logger.i("集合2", data);
                 //new gson from
-                MessageSelectBean messageSelectBean1 = new Gson().fromJson(data, MessageSelectBean.class);
+                SelectFilmBean selectFilmBean = new Gson().fromJson(data, SelectFilmBean.class);
                 //判断message 网络异常,请联系管理员
-                if("网络异常,请联系管理员".equals(messageSelectBean1.getMessage())) {
+                if ("网络异常,请联系管理员".equals(selectFilmBean.getMessage())) {
                     //吐司网络异常，请联系管理员
                     toast(context, "网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
                     return;
+                } else if ("请先登录".equals(selectFilmBean.getMessage())) {
+                    //吐司网络异常，请联系管理员
+                    toast(context, "登录过期,请重新登录");
+                    //吐司完直接返回 不往下执行
+                    return;
                 }
                 //获取对象集合
-                List<MessageSelectBean.ResultBean.CinemasListBean> cinemasList = messageSelectBean1.getResult().getCinemasList();
+                List<SelectFilmBean.ResultBean> resultBean1 = selectFilmBean.getResult();
                 //去外面设置适配器
+                Logger.i("集合长度2", resultBean1.size() + "");
+                attention_xlv.setAdapter(attentionCinemaAdapter);
                 //在这设置集合
-                attentionCinemaAdapter.setList(cinemasList);
-                //设置停止下拉刷新
-                attention_xlv.stopRefresh();
-                attention_xlv.stopLoadMore();
+                attentionCinemaAdapter.setList(resultBean1);
+
                 break;
 
         }
@@ -239,7 +266,7 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
     public void failString(String msg) {
         super.failString(msg);
         //吐司失败
-        toast(context,"失败");
+        toast(context, "失败");
     }
 
     //获取到的值
@@ -256,5 +283,10 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
         this.id1 = id1;
         this.lastLoginTime1 = lastLoginTime1;
         this.sex1 = sex1;
+        //在onResume里传过来的方法里请求一个默认的网络请求和适配器
+        //请求数据
+        dohttpAttentionOne();
+        //设置电影适配器
+        attention_xlv.setAdapter(attentionMovieAdapter);
     }
 }

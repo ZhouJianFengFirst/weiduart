@@ -37,21 +37,22 @@
 
             <TextView
                 android:id="@+id/attention_film_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_85"
+                android:layout_marginRight="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_5"
                 android:text="电影内容"
                 android:textColor="@color/color333333"
-                android:textSize="@dimen/sp_12" />
+                android:textSize="@dimen/sp_10" />
 
             <TextView
                 android:id="@+id/attention_film_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_5"
                 android:text="电影日期"
                 android:textColor="@color/color999999"
-                android:textSize="@dimen/sp_12" />
+                android:textSize="@dimen/sp_10" />
 
         </LinearLayout>
     </LinearLayout>

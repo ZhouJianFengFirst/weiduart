@@ -149,10 +149,9 @@ public class ActivityLoginPersenter extends AppDelegate {
                 SpUtil.saveData(mcontext, "lastLoginTime", loginBean.getResult().getUserInfo().getLastLoginTime() + "");
                 SpUtil.saveData(mcontext, "sex", loginBean.getResult().getUserInfo().getSex() + "");
                 SpUtil.saveData(mcontext, "isLogin", true);
+                SpUtil.saveData(mcontext, "ppwd", loginpass);
                 if (auto) {
                     SpUtil.saveData(mcontext, "isAuto", true);
-
-
                 } else if (flag) {
                     SpUtil.saveData(mcontext, "pwd", loginpass);
                     SpUtil.saveData(mcontext, "isRemenber", true);

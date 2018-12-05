@@ -104,4 +104,5 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="dp_800">800dp</dimen>
+    <dimen name="dp_85">85dp</dimen>
 </resources>

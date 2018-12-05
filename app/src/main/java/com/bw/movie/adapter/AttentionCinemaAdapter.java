@@ -7,7 +7,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bw.movie.R;
-import com.bw.movie.entity.MessageSelectBean;
+import com.bw.movie.entity.SelectFilmBean;
+import com.bw.movie.utils.Logger;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -26,18 +27,21 @@ public class AttentionCinemaAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    private List<MessageSelectBean.ResultBean.CinemasListBean> cinemasListBeans = new ArrayList<>();
+    private List<SelectFilmBean.ResultBean> resultBeans=new ArrayList<>();
 
     //改成设置集合方法
-    public void setList(List<MessageSelectBean.ResultBean.CinemasListBean> cinemasListBeans) {
-        this.cinemasListBeans = cinemasListBeans;
+    public void setList(List<SelectFilmBean.ResultBean> resultBeans) {
+        this.resultBeans = resultBeans;
         //刷新适配器
         notifyDataSetChanged();
     }
 
+
     @Override
     public int getCount() {
-        return cinemasListBeans.size();
+        Logger.i("第一个集合长度",resultBeans.size()+"");
+        return resultBeans.size();
+
     }
 
     @Override
@@ -66,9 +70,9 @@ public class AttentionCinemaAdapter extends BaseAdapter {
             myViewHolder = (MyViewHolder) view.getTag();
         }
         //重新赋值
-        myViewHolder.attention_cinema_img.setImageURI(cinemasListBeans.get(i).getLogo());
-        myViewHolder.attention_cinema_name.setText(cinemasListBeans.get(i).getName());
-        myViewHolder.attention_cinema_desc.setText(cinemasListBeans.get(i).getAddress());
+        myViewHolder.attention_cinema_img.setImageURI(resultBeans.get(i).getLogo());
+        myViewHolder.attention_cinema_name.setText(resultBeans.get(i).getName());
+        myViewHolder.attention_cinema_desc.setText(resultBeans.get(i).getAddress());
 
         return view;
     }

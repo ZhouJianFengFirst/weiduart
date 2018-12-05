@@ -1,19 +1,13 @@
 package com.bw.movie.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bw.movie.R;
-import com.bw.movie.activitys.ActivityCinemaDetails;
-import com.bw.movie.entity.CinemaSearchBean;
-import com.bw.movie.entity.MessageSelectBean;
+import com.bw.movie.entity.SelectMovieBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -32,18 +26,18 @@ public class AttentionMovieAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    private List<MessageSelectBean.ResultBean.MovieListBean> movieListBeans=new ArrayList<>();
+    private List<SelectMovieBean.ResultBean> resultBeans=new ArrayList<>();
 
     //改成设置集合方法
-    public void setList(List<MessageSelectBean.ResultBean.MovieListBean> movieListBeans) {
-        this.movieListBeans = movieListBeans;
+    public void setList(List<SelectMovieBean.ResultBean> resultBeans) {
+        this.resultBeans = resultBeans;
         //刷新适配器
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return movieListBeans.size();
+        return resultBeans.size();
     }
 
     @Override
@@ -73,12 +67,11 @@ public class AttentionMovieAdapter extends BaseAdapter {
             myViewHolder = (MyViewHolder) view.getTag();
         }
         //重新赋值
-        myViewHolder.attention_film_img.setImageURI(movieListBeans.get(i).getImageUrl());
-        myViewHolder.attention_film_name.setText(movieListBeans.get(i).getName());
-        myViewHolder.attention_film_desc.setText(movieListBeans.get(i).getSummary());
+        myViewHolder.attention_film_img.setImageURI(resultBeans.get(i).getImageUrl());
+        myViewHolder.attention_film_name.setText(resultBeans.get(i).getName());
+        myViewHolder.attention_film_desc.setText(resultBeans.get(i).getSummary());
         //日期加个空字符串
-        myViewHolder.attention_film_date.setText(movieListBeans.get(i).getReleaseTime()+"");
-
+        myViewHolder.attention_film_date.setText(resultBeans.get(i).getReleaseTime()+"");
         return view;
     }
 

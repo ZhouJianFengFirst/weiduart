@@ -2,14 +2,11 @@ package com.bw.movie.persenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,13 +19,8 @@ import com.bw.movie.activitys.ActivityResetPwd;
 import com.bw.movie.activitys.ActivityUpdateEmail;
 import com.bw.movie.activitys.ActivityUpdateName;
 import com.bw.movie.activitys.ActivityUpdateSex;
-import com.bw.movie.entity.LoginBean;
-import com.bw.movie.entity.MessageSelectBean;
 import com.bw.movie.entity.UploadBean;
 import com.bw.movie.mvp.view.AppDelegate;
-import com.bw.movie.net.BaseObserver;
-import com.bw.movie.net.Http;
-import com.bw.movie.net.HttpHelper;
 import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.Pop;
 import com.bw.movie.utils.SharedUtil;
@@ -40,19 +32,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -184,11 +166,11 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
                 break;
             case R.id.message_rl_date:
                 //吐司修改出生日期
-                Toast.makeText(context, "修改出生日期", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "出生日期", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.message_rl_phone:
                 //吐司修改手机号
-                Toast.makeText(context, "修改手机号", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "手机号", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.message_rl_email:
                 //吐司修改邮箱

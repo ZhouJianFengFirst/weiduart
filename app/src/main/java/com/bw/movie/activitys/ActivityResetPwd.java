@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.bw.movie.mvp.persenter.BaseActivity;
 import com.bw.movie.persenter.ActivityResetPwdPersenter;
+import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.SpUtil;
 
 /**
@@ -38,7 +39,9 @@ public class ActivityResetPwd extends BaseActivity<ActivityResetPwdPersenter> {
         String lastLoginTime1 = (String) SpUtil.getSpData(this,"lastLoginTime", "");
         String sex1 = (String) SpUtil.getSpData(this,"sex", "");
         String pwd1 = (String) SpUtil.getSpData(this,"pwd","");
+        String ppwd = String.valueOf(SpUtil.getSpData(this, "ppwd", ""));
+        Logger.i("输入的密码",ppwd);
         //调用方法传获取到的值
-        delegate.setData(message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1,pwd1);
+        delegate.setData(message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1,pwd1,ppwd);
     }
 }
