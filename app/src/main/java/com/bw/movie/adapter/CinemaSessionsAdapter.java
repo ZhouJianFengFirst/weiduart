@@ -12,17 +12,17 @@ import com.bw.movie.entity.CinemaFlowBean;
 import com.bw.movie.entity.CinemaSessionBean;
 
 /**
-*作者：gaojiabao
-*时间：2018/11/30 9:10
-*作用：影院和影片场次适配器
-*/
+ * 作者：gaojiabao
+ * 时间：2018/11/30 9:10
+ * 作用：影院和影片场次适配器
+ */
 public class CinemaSessionsAdapter extends RecycleAdapter<CinemaSessionBean.ResultBean> {
 
-    private  Context context;
+    private Context context;
 
     public CinemaSessionsAdapter(Context mcontext) {
         super(mcontext);
-        this.context=mcontext;
+        this.context = mcontext;
     }
 
     @Override
@@ -32,18 +32,18 @@ public class CinemaSessionsAdapter extends RecycleAdapter<CinemaSessionBean.Resu
 
     @Override
     protected void convert(ViewHolder viewHolder, final CinemaSessionBean.ResultBean resultBean, int postion) {
-        int num=23;
-        num=num+(10*postion);
-       viewHolder.setText(R.id.text_seccion_te1,resultBean.getScreeningHall());
-       viewHolder.setText(R.id.text_seccion_te2,resultBean.getBeginTime());
-       viewHolder.setText(R.id.text_seccion_te3,resultBean.getEndTime()+"   end");
-       viewHolder.setText(R.id.text_seccion_te4,num+".9");
-       viewHolder.setClick(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               listener.back();
-           }
-       }, R.id.cinema_session_lay);
+        int num = 23;
+        num = num + (10 * postion);
+        viewHolder.setText(R.id.text_seccion_te1, resultBean.getScreeningHall());
+        viewHolder.setText(R.id.text_seccion_te2, resultBean.getBeginTime());
+        viewHolder.setText(R.id.text_seccion_te3, resultBean.getEndTime() + "   end");
+        viewHolder.setText(R.id.text_seccion_te4, num + ".9");
+        viewHolder.setClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.back(postion);
+            }
+        }, R.id.cinema_session_lay);
     }
 
     private BackClickListener listener;
@@ -52,8 +52,8 @@ public class CinemaSessionsAdapter extends RecycleAdapter<CinemaSessionBean.Resu
         this.listener = listener;
     }
 
-    public  interface  BackClickListener{
-        void back();
+    public interface BackClickListener {
+        void back(int postion);
     }
 
 }

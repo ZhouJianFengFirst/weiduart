@@ -14,7 +14,7 @@ public interface Contract {
     }
 
     interface BackMovieIdListener {
-        void backMovieId(int id);
+        void backMovieId(int id, String movieName, String movieAddress);
     }
 
 }

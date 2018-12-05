@@ -311,7 +311,8 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
 
     //接口回调
     @Override
-    public void back() {
+    public void back(int postion) {
+
         Intent intent = new Intent(context, ActivityBuyTicket.class);
         intent.putExtra("ccid", sessionlist.get(flag).getId());
         intent.putExtra("ccbegintime", sessionlist.get(flag).getBeginTime());

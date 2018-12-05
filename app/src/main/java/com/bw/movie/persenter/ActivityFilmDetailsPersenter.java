@@ -373,9 +373,13 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
     }
 
     private void BuyTicket() {
+        FilmMessageEntity.ResultBean result = filmMessageEntity.getResult();
         Intent intent = new Intent(mContext, ActivityCinemaList.class);
         intent.putExtra("filmId", movieId);
         intent.putExtra("filmName", filmMessageEntity.getResult().getName());
+        intent.putExtra("picUrl", filmMessageEntity.getResult().getImageUrl());
+        String content = result.getName()+","+result.getMovieTypes() + "," + result.getDirector() + "," + result.getDuration() + "," + result.getPlaceOrigin();
+        intent.putExtra("content", content);
         ((ActivityFilmDetails) mContext).startActivity(intent);
     }
 

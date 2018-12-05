@@ -31,6 +31,8 @@ public class ActivityCinemaListPersenter extends AppDelegate implements Contract
     private CinemaListAdapter cinemaListAdapter;
     private String filmName;
     private int filmId;
+    private String picUrl;
+    private String content;
 
     @Override
     public void initData() {
@@ -40,6 +42,8 @@ public class ActivityCinemaListPersenter extends AppDelegate implements Contract
         Intent intent = ((ActivityCinemaList) context).getIntent();
         filmId = intent.getIntExtra("filmId", 0);
         filmName = intent.getStringExtra("filmName");
+        picUrl = intent.getStringExtra("picUrl");
+        content = intent.getStringExtra("content");
         //初始化控件
         initWeight();
 
@@ -178,10 +182,14 @@ public class ActivityCinemaListPersenter extends AppDelegate implements Contract
     }
 
     @Override
-    public void backMovieId(int movieId) {
+    public void backMovieId(int movieId, String movieName, String movieAddress) {
         Intent intent = new Intent(context, ActivityCinemaDetaolsList.class);
         intent.putExtra("movieId", movieId);
         intent.putExtra("filmId", filmId);
+        intent.putExtra("picUrl", picUrl);
+        intent.putExtra("movieName", movieName);
+        intent.putExtra("movieAddress", movieAddress);
+        intent.putExtra("content", content);
         //跳转影院详情
         context.startActivity(intent);
     }

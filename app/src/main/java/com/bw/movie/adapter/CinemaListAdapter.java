@@ -85,7 +85,8 @@ public class CinemaListAdapter extends BaseAdapter {
         myViewHolder.lin_cinema_lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                backMovieIdListener.backMovieId(list.get(i).getId());
+                CinemaListBean.ResultBean resultBean = list.get(i);
+                backMovieIdListener.backMovieId(resultBean.getId(),resultBean.getName(),resultBean.getAddress());
                 /*Intent intent = new Intent(context, ActivityCinemaDetaolsList.class);
                 intent.putExtra("movieId", list.get(i).getId());
                 //跳转影院详情

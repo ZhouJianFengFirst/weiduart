@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,6 +8,8 @@
         android:id="@+id/txt_cinema_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
         android:layout_marginTop="@dimen/dp_10"
         android:textSize="@dimen/sp_20" />
 
@@ -15,29 +18,84 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_cinema_name"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
         android:layout_marginTop="@dimen/dp_10" />
 
     <RelativeLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_200"
-        android:layout_below="@+id/txt_address">
+        android:layout_below="@+id/txt_address"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_10">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_200"
-            android:layout_marginLeft="@dimen/dp_24"
-            android:layout_marginRight="@dimen/dp_24"
-            android:background="@drawable/iteamback"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/iteamback" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sm_cinema_image"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_180"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:scaleType="centerCrop"
+            app:roundedCornerRadius="@dimen/dp_5" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200"
-            android:layout_marginLeft="@dimen/dp_24"
-            android:layout_marginRight="@dimen/dp_24"
-            android:scaleType="centerCrop" />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_toRightOf="@id/sm_cinema_image"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_20" />
+
+            <TextView
+                android:id="@+id/txt_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="类型:"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/txt_credit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="导演:"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/txt_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="时长:"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/txt_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="产地:"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 
