@@ -46,6 +46,7 @@ public class ActivityResetPwdPersenter extends AppDelegate implements View.OnCli
     private String sex1;
     private String pwd1;
     private String ppwd;
+    private String ok_pwd;
 
     @Override
     protected int getLayoutId() {
@@ -107,7 +108,7 @@ public class ActivityResetPwdPersenter extends AppDelegate implements View.OnCli
         //获取输入框的内容先
         String old_pwd = resetpwd_old_pwd.getText().toString().trim();
         String new_pwd = resetpwd_new_pwd.getText().toString().trim();
-        String ok_pwd = resetpwd_ok_pwd.getText().toString().trim();
+        ok_pwd = resetpwd_ok_pwd.getText().toString().trim();
         //判断旧密码是否和存在sp里面的一致
         if (!old_pwd.equals(ppwd)) {
             //吐司密码不一致
@@ -171,12 +172,20 @@ public class ActivityResetPwdPersenter extends AppDelegate implements View.OnCli
                 } else if ("密码修改成功".equals(resetPwdBean.getMessage())) {
                     //吐司密码修改成功  再销毁本页面
                     toast(context, "密码修改成功");
+                    //重新储存密码
+                    setPwd();
                     //销毁本页面
                     ((ActivityResetPwd) context).finish();
                 }
 
                 break;
         }
+    }
+
+    //重新储存密码的方法
+    private void setPwd() {
+        //重新储存密码往sp里面
+        SpUtil.saveData(context, "ppwd", ok_pwd);
     }
 
     //失败方法
