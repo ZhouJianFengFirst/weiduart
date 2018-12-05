@@ -3,6 +3,7 @@ package com.bw.movie.persenter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityFilm;
+import com.bw.movie.activitys.ActivityFilmQueryCinema;
 import com.bw.movie.activitys.MainActivity;
 import com.bw.movie.adapter.BackGroundPageAdapter;
 import com.bw.movie.adapter.BasePageChangeAdapter;
@@ -24,6 +26,7 @@ import com.bw.movie.entity.HortMovieEntity;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
 import com.bw.movie.utils.Logger;
+import com.bw.movie.utils.SpUtil;
 import com.bw.movie.view.ListFilmView;
 import com.bw.movie.view.PagerAdapter3D;
 import com.bw.movie.view.RotationPageTransformer;
@@ -49,7 +52,7 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
     private LinearLayout linearLine;
     private HortMovieEntity entity;
     private RelativeLayout filmsearch, filmsearchyes;
-    private ImageView imagefilmsearch,imagefilmsearchyes;
+    private ImageView imagefilmsearch, imagefilmsearchyes;
     private TextView textfilmss;
     private EditText edfilm;
     private String filmname;
@@ -99,10 +102,10 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
         viewPage3D = (ViewPage3D) getView(R.id.viepage_3d);
         filmsearch = (RelativeLayout) getView(R.id.relay_film_search);
         filmsearchyes = (RelativeLayout) getView(R.id.relay_film_search_yes);
-        imagefilmsearch = (ImageView) getView( R.id.image_film_search);
-        imagefilmsearchyes = (ImageView) getView( R.id.image_film_search_yes);
-        textfilmss = (TextView) getView( R.id.text_film_ss);
-        edfilm = (EditText) getView( R.id.ed_film);
+        imagefilmsearch = (ImageView) getView(R.id.image_film_search);
+        imagefilmsearchyes = (ImageView) getView(R.id.image_film_search_yes);
+        textfilmss = (TextView) getView(R.id.text_film_ss);
+        edfilm = (EditText) getView(R.id.ed_film);
         viewPage3D.setOnPageChangeListener(new BasePageChangeAdapter() {
             @Override
             public void onPageSelected(int i) {
@@ -113,7 +116,7 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
 
         setClick(this, R.id.lf_hortmovie, R.id.lf_hortshowing, R.id.lf_upcoming);
 
-        setClick(this,R.id.image_film_search_yes,R.id.text_film_ss, R.id.lf_hortmovie, R.id.lf_hortshowing, R.id.lf_upcoming, R.id.relay_film_search,R.id.image_film_search,R.id.image_film_search_yes);
+        setClick(this, R.id.image_film_search_yes, R.id.text_film_ss, R.id.lf_hortmovie, R.id.lf_hortshowing, R.id.lf_upcoming, R.id.relay_film_search, R.id.image_film_search, R.id.image_film_search_yes);
 
 
         //初始化适配器
@@ -232,7 +235,18 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
                 hintSearch();
                 break;
             case R.id.text_film_ss://点击搜索的图片隐藏整个搜索框
+                Search();
                 hintSearch();
+                String trim = edfilm.getText().toString().trim();
+                Intent intent = new Intent(context, ActivityFilmQueryCinema.class);
+                String sessionId1 = (String) SpUtil.getSpData(context,"sessionId", "");
+                String userId1 = (String) SpUtil.getSpData(context,"userId", "");
+                Bundle bundle = new Bundle();
+                bundle.putString("trim", trim);
+                bundle.putString("userId", sessionId1);
+                bundle.putString("sessionId", userId1);
+                intent.putExtras(bundle);
+                ((MainActivity) context).startActivity(intent);
                 break;
         }
     }
@@ -253,7 +267,6 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
             view.setLayoutParams(params);
         }
     }
-
 
 
     /**
@@ -286,14 +299,13 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
         }, 500);
     }
     //搜索的方法
-   /* private void Search() {
+    private void Search() {
         filmname = edfilm.getText().toString().trim();
         if (TextUtils.isEmpty(filmname)) {
             toast(context, "关键字不能为空~");
-            list1.setAdapter(recommendAdapter);
             return;
         }
-        dohttpSeach(cinema_name);
-    }*/
+
+    }
 
 }
