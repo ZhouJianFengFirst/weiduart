@@ -53,10 +53,9 @@ import recycler.coverflow.RecyclerCoverFlow;
 public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.OnClickListener, CinemaSessionsAdapter.BackClickListener {
     private Context context;
     private SimpleDraweeView simp;
-    private TextView name, teseat;
+    private TextView name, teseat,rescy_text;
     private RecyclerView rescy;
-    private String id;
-    private LinearLayout tan, xq, pl;
+    private LinearLayout tan, xq, pl,line;
     private FrameLayout fram;
     private View left, right;
     private FragmentManager supportFragmentManager;
@@ -65,25 +64,11 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private RecyclerCoverFlow flow;
     private CinemaFlowAdapter cinemaFlowAdapter;
     private CinemaSessionsAdapter cinemaSessionsAdapter;
-    private TextView rescy_text;
     private ImageView seat;
-    private LinearLayout line;
     private Bitmap head;
-    private String message1;
-    private String status1;
-    private String sessionId1;
-    private String userId1;
-    private String headPic1;
-    private String nickName1;
-    private String phone1;
-    private String birthday1;
-    private String id1;
-    private String lastLoginTime1;
-    private String sex1;
-    private int flag;
+    private String message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1,id;
     private List<CinemaFlowBean.ResultBean> flowlist = new ArrayList<>();
     private List<CinemaSessionBean.ResultBean> sessionlist = new ArrayList<>();
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_cinema_details;
@@ -118,7 +103,6 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         flow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
-                flag = position;
                 putLine(position);
                 Logger.d("Tagger", flowlist.get(position).getName());
                 int moveid = flowlist.get(position).getId();
@@ -312,18 +296,17 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     //接口回调
     @Override
     public void back(int postion) {
-
         Intent intent = new Intent(context, ActivityBuyTicket.class);
-        intent.putExtra("ccid", sessionlist.get(flag).getId());
-        intent.putExtra("ccbegintime", sessionlist.get(flag).getBeginTime());
-        intent.putExtra("ccendtime", sessionlist.get(flag).getEndTime());
-        intent.putExtra("cctime", sessionlist.get(flag).getDuration());
-        intent.putExtra("ccname", sessionlist.get(flag).getScreeningHall());
-        intent.putExtra("seatsTotal", sessionlist.get(flag).getSeatsTotal());
-        intent.putExtra("seatsUseCount", sessionlist.get(flag).getSeatsUseCount());
-        intent.putExtra("status", sessionlist.get(flag).getStatus());
-        SpUtil.saveData(context, "movename", flowlist.get(flag).getName());
-        SpUtil.saveData(context, "movieId", flowlist.get(flag).getId());
+        intent.putExtra("ccid", sessionlist.get(postion).getId());
+        intent.putExtra("ccbegintime", sessionlist.get(postion).getBeginTime());
+        intent.putExtra("ccendtime", sessionlist.get(postion).getEndTime());
+        intent.putExtra("cctime", sessionlist.get(postion).getDuration());
+        intent.putExtra("ccname", sessionlist.get(postion).getScreeningHall());
+        intent.putExtra("seatsTotal", sessionlist.get(postion).getSeatsTotal());
+        intent.putExtra("seatsUseCount", sessionlist.get(postion).getSeatsUseCount());
+        intent.putExtra("status", sessionlist.get(postion).getStatus());
+        SpUtil.saveData(context, "movename", flowlist.get(postion).getName());
+        SpUtil.saveData(context, "movieId", flowlist.get(postion).getId());
         context.startActivity(intent);
     }
 }

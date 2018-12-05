@@ -73,6 +73,8 @@ public class RecommendSearchAdapter extends BaseAdapter {
         myViewHolder.item_re_simp.setImageURI(Uri.parse(list.get(i).getLogo()));
         myViewHolder.item_re_te1.setText(list.get(i).getName());
         myViewHolder.item_re_te2.setText(list.get(i).getAddress());
+        int distance=(1000*i)+2452;//模拟一个距离
+        myViewHolder.item_re_te3.setText(distance+"米");
         //设置是否喜欢
         if (list.get(i).isFollowCinema()) {
 //            myViewHolder.item_re_img1.setImageResource(R.drawable.gray_heart);

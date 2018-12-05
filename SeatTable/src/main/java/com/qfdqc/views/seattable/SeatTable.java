@@ -495,23 +495,23 @@ public class SeatTable extends View {
         canvas.drawRect(0, 0, getWidth(), headHeight, headPaint);
         headPaint.setColor(Color.BLACK);
 
-        float startX = (getWidth() - width) / 2;
-        tempMatrix.setScale(xScale1,yScale1);
-        tempMatrix.postTranslate(startX,(headHeight - seatHeight) / 2);
-        canvas.drawBitmap(seatBitmap, tempMatrix, headPaint);
-        canvas.drawText("可选", startX + seatWidth + spacing1, txtY, headPaint);
-
-        float soldSeatBitmapY = startX + seatBitmap.getWidth() + spacing1 + txtWidth + spacing;
-        tempMatrix.setScale(xScale1,yScale1);
-        tempMatrix.postTranslate(soldSeatBitmapY,(headHeight - seatHeight) / 2);
-        canvas.drawBitmap(seatSoldBitmap, tempMatrix, headPaint);
-        canvas.drawText("已售", soldSeatBitmapY + seatWidth + spacing1, txtY, headPaint);
-
-        float checkedSeatBitmapX = soldSeatBitmapY + seatSoldBitmap.getWidth() + spacing1 + txtWidth + spacing;
-        tempMatrix.setScale(xScale1,yScale1);
-        tempMatrix.postTranslate(checkedSeatBitmapX,y);
-        canvas.drawBitmap(checkedSeatBitmap, tempMatrix, headPaint);
-        canvas.drawText("已选", checkedSeatBitmapX + spacing1 + seatWidth, txtY, headPaint);
+//        float startX = (getWidth() - width) / 2;
+//        tempMatrix.setScale(xScale1,yScale1);
+//        tempMatrix.postTranslate(startX,(headHeight - seatHeight) / 2);
+//        canvas.drawBitmap(seatBitmap, tempMatrix, headPaint);
+////        canvas.drawText("可选", startX + seatWidth + spacing1, txtY, headPaint);
+//
+//        float soldSeatBitmapY = startX + seatBitmap.getWidth() + spacing1 + txtWidth + spacing;
+//        tempMatrix.setScale(xScale1,yScale1);
+//        tempMatrix.postTranslate(soldSeatBitmapY,(headHeight - seatHeight) / 2);
+//        canvas.drawBitmap(seatSoldBitmap, tempMatrix, headPaint);
+////        canvas.drawText("已售", soldSeatBitmapY + seatWidth + spacing1, txtY, headPaint);
+//
+//        float checkedSeatBitmapX = soldSeatBitmapY + seatSoldBitmap.getWidth() + spacing1 + txtWidth + spacing;
+//        tempMatrix.setScale(xScale1,yScale1);
+//        tempMatrix.postTranslate(checkedSeatBitmapX,y);
+//        canvas.drawBitmap(checkedSeatBitmap, tempMatrix, headPaint);
+////        canvas.drawText("已选", checkedSeatBitmapX + spacing1 + seatWidth, txtY, headPaint);
 
         //绘制分割线
         headPaint.setStrokeWidth(1);
@@ -675,7 +675,7 @@ public class SeatTable extends View {
         }
     }
 
-    int bacColor = Color.parseColor("#7e000000");
+    int bacColor = Color.parseColor("#780E40");
 
     /**
      * 绘制行号
@@ -695,13 +695,10 @@ public class SeatTable extends View {
         lineNumberPaint.setColor(Color.WHITE);
 
         for (int i = 0; i < row; i++) {
-
             float top = (i *seatHeight + i * verSpacing) * scaleY + translateY;
             float bottom = (i * seatHeight + i * verSpacing + seatHeight) * scaleY + translateY;
             float baseline = (bottom + top - lineNumberPaintFontMetrics.bottom - lineNumberPaintFontMetrics.top) / 2;
-
             canvas.drawText(lineNumbers.get(i), numberWidth / 2, baseline, lineNumberPaint);
-
         }
 
         if (DBG) {

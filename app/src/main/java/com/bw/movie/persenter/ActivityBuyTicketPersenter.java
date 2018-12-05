@@ -10,7 +10,11 @@ import com.bw.movie.activitys.ActivityBuyTicket;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.utils.SpUtil;
 import com.qfdqc.views.seattable.SeatTable;
-
+/**
+ *作者：gaojiabao
+ *时间：2018/12/5 11:35
+ *作用：选座页面
+ */
 public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnClickListener {
     private Context context;
     private SeatTable seatTableView;
