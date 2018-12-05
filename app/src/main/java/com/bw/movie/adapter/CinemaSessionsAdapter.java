@@ -31,22 +31,29 @@ public class CinemaSessionsAdapter extends RecycleAdapter<CinemaSessionBean.Resu
     }
 
     @Override
-    protected void convert(ViewHolder viewHolder, CinemaSessionBean.ResultBean resultBean, int postion) {
+    protected void convert(ViewHolder viewHolder, final CinemaSessionBean.ResultBean resultBean, int postion) {
         int num=23;
         num=num+(10*postion);
        viewHolder.setText(R.id.text_seccion_te1,resultBean.getScreeningHall());
        viewHolder.setText(R.id.text_seccion_te2,resultBean.getBeginTime());
        viewHolder.setText(R.id.text_seccion_te3,resultBean.getEndTime()+"   end");
-//       viewHolder.setText(R.id.text_seccion_te4,(resultBean.getPrice()*10)+"");
        viewHolder.setText(R.id.text_seccion_te4,num+".9");
        viewHolder.setClick(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent intent = new Intent(context, ActivityBuyTicket.class);
-//               intent.putExtra("",)
-               context.startActivity(intent);
+               listener.back();
            }
        }, R.id.cinema_session_lay);
+    }
+
+    private BackClickListener listener;
+
+    public void setListener(BackClickListener listener) {
+        this.listener = listener;
+    }
+
+    public  interface  BackClickListener{
+        void back();
     }
 
 }

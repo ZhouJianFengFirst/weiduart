@@ -80,8 +80,8 @@ public class LocationUtils {
 
     private void setLocation(Location location) {
         this.location = location;
-        String address = "纬度：" + location.getLatitude() + "经度：" + location.getLongitude();
-        Log.d( TAG, address );
+//        String address = "纬度：" + location.getLatitude() + "经度：" + location.getLongitude();
+//        Log.d( TAG, address );
     }
 
     //获取经纬度

@@ -19,7 +19,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_200"
+                android:layout_height="@dimen/dp_240"
                 android:background="@mipmap/cinema_bag"></RelativeLayout>
 
             <LinearLayout

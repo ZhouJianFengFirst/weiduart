@@ -3,8 +3,11 @@ package com.bw.movie.persenter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.activitys.ActivityBuyTicket;
 import com.bw.movie.activitys.ActivityCinemaDetails;
 import com.bw.movie.activitys.ActivityMap;
 import com.bw.movie.activitys.MainActivity;
@@ -29,6 +33,7 @@ import com.bw.movie.fragments.FragmentCinemaRight;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
 import com.bw.movie.utils.Logger;
+import com.bw.movie.utils.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
@@ -44,7 +49,8 @@ import recycler.coverflow.RecyclerCoverFlow;
  * 时间：2018/11/28 8:51
  * 作用：影院详情页面
  */
-public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.OnClickListener {
+@RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.OnClickListener, CinemaSessionsAdapter.BackClickListener {
     private Context context;
     private SimpleDraweeView simp;
     private TextView name, teseat;
@@ -62,7 +68,21 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private TextView rescy_text;
     private ImageView seat;
     private LinearLayout line;
-    private List<CinemaFlowBean.ResultBean> flowlist=new ArrayList<>();
+    private Bitmap head;
+    private String message1;
+    private String status1;
+    private String sessionId1;
+    private String userId1;
+    private String headPic1;
+    private String nickName1;
+    private String phone1;
+    private String birthday1;
+    private String id1;
+    private String lastLoginTime1;
+    private String sex1;
+    private int flag;
+    private List<CinemaFlowBean.ResultBean> flowlist = new ArrayList<>();
+    private List<CinemaSessionBean.ResultBean> sessionlist = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -80,9 +100,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         initwidget();
         Intent intent = ((ActivityCinemaDetails) context).getIntent();
         id = intent.getStringExtra("id");
-        dohttp();//请求影院详情
         dohttpFlow();//请求画廊轮播数据
-        dohttpsession(1);//请求场次
         //实例化fragment
         fragmentCinemaLeft = new FragmentCinemaLeft();
         fragmentCinemaRight = new FragmentCinemaRight();
@@ -91,6 +109,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         supportFragmentManager.beginTransaction().replace(R.id.fram_cinema, fragmentCinemaLeft).commit();
         //影片场次
         cinemaSessionsAdapter = new CinemaSessionsAdapter(context);
+        cinemaSessionsAdapter.setListener(this);
         rescy.setAdapter(cinemaSessionsAdapter);
         //设置画廊的适配器
 //        flow.setFlatFlow(true); //平面滚动
@@ -99,10 +118,14 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         flow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
+                flag = position;
                 putLine(position);
-                dohttpsession(position + 1);
+                Logger.d("Tagger", flowlist.get(position).getName());
+                int moveid = flowlist.get(position).getId();
+                dohttpsession(moveid);
             }
         });
+
     }
 
     //请求影院场次
@@ -110,6 +133,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         HashMap map3 = new HashMap();
         map3.put("cinemasId", id);
         map3.put("movieId", movieId);
+        SpUtil.saveData(context, "cinemasId", id);
         getString(Http.CINEMASESSION_URL, 2, map3);
     }
 
@@ -123,12 +147,14 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     //网络请求影院详情
     private void dohttp() {
         HashMap map = new HashMap();
-        map.put("userId", "18");
-        map.put("sessionId", "15320748258726");
+        map.put("userId", userId1);
+        map.put("sessionId", sessionId1);
         map.put("cinemaId", id);
         getString(Http.CINEMADETAILS_URL, 0, map);
+//        Logger.i("网络请求影院详情",userId1+"哈哈"+sessionId1);
     }
 
+    //成功的方法
     @Override
     public void successString(String data, int type) {
         super.successString(data, type);
@@ -139,16 +165,19 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
                 simp.setImageURI(Uri.parse(derail.getLogo()));
                 name.setText(derail.getName());
                 teseat.setText(derail.getAddress());
+                SpUtil.saveData(context, "cinemaname", derail.getName());
+                SpUtil.saveData(context, "cinemaaddress", derail.getAddress());
                 break;
             case 1:
                 CinemaFlowBean cinemaFlowBean = new Gson().fromJson(data, CinemaFlowBean.class);
-                  flowlist = cinemaFlowBean.getResult();
+                flowlist = cinemaFlowBean.getResult();
                 cinemaFlowAdapter.setList(flowlist);
+                dohttpsession(flowlist.get(0).getId());//请求场次
                 break;
             case 2:
-                Logger.i("影片场次", data);
+//                Logger.i("影片场次", data);
                 CinemaSessionBean cinemaSessionBean = new Gson().fromJson(data, CinemaSessionBean.class);
-                List<CinemaSessionBean.ResultBean> sessionlist = cinemaSessionBean.getResult();
+                sessionlist = cinemaSessionBean.getResult();
                 if (sessionlist.size() > 1) {
                     rescy_text.setVisibility(View.GONE);
                     rescy.setVisibility(View.VISIBLE);
@@ -177,7 +206,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         right = (View) getView(R.id.view_cinemadetails_right);
         flow = (RecyclerCoverFlow) getView(R.id.rcf_cinema_flow);
         line = (LinearLayout) getView(R.id.layout_cinema_line);
-        setClick(this,R.id.image_cinemadetails_seat, R.id.image_cinemadetails_left, R.id.text_cinemadetails_name, R.id.text_cinemadetails_seat, R.id.simp_cinemadetails_simp, R.id.image_cinema_down, R.id.text_cinemadetails_pl, R.id.text_cinemadetails_xq);
+        setClick(this, R.id.image_cinemadetails_seat, R.id.image_cinemadetails_left, R.id.text_cinemadetails_name, R.id.text_cinemadetails_seat, R.id.simp_cinemadetails_simp, R.id.image_cinema_down, R.id.text_cinemadetails_pl, R.id.text_cinemadetails_xq);
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -245,6 +274,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         tan.setVisibility(View.VISIBLE);
     }
 
+    //进度条
     public void putLine(int page) {
         line.removeAllViews();
         for (int i = 0; i < flowlist.size(); i++) {
@@ -260,5 +290,39 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
             params.height = 3;
             view.setLayoutParams(params);
         }
+    }
+
+    //获取到的值
+    public void setData(String message1, String status1, String sessionId1, String userId1, String headPic1, String nickName1, String phone1, String birthday1, String id1, String lastLoginTime1, String sex1) {
+        //this.名称=名称提上去
+        this.message1 = message1;
+        this.status1 = status1;
+        this.sessionId1 = sessionId1;
+        this.userId1 = userId1;
+        this.headPic1 = headPic1;
+        this.nickName1 = nickName1;
+        this.phone1 = phone1;
+        this.birthday1 = birthday1;
+        this.id1 = id1;
+        this.lastLoginTime1 = lastLoginTime1;
+        this.sex1 = sex1;
+        dohttp();//请求影院详情
+    }
+
+    //接口回调
+    @Override
+    public void back() {
+        Intent intent = new Intent(context, ActivityBuyTicket.class);
+        intent.putExtra("ccid", sessionlist.get(flag).getId());
+        intent.putExtra("ccbegintime", sessionlist.get(flag).getBeginTime());
+        intent.putExtra("ccendtime", sessionlist.get(flag).getEndTime());
+        intent.putExtra("cctime", sessionlist.get(flag).getDuration());
+        intent.putExtra("ccname", sessionlist.get(flag).getScreeningHall());
+        intent.putExtra("seatsTotal", sessionlist.get(flag).getSeatsTotal());
+        intent.putExtra("seatsUseCount", sessionlist.get(flag).getSeatsUseCount());
+        intent.putExtra("status", sessionlist.get(flag).getStatus());
+        SpUtil.saveData(context, "movename", flowlist.get(flag).getName());
+        SpUtil.saveData(context, "movieId", flowlist.get(flag).getId());
+        context.startActivity(intent);
     }
 }

@@ -26,7 +26,7 @@ public class CommentAdapter extends RecycleAdapter<CommentEntity.ResultBean> {
     }
 
     @Override
-    protected void convert(ViewHolder viewHolder, CommentEntity.ResultBean resultBean, int postion) {
+    protected void convert(final ViewHolder viewHolder, final CommentEntity.ResultBean resultBean, int postion) {
         Logger.d("Tagger1",resultBean.getIsGreat()+"");
         flag = resultBean.getIsGreat();
         viewHolder.setText(R.id.txt_username, resultBean.getCommentUserName())
