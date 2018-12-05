@@ -252,8 +252,8 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         //计算高度
         int hight = context.getResources().getDisplayMetrics().heightPixels;
         //向下的动画
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(tan, "translationY", 500, hight);
-        objectAnimator.setDuration(00);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(tan, "translationY", 550, hight);
+        objectAnimator.setDuration(500);
         objectAnimator.start();
         //延时关闭1000毫秒
         new Handler().postDelayed(new Runnable() {
@@ -261,7 +261,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
             public void run() {
                 tan.setVisibility(View.GONE);
             }
-        }, 400);
+        }, 500);
     }
 
     //弹出详情
