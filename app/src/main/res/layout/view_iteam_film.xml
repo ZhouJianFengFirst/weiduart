@@ -16,31 +16,34 @@
                 android:id="@+id/txt_hortmovie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dp_20"
-                android:text="热门电影"/>
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="热门电影"
+                android:textSize="@dimen/dp_20" />
+
             <View
-                android:layout_below="@id/txt_hortmovie"
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_2"
+                android:layout_below="@id/txt_hortmovie"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_6"
-                android:background="@drawable/purplechange"/>
+                android:background="@drawable/purplechange" />
 
             <ImageView
-                android:src="@drawable/back_reight"
                 android:layout_width="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_20"
-                android:layout_centerVertical="true"
+                android:layout_height="@dimen/dp_20"
                 android:layout_alignParentRight="true"
-                android:layout_height="@dimen/dp_20" />
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_20"
+                android:src="@drawable/back_reight" />
 
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recy_hortmovie"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_below="@id/layout_one"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_258"></android.support.v7.widget.RecyclerView>
+            android:layout_height="@dimen/dp_258"
+            android:layout_below="@id/layout_one"
+            android:layout_marginTop="@dimen/dp_5"></android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
 </RelativeLayout>

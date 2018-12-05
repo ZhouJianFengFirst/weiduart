@@ -34,5 +34,10 @@
     <string name="still_name">急招</string>
     <string name="prevue_name">预告</string>
     <string name="select_cinema">请选择适合的影院</string>
+    <string name="weixin_pay">微信支付</string>
+    <string name="zhifubao_pay">支付宝支付</string>
+    <string name="pay">支付</string>
+    <string name="cinema_name">演员名字</string>
+    <string name="shidu_name">饰渡角色</string>
 
 </resources>

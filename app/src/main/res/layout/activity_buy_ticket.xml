@@ -166,14 +166,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="@dimen/dp_20">
+                android:layout_margin="@dimen/dp_20"
+                android:orientation="vertical">
+
                 <com.qfdqc.views.seattable.SeatTable
                     android:id="@+id/seatView"
-                    android:background="#ffffff"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_90"
@@ -226,5 +228,104 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_buy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:visibility="gone"
+        android:background="@drawable/buy_yuan"
+        android:padding="@dimen/sp_20">
+
+        <ImageView
+            android:id="@+id/iv_deom"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/cinema_down" />
+
+        <RadioGroup
+            android:id="@+id/rg_select"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/dp_100"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_1"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radio_2"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50" />
+
+        </RadioGroup>
+
+        <RelativeLayout
+            android:id="@+id/rl_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_toRightOf="@id/rg_select">
+
+            <ImageView
+                android:id="@+id/iv_weixin"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:src="@mipmap/weixin_buy" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/iv_weixin"
+                android:text="@string/weixin_pay"
+                android:textSize="@dimen/sp_20" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/rl_1"
+            android:layout_toRightOf="@id/rg_select">
+
+            <ImageView
+                android:id="@+id/iv_zhifubao"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:src="@mipmap/payment_buy" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/iv_zhifubao"
+                android:text="@string/zhifubao_pay"
+                android:textSize="@dimen/sp_20" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_pay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/sp_20"
+            android:background="@drawable/yellowchange"
+            android:text="@string/pay"
+            android:textColor="@color/colorWhite" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

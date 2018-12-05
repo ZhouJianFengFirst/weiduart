@@ -34,6 +34,8 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.jzvd.Jzvd;
+
 /**
  * 作者:周建峰
  * ActivityFilmDetailsPersenter
@@ -355,6 +357,7 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
                 break;
             case R.id.iv_down1:
                 setAnimation(layout_prevue, 550, heightpixels);
+                Jzvd.releaseAllVideos();
                 break;
             case R.id.back_finsh:
                 ((ActivityFilmDetails) mContext).finish();
@@ -380,7 +383,7 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
         intent.putExtra("filmId", movieId);
         intent.putExtra("filmName", filmMessageEntity.getResult().getName());
         intent.putExtra("picUrl", filmMessageEntity.getResult().getImageUrl());
-        String content = result.getName()+","+result.getMovieTypes() + "," + result.getDirector() + "," + result.getDuration() + "," + result.getPlaceOrigin();
+        String content = result.getName() + "," + result.getMovieTypes() + "," + result.getDirector() + "," + result.getDuration() + "," + result.getPlaceOrigin();
         intent.putExtra("content", content);
         ((ActivityFilmDetails) mContext).startActivity(intent);
     }

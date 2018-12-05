@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -152,9 +153,8 @@ public class ActivityCinemaDetaolsListPersenter extends AppDelegate implements C
 
     @Override
     public void back(int postion) {
-        Logger.d("back", postion + "------>" + sessionBean.getResult().get(postion).getId());
         Intent intent = new Intent(mContext, ActivityBuyTicket.class);
-        intent.putExtra("ccid", sessionBean.getResult().get(postion).getId());
+        intent.putExtra("ccid", sessionBean.getResult().get(postion).getId()+"");
         intent.putExtra("ccbegintime", sessionBean.getResult().get(postion).getBeginTime());
         intent.putExtra("ccendtime", sessionBean.getResult().get(postion).getEndTime());
         intent.putExtra("cctime", sessionBean.getResult().get(postion).getDuration());
