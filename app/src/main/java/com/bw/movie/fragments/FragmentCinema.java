@@ -14,7 +14,7 @@ public class FragmentCinema  extends BaseFragment<FragmentCinemaPresenter>{
     public Class<FragmentCinemaPresenter> getDelegateClass() {
         return FragmentCinemaPresenter.class;
     }
-    //重写生命周期onResume 聚焦方法
+    //重写生命周期onResume 聚焦的方法
     @Override
     public void onResume() {
         super.onResume();
