@@ -1,6 +1,7 @@
 package com.bw.movie.persenter;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -92,6 +93,9 @@ public class ActivityHistoryPersenter extends AppDelegate implements View.OnClic
     private void initwidget() {
         //获取控件强转提上去
         history_rv=(XRecyclerView)getView(R.id.history_rv);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        history_rv.setLayoutManager(linearLayoutManager);
         history_cv_leftreturn=(CircleImageView)getView(R.id.history_cv_leftreturn);
         //点击事件
         history_cv_leftreturn.setOnClickListener(this);
@@ -167,6 +171,7 @@ public class ActivityHistoryPersenter extends AppDelegate implements View.OnClic
                     //吐司完直接返回 不往下执行
                     return;
                 }
+
                 //去外面设置适配器
                 //在这设置集合
                 historyvAdapter.setList(historyBean.getResult());
