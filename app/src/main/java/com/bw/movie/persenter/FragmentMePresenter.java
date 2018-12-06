@@ -266,9 +266,10 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
+                }else if ("查询成功".equals(newestBean.getMessage())){
+                    //吐司最新版本
+                    toast(context,"已经是最新版本");
                 }
-                //吐司最新版本
-                toast(context,"已经是最新版本");
                 break;
         }
     }

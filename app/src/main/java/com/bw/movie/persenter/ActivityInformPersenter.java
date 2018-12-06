@@ -158,21 +158,22 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                     toast(context, "网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
                     return;
-                }else if ("请先登录".equals(selectInformBean.getMessage())){
+                } else if ("请先登录".equals(selectInformBean.getMessage())) {
                     //吐司网络异常，请联系管理员
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
+                } else if ("查询成功".equals(selectInformBean.getMessage())) {
+                    //获取bean类的集合返回值
+                    result = selectInformBean.getResult();
+                    //设置适配器去外面实例化适配器
+                    //给适配器设置集合
+                    informRvAdapter.setList(result);
+                    //下拉刷新关闭
+                    inform_rv.refreshComplete();
+                    //上拉加载关闭
+                    inform_rv.loadMoreComplete();
                 }
-                //获取bean类的集合返回值
-                result = selectInformBean.getResult();
-                //设置适配器去外面实例化适配器
-                //给适配器设置集合
-                informRvAdapter.setList(result);
-                //下拉刷新关闭
-                inform_rv.refreshComplete();
-                //上拉加载关闭
-                inform_rv.loadMoreComplete();
                 break;
             case 1:
                 //打印数据
@@ -185,17 +186,18 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                     toast(context, "网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
                     return;
-                }else if ("请先登录".equals(informCheckedBean.getMessage())){
+                } else if ("请先登录".equals(informCheckedBean.getMessage())) {
                     //吐司网络异常，请联系管理员
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
-                }
-                //状态改变完重新请求未读消息 及时更新
-                dohttpInformNum();
+                } else if ("状态改变成功".equals(informCheckedBean.getMessage())) {
+                    //状态改变完重新请求未读消息 及时更新
+                    dohttpInformNum();
 //                int status = Integer.parseInt(informCheckedBean.getStatus());
 //                result.get(0).setStatus(status);
 //                informRvAdapter.setList(result);
+                }
                 break;
             case 2:
                 //打印数据
@@ -208,14 +210,15 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                     toast(context, "网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
                     return;
-                }else if ("请先登录".equals(informNumBean.getMessage())){
+                } else if ("请先登录".equals(informNumBean.getMessage())) {
                     //吐司网络异常，请联系管理员
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
+                } else if ("查询成功".equals(informNumBean.getMessage())) {
+                    //给控件赋值
+                    inform_message.setText("系统消息(" + informNumBean.getCount() + "条未读)");
                 }
-                //给控件赋值
-                inform_message.setText("系统消息(" + informNumBean.getCount() + "条未读)");
                 break;
         }
     }

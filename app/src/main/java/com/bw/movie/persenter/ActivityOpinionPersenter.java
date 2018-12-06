@@ -142,7 +142,7 @@ public class ActivityOpinionPersenter extends AppDelegate implements View.OnClic
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
-                }else{
+                }else if ("反馈成功".equals(opinionBean.getMessage())){
                     //打印log
                     Logger.i("意见反馈成功","成功"+opinionBean.getMessage());
                     //强转上下文跳转

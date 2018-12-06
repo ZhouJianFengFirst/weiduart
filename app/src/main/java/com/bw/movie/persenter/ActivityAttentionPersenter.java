@@ -223,14 +223,14 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
+                } else if ("查询成功".equals(selectMovieBean.getMessage())) {
+                    //获取对象集合
+                    List<SelectMovieBean.ResultBean> result = selectMovieBean.getResult();
+                    attention_xlv.setAdapter(attentionMovieAdapter);
+                    //去外面实例化设置适配器
+                    //在这设置集合
+                    attentionMovieAdapter.setList(result);
                 }
-                //获取对象集合
-                List<SelectMovieBean.ResultBean> result = selectMovieBean.getResult();
-                attention_xlv.setAdapter(attentionMovieAdapter);
-                //去外面实例化设置适配器
-                //在这设置集合
-                attentionMovieAdapter.setList(result);
-
                 break;
             case 1:
                 Logger.i("集合2", data);
@@ -247,15 +247,15 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
+                } else if ("查询成功".equals(selectFilmBean.getMessage())) {
+                    //获取对象集合
+                    List<SelectFilmBean.ResultBean> resultBean1 = selectFilmBean.getResult();
+                    //去外面设置适配器
+                    Logger.i("集合长度2", resultBean1.size() + "");
+                    attention_xlv.setAdapter(attentionCinemaAdapter);
+                    //在这设置集合
+                    attentionCinemaAdapter.setList(resultBean1);
                 }
-                //获取对象集合
-                List<SelectFilmBean.ResultBean> resultBean1 = selectFilmBean.getResult();
-                //去外面设置适配器
-                Logger.i("集合长度2", resultBean1.size() + "");
-                attention_xlv.setAdapter(attentionCinemaAdapter);
-                //在这设置集合
-                attentionCinemaAdapter.setList(resultBean1);
-
                 break;
 
         }

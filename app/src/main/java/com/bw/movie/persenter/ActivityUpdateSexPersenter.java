@@ -153,21 +153,22 @@ public class ActivityUpdateSexPersenter extends AppDelegate implements View.OnCl
                     toast(context, "网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
                     return;
-                }else if ("请先登录".equals(updateBean.getMessage())){
+                } else if ("请先登录".equals(updateBean.getMessage())) {
                     //吐司网络异常，请联系管理员
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
+                } else if ("修改成功".equals(updateBean.getMessage())) {
+                    Logger.i("修改性别后", updateBean.getResult().getSex() + "");
+                    //存到sp
+                    SpUtil.saveData(context, "sex", updateBean.getResult().getSex() + "");
+                    String sex2 = (String) SpUtil.getSpData(context, "sex", "");
+                    Logger.i("存到sp的sex", sex2);
+                    //吐司修改密码成功
+                    toast(context, "修改性别成功");
+                    //销毁本页面
+                    ((ActivityUpdateSex) context).finish();
                 }
-                Logger.i("修改性别后", updateBean.getResult().getSex() + "");
-                //存到sp
-                SpUtil.saveData(context, "sex", updateBean.getResult().getSex() + "");
-                String sex2 = (String) SpUtil.getSpData(context, "sex", "");
-                Logger.i("存到sp的sex", sex2);
-                //吐司修改密码成功
-                toast(context, "修改性别成功");
-                //销毁本页面
-                ((ActivityUpdateSex) context).finish();
                 break;
         }
     }
