@@ -25,15 +25,14 @@ import com.bw.movie.adapter.MovieRecyAdapter;
 import com.bw.movie.entity.HortMovieEntity;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
-import com.bw.movie.utils.Logger;
+import com.bw.movie.utils.DialogUtils;
+import com.bw.movie.utils.NetworkUtils;
 import com.bw.movie.utils.SpUtil;
 import com.bw.movie.view.ListFilmView;
 import com.bw.movie.view.PagerAdapter3D;
 import com.bw.movie.view.RotationPageTransformer;
 import com.bw.movie.view.ViewPage3D;
 import com.google.gson.Gson;
-
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,6 +65,12 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
     @Override
     public void initData() {
         super.initData();
+        boolean connected = NetworkUtils.isConnected(context);
+        if (!connected){
+            toast("警告","没有连接网络",1);
+            new DialogUtils(context).show();
+            return;
+        }
         initWeght();
         //网络请求
         doHttp();

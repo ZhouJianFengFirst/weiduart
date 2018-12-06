@@ -2,16 +2,13 @@ package com.bw.movie.persenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bw.movie.App;
 import com.bw.movie.R;
@@ -24,24 +21,12 @@ import com.bw.movie.net.Http;
 import com.bw.movie.net.HttpRequestListener;
 import com.bw.movie.net.OkHttpHelper;
 import com.bw.movie.utils.EncryptUtil;
-import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.SharedUtil;
 import com.bw.movie.utils.SpUtil;
 import com.bw.movie.utils.WXUtils;
 import com.google.gson.Gson;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * 作者：xujiahui
@@ -125,6 +110,10 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
      *登录
      * */
     private void uselogin(final String loginphone, final String loginpass) {
+        if (TextUtils.isEmpty(loginphone) && TextUtils.isEmpty(loginpass)) {
+            toast("警告", "用户名或密码不能为空！！", 1);
+            return;
+        }
         if (TextUtils.isEmpty(loginphone) && TextUtils.isEmpty(loginpass)) {
             toast("警告", "用户名或密码不能为空！！", 1);
             return;

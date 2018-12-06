@@ -136,6 +136,7 @@ public class ActivityRegisterPersenter extends AppDelegate implements SexBox.Sex
                     String string = responseBody.string();
                     Gson gson = new Gson();
                     LoginBean loginBean = gson.fromJson(string, LoginBean.class);
+                    Logger.d("zhuce",loginBean.getMessage().toString()+""+loginBean.getStatus()+"");
                     if ("0000".equals(loginBean.getStatus())) {
                         toast("提示", "注册成功", 1);
                         new Thread(new Runnable() {
@@ -151,6 +152,7 @@ public class ActivityRegisterPersenter extends AppDelegate implements SexBox.Sex
                         }).start();
                     } else {
                         toast("提示", "注册失败", 1);
+                        toast("提示", loginBean.getMessage(), 1);
 
                     }
                 } catch (IOException e) {
