@@ -43,7 +43,7 @@ public class ActivityHistoryPersenter extends AppDelegate implements View.OnClic
     private String lastLoginTime1;
     private String sex1;
     private String page="1";
-    private String count="5";
+    private String count="500";
     private HistoryvAdapter historyvAdapter;
 
     @Override
@@ -170,15 +170,15 @@ public class ActivityHistoryPersenter extends AppDelegate implements View.OnClic
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
+                }else if ("请求成功".equals(historyBean.getMessage())){
+                    //去外面设置适配器
+                    //在这设置集合
+                    historyvAdapter.setList(historyBean.getResult());
+                    //下拉刷新关闭
+                    history_rv.refreshComplete();
+                    //上拉加载关闭
+                    history_rv.loadMoreComplete();
                 }
-
-                //去外面设置适配器
-                //在这设置集合
-                historyvAdapter.setList(historyBean.getResult());
-                //下拉刷新关闭
-                history_rv.refreshComplete();
-                //上拉加载关闭
-                history_rv.loadMoreComplete();
                 break;
         }
     }
