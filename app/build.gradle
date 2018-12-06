@@ -11,11 +11,28 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
+    signingConfigs {
+        config {
+            keyAlias "bw_movie"
+            keyPassword "123456"
+            storeFile file("movie.keystore")
+            storePassword "123456"
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug{
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
     }
 
     compileOptions {
@@ -56,4 +73,5 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
 }

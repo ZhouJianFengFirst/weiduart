@@ -15,8 +15,9 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
  * 作用：App
  */
 public class App extends Application {
-    public static IWXAPI mWxApi;
     private static App mainApp;
+
+    public static IWXAPI mWxApi;
 
     public static App getMainApp() {
         mainApp = new App();
@@ -32,10 +33,8 @@ public class App extends Application {
         HttpHelper.getInstens().init(Http.BASE_URL, this);
         //初始化fresco图片控件
         Fresco.initialize(this);
-        mWxApi = WXAPIFactory.createWXAPI(this, "wxb3852e6a6b7d9516", false);
+        mWxApi = WXAPIFactory.createWXAPI(this, "wxb3852e6a6b7d9516", true);
         // 将该app注册到微信
         mWxApi.registerApp("wxb3852e6a6b7d9516");
-
-
     }
 }

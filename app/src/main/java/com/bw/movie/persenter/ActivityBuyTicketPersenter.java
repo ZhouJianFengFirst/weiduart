@@ -6,9 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -70,6 +67,7 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
 
     //找控件
     private void initwidget() {
+
         cinema_name1 = (TextView) getView(R.id.cinema_text_name1);
         cinema_name2 = (TextView) getView(R.id.cinema_text_name2);
         cinema_dz1 = (TextView) getView(R.id.cinema_text_dz1);
@@ -78,6 +76,7 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
         cinema_money = (TextView) getView(R.id.cinema_text_money);
         linearBuy = (RelativeLayout) getView(R.id.layout_buy);
         rgSelect = (RadioGroup) getView(R.id.rg_select);
+
         rgSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -128,6 +127,8 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
         cinema_name2.setText(movename);
         cinema_date.setText(ccbegintime + " - " + ccendtime);
         api = WXAPIFactory.createWXAPI(context, "wxb3852e6a6b7d9516");
+        api.registerApp("wxb3852e6a6b7d9516");
+
     }
 
     //设置座位自定义view
@@ -264,21 +265,19 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
     private void okPay(String data) {
         Logger.d("Taggersss", data);
         PayBean payBean = new Gson().fromJson(data, PayBean.class);
-        if ("0000".equals(payBean.getStatus())){
+        if ("0000".equals(payBean.getStatus())) {
             PayReq request = new PayReq();
             request.appId = payBean.getAppId();
             request.partnerId = payBean.getPartnerId();
-            request.prepayId= payBean.getPrepayId();
+            request.prepayId = payBean.getPrepayId();
             request.packageValue = payBean.getPackageValue();
-            request.nonceStr= payBean.getNonceStr();
-            request.timeStamp= payBean.getTimeStamp();
-            request.sign= payBean.getSign();
+            request.nonceStr = payBean.getNonceStr();
+            request.timeStamp = payBean.getTimeStamp();
+            request.sign = payBean.getSign();
             api.sendReq(request);
-
-
-            return;
+        } else {
+            toast(context, payBean.getMessage());
         }
-        toast(context,payBean.getMessage());
     }
 
 

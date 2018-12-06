@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.App;
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityLogin;
 import com.bw.movie.activitys.ActivityRegister;
@@ -26,7 +27,9 @@ import com.bw.movie.utils.EncryptUtil;
 import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.SharedUtil;
 import com.bw.movie.utils.SpUtil;
+import com.bw.movie.utils.WXUtils;
 import com.google.gson.Gson;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -45,7 +48,7 @@ import okhttp3.Response;
  * 时间：2018/11/28
  * 作用：ActivityLogin(登录页面)
  */
-public class ActivityLoginPersenter extends AppDelegate {
+public class ActivityLoginPersenter extends AppDelegate implements View.OnClickListener {
     private Context mcontext;
     private EditText edphone;
     private EditText edpass;
@@ -223,6 +226,7 @@ public class ActivityLoginPersenter extends AppDelegate {
         imgthird = (ImageView) getView(R.id.login_img_third);
         txtjustregister = (TextView) getView(R.id.login_txt_justregister);
         imglookpass = (ImageView) getView(R.id.login_img_lookpass);
+        setClick(this, R.id.login_txt_justregister);
     }
 
     /**
@@ -255,5 +259,27 @@ public class ActivityLoginPersenter extends AppDelegate {
     public void initContext(Context context) {
         super.initContext(context);
         this.mcontext = context;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.login_txt_justregister:
+                wxLogin();
+                break;
+        }
+    }
+
+    private void wxLogin() {
+        //先判断是否安装微信APP,按照微信的说法，目前移动应用上微信登录只提供原生的登录方式，需要用户安装微信客户端才能配合使用。
+        if (!WXUtils.isWeixinAvilible(mcontext)) {
+            toast(mcontext, "您还未安装微信客户端");
+            return;
+        }
+        SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "diandi_wx_login";
+        //像微信发送请求
+        App.mWxApi.sendReq(req);
     }
 }
