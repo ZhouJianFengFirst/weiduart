@@ -72,12 +72,21 @@ public class ActivityMainPersenter extends AppDelegate implements View.OnClickLi
                 switch (i) {
                     case 0:
                         viewPager.setCurrentItem(0);
+                        btnFilm.setImageResource(R.drawable.film_yes);
+                        btnCream.setImageResource(R.drawable.cinema_no);
+                        btnMe.setImageResource(R.drawable.my_no);
                         break;
                     case 1:
                         viewPager.setCurrentItem(1);
+                        btnFilm.setImageResource(R.drawable.film_no);
+                        btnCream.setImageResource(R.drawable.cinema_yes);
+                        btnMe.setImageResource(R.drawable.my_no);
                         break;
                     case 2:
                         viewPager.setCurrentItem(2);
+                        btnFilm.setImageResource(R.drawable.film_no);
+                        btnCream.setImageResource(R.drawable.cinema_no);
+                        btnMe.setImageResource(R.drawable.my_yes);
                         break;
                 }
             }
