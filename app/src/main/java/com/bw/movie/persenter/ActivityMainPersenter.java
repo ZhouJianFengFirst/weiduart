@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.MainActivity;
@@ -72,6 +73,7 @@ public class ActivityMainPersenter extends AppDelegate implements View.OnClickLi
                 switch (i) {
                     case 0:
                         viewPager.setCurrentItem(0);
+                        setbtnFilmBig();
                         btnFilm.setImageResource(R.drawable.film_yes);
                         btnCream.setImageResource(R.drawable.cinema_no);
                         btnMe.setImageResource(R.drawable.my_no);
@@ -114,6 +116,10 @@ public class ActivityMainPersenter extends AppDelegate implements View.OnClickLi
 
         });
     }
+    //设置第一个放大
+    private void setbtnFilmBig() {
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -139,4 +145,5 @@ public class ActivityMainPersenter extends AppDelegate implements View.OnClickLi
 
         }
     }
+
 }

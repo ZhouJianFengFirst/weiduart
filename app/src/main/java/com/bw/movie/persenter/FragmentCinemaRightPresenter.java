@@ -134,6 +134,7 @@ public class FragmentCinemaRightPresenter extends AppDelegate implements View.On
                 }else if(discussDzBean1.getMessage().equals("评论成功")){
                     toast(context,"评论成功~");
                     dohttp();
+                    ed_pl.setText("");
                     lin_pl.setVisibility(View.GONE);
                     write.setVisibility(View.VISIBLE);
                 }

@@ -2,10 +2,14 @@ package com.bw.movie;
 
 import android.app.Application;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.bw.movie.net.Http;
 import com.bw.movie.net.HttpHelper;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushConfig;
+import com.tencent.android.tpush.XGPushManager;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -36,5 +40,21 @@ public class App extends Application {
         mWxApi = WXAPIFactory.createWXAPI(this, "wxb3852e6a6b7d9516", true);
         // 将该app注册到微信
         mWxApi.registerApp("wxb3852e6a6b7d9516");
+        //信鸽debug
+        XGPushConfig.enableDebug(this, true);
+        XGPushManager.registerPush(this, new XGIOperateCallback() {
+            @Override
+            public void onSuccess(Object data, int flag) {
+//token在设备卸载重装的时候有可能会变
+                Log.d("TPush", "注册成功，设备token为：" + data);
+            }
+            @Override
+            public void onFail(Object data, int errCode, String msg) {
+                Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
+            }
+        });
+        XGPushManager.bindAccount(getApplicationContext(), "XINGE");
+        XGPushManager.setTag(this,"XINGE");
+
     }
 }
