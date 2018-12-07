@@ -85,7 +85,6 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
                     case R.id.login_bt_login://登录按钮
                         loginphone = edphone.getText().toString().trim();
                         String loginpass = edpass.getText().toString().trim();
-
                         uselogin(loginphone, loginpass);
                         break;
                     case R.id.login_txt_justregister://点击跳转到注册页面
@@ -110,12 +109,16 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
      *登录
      * */
     private void uselogin(final String loginphone, final String loginpass) {
-        if (TextUtils.isEmpty(loginphone) && TextUtils.isEmpty(loginpass)) {
-            toast("警告", "用户名或密码不能为空！！", 1);
+        if (TextUtils.isEmpty(loginphone)) {
+            toast("警告", "用户名不能为空！！", 1);
             return;
         }
-        if (TextUtils.isEmpty(loginphone) && TextUtils.isEmpty(loginpass)) {
-            toast("警告", "用户名或密码不能为空！！", 1);
+        if (loginphone.length() !=11) {
+            toast("警告", "请输入正确的手机号！！", 1);
+            return;
+        }
+        if (TextUtils.isEmpty(loginpass)) {
+            toast("警告", "密码不能为空！！", 1);
             return;
         }
         String encrypt = EncryptUtil.encrypt(loginpass);
@@ -125,8 +128,10 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
         new OkHttpHelper(new HttpRequestListener() {
             @Override
             public void SuccessRequest(String data) {
+
                 Gson gson = new Gson();
                 LoginBean loginBean = gson.fromJson(data, LoginBean.class);
+                if ("0000".equals(loginBean.getStatus())){
                 SharedUtil.put(mcontext, "phones", loginBean.getResult().getUserInfo().getPhone());
                 SharedUtil.put(mcontext, "sex", loginBean.getResult().getUserInfo().getSex() + "");
                 SpUtil.saveData(mcontext, "message", loginBean.getMessage());
@@ -152,7 +157,7 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
                 } else {
                     SpUtil.clear();
                 }
-                toast("登录", "登录成功", 1);
+                toast("登录", "登录成功", 2);
                 /*
                  *开个线程
                  * */
@@ -160,14 +165,17 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(1000);
+                            Thread.sleep(2000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         ((ActivityLogin) mcontext).startActivity(new Intent(mcontext, MainActivity.class));
                         ((ActivityLogin) mcontext).finish();
                     }
-                }).start();
+                }).start();}
+                else {
+                    toast("提示", "登录失败"+loginBean.getMessage(), 2);
+                }
             }
 
             @Override

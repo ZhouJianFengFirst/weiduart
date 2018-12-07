@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 
 import com.bw.movie.R;
@@ -23,7 +24,7 @@ import java.util.List;
  * 作者:xujiahui
  * 作用:ActivityFilmQueryCinemaPersenter(film查询影院)
  */
-public class ActivityFilmQueryCinemaPersenter extends AppDelegate {
+public class ActivityFilmQueryCinemaPersenter extends AppDelegate implements View.OnClickListener {
 
 
     private Context mcontext;
@@ -34,6 +35,7 @@ public class ActivityFilmQueryCinemaPersenter extends AppDelegate {
     private String film_name;
     private String userId;
     private String sessionId;
+    private ImageView imgreturn;
 
     @Override
     protected int getLayoutId() {
@@ -55,6 +57,8 @@ public class ActivityFilmQueryCinemaPersenter extends AppDelegate {
 
     private void initWidget() {
         list1 = (XListView) getView(R.id.query_listview_cinema_list1);
+        imgreturn = (ImageView) getView(R.id.query_img_cinema_return);
+        imgreturn.setOnClickListener(this);
        recommendSearchAdapter = new RecommendSearchAdapter(mcontext);
     }
 
@@ -104,5 +108,15 @@ public class ActivityFilmQueryCinemaPersenter extends AppDelegate {
     public void failString(String msg) {
         super.failString(msg);
         Logger.d("影片",msg.toString()+"失败");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.query_img_cinema_return:
+                ((ActivityFilmQueryCinema)mcontext).finish();
+                break;
+        }
+
     }
 }
