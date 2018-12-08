@@ -22,7 +22,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_80"
             android:layout_toLeftOf="@id/btn_cinema"
-            android:src="@drawable/film_no" />
+            android:src="@drawable/film_yes" />
 
         <ImageView
             android:id="@+id/btn_cinema"
