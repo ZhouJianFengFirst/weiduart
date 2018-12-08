@@ -1,6 +1,7 @@
 package com.bw.movie;
 
 import android.app.Application;
+import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
@@ -27,12 +28,17 @@ public class App extends Application {
         mainApp = new App();
         return mainApp;
     }
-
+   //解决分包和信鸽推送的冲突  要写到这里
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
+        //分包 初始化
+        MultiDex.install(this);
+    }
     @Override
     public void onCreate() {
         super.onCreate();
-        //分包 初始化
-        MultiDex.install(this);
+//        //分包 初始化
+//        MultiDex.install(this);
         //网络请求
         HttpHelper.getInstens().init(Http.BASE_URL, this);
         //初始化fresco图片控件
