@@ -1,13 +1,16 @@
 package com.bw.movie.persenter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.activitys.ActivityAttention;
+import com.bw.movie.activitys.ActivityDownload;
 import com.bw.movie.activitys.ActivityHistory;
 import com.bw.movie.activitys.ActivityInform;
 import com.bw.movie.activitys.ActivityLogin;
@@ -50,7 +53,10 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
     private String id1;
     private String lastLoginTime1;
     private String sex1;
+    private String mDesc="已检查到新版本 是否立即下载";// 版本描述
     private String ak="0110010010000";
+    private String mVersionName="修复部分bug功能";// 新版本名称
+    private String downloadUrl;
 
     @Override
     protected int getLayoutId() {
@@ -267,8 +273,10 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
                     //吐司完直接返回 不往下执行
                     return;
                 }else if ("查询成功".equals(newestBean.getMessage())){
-                    //吐司最新版本
-                    toast(context,"已经是最新版本");
+                      downloadUrl = newestBean.getDownloadUrl();
+//                    //吐司最新版本
+//                    toast(context,"已经是最新版本");
+                    showUpdateDailog();//显示对话框
                 }
                 break;
         }
@@ -310,5 +318,51 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
            me_tv_nickname.setText("登录/注册");
        }
 
+    }
+    /**
+     * 升级对话框
+     */
+    protected void showUpdateDailog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("最新版本:" + mVersionName);
+        builder.setMessage(mDesc);
+        // builder.setCancelable(false);//不让用户取消对话框, 用户体验太差,尽量不要用
+        builder.setPositiveButton("立即下载", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                download();
+            }
+        });
+        builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //返回主页面
+                enterHome();
+            }
+        });
+        // 设置取消的监听, 用户点击返回键时会触发
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                //返回主页面
+                enterHome();
+            }
+        });
+        builder.show();
+    }
+   //进入浏览器下载
+    private void download() {
+        Intent intent = new Intent(context, ActivityDownload.class);
+        Logger.i("下载的网址",downloadUrl);
+        intent.putExtra("url",downloadUrl);
+        context.startActivity(intent);
+    }
+    /**
+     * 进入主页面
+     */
+    private void enterHome() {
+//        Intent intent = new Intent(this, HomeActivity.class);
+//        startActivity(intent);
+//        finish();
     }
 }
