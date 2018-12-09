@@ -157,13 +157,11 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
             @Override
             public void checked(int row, int column) {
                 num++;
-                toast(context, num + "aa");
             }
 
             @Override
             public void unCheck(int row, int column) {
                 num--;
-                toast(context, num + "aa");
             }
 
             @Override

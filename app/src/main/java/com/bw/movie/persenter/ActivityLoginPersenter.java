@@ -2,13 +2,16 @@ package com.bw.movie.persenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.movie.App;
 import com.bw.movie.R;
@@ -21,12 +24,24 @@ import com.bw.movie.net.Http;
 import com.bw.movie.net.HttpRequestListener;
 import com.bw.movie.net.OkHttpHelper;
 import com.bw.movie.utils.EncryptUtil;
+import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.SharedUtil;
 import com.bw.movie.utils.SpUtil;
 import com.bw.movie.utils.WXUtils;
 import com.google.gson.Gson;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * 作者：xujiahui
@@ -85,6 +100,7 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
                     case R.id.login_bt_login://登录按钮
                         loginphone = edphone.getText().toString().trim();
                         String loginpass = edpass.getText().toString().trim();
+
                         uselogin(loginphone, loginpass);
                         break;
                     case R.id.login_txt_justregister://点击跳转到注册页面
@@ -109,16 +125,8 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
      *登录
      * */
     private void uselogin(final String loginphone, final String loginpass) {
-        if (TextUtils.isEmpty(loginphone)) {
-            toast("警告", "用户名不能为空！！", 1);
-            return;
-        }
-        if (loginphone.length() !=11) {
-            toast("警告", "请输入正确的手机号！！", 1);
-            return;
-        }
-        if (TextUtils.isEmpty(loginpass)) {
-            toast("警告", "密码不能为空！！", 1);
+        if (TextUtils.isEmpty(loginphone) && TextUtils.isEmpty(loginpass)) {
+            toast("警告", "用户名或密码不能为空！！", 1);
             return;
         }
         String encrypt = EncryptUtil.encrypt(loginpass);
@@ -128,10 +136,8 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
         new OkHttpHelper(new HttpRequestListener() {
             @Override
             public void SuccessRequest(String data) {
-
                 Gson gson = new Gson();
                 LoginBean loginBean = gson.fromJson(data, LoginBean.class);
-                if ("0000".equals(loginBean.getStatus())){
                 SharedUtil.put(mcontext, "phones", loginBean.getResult().getUserInfo().getPhone());
                 SharedUtil.put(mcontext, "sex", loginBean.getResult().getUserInfo().getSex() + "");
                 SpUtil.saveData(mcontext, "message", loginBean.getMessage());
@@ -157,7 +163,7 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
                 } else {
                     SpUtil.clear();
                 }
-                toast("登录", "登录成功", 2);
+                toast("登录", "登录成功", 1);
                 /*
                  *开个线程
                  * */
@@ -165,17 +171,14 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         ((ActivityLogin) mcontext).startActivity(new Intent(mcontext, MainActivity.class));
                         ((ActivityLogin) mcontext).finish();
                     }
-                }).start();}
-                else {
-                    toast("提示", "登录失败"+loginBean.getMessage(), 2);
-                }
+                }).start();
             }
 
             @Override

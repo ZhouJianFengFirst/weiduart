@@ -38,11 +38,10 @@ public class ActivityMessage extends BaseActivity<ActivityMessagePersenter> {
         String nickName1 = (String) SpUtil.getSpData(this,"nickName", "");
         String phone1 = (String) SpUtil.getSpData(this,"phone", "");
         String birthday1 = (String) SpUtil.getSpData(this,"birthday", "");
-        String id1 = (String) SpUtil.getSpData(this,"id", "");
         String lastLoginTime1 = (String) SpUtil.getSpData(this,"lastLoginTime", "");
         String sex1 = (String) SpUtil.getSpData(this,"sex", "");
         //调用方法传获取到的值
-        delegate.setData(message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1);
+        delegate.setData(message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,lastLoginTime1,sex1);
     }
 
     //回调方法

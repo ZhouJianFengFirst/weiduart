@@ -1,10 +1,24 @@
 package com.bw.movie.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.widget.Toast;
 
+import com.bw.movie.activitys.MainActivity;
+import com.bw.movie.entity.WxUserBean;
+import com.bw.movie.net.BaseObserver;
+import com.bw.movie.net.HttpHelper;
+import com.bw.movie.wxapi.WXEntryActivity;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.ResponseBody;
 
 public class WXUtils {
     public static boolean isWeixinAvilible(Context context) {
@@ -21,51 +35,45 @@ public class WXUtils {
         return false;
     }
 
-   /* *//**
-     * 获取微信登录，用户授权后的个人信息
-     *
-     * @param access_token
-     * @param openid
-     * @param unionid
-     *//*
-    private void getWXUserInfo(final String access_token, final String openid, final String unionid) {
-        Map<String, Object> params = new HashMap();
-        params.put("access_token", access_token);
-        params.put("openid", openid);
-        //https://www.jianshu.com/p/57128969e7eb
-        //https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
-        HttpHelper.getInstens().doGet();
-        HttpHelper.getWXUserInfoBean(URLConstant.URL_WX_BASE, params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<WXUserInfoBean>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.i(TAG, "getWXUserInfo:--------> onCompleted");
-                    }
 
-                    @Override
-                    public void onError(Throwable throwable) {
-                        Log.i(TAG, "getWXUserInfo:--------> onError" + throwable.getMessage());
-                    }
+    public static void getWXUserInfo(String code, Context mcontext) {
 
-                    @Override
-                    public void onNext(WXUserInfoBean wxUserInfoBean) {
-                        Log.i(T,,AG, "getWXUserInfo:--------> onNext");
-                        String country = wxUserInfoBean.getCountry(); //国家
-                        String province = wxUserInfoBean.getProvince(); //省
-                        String city = wxUserInfoBean.getCity(); //市
-                        String nickname = wxUserInfoBean.getNickname(); //用户名
-                        int sex = wxUserInfoBean.getSex(); //性别
-                        String headimgurl = wxUserInfoBean.getHeadimgurl(); //头像url
-                        Log.i(TAG, "country:-------->" + country);
-                        Log.i(TAG, "province:-------->" + province);
-                        Log.i(TAG, "city:-------->" + city);
-                        Log.i(TAG, "nickname:-------->" + nickname);
-                        Log.i(TAG, "sex:-------->" + sex);
-                        Log.i(TAG, "headimgurl:-------->" + headimgurl);
-                    }
-                });
-    }*/
+        Map<String, String> hmap = new HashMap<>();
+        hmap.put("Content-Type", "application/x-www-form-urlencoded");
+        Map<String, String> fmap = new HashMap<>();
+        fmap.put("code", code);
+        HttpHelper.getInstens().headPost("/movieApi/user/v1/weChatBindingLogin", hmap, fmap, new BaseObserver<ResponseBody>() {
+            @Override
+            public void onNext(ResponseBody responseBody) {
+
+                try {
+                    String string = responseBody.string();
+
+                    WxUserBean loginBean = new Gson().fromJson(string, WxUserBean.class);
+                    SpUtil.saveData(mcontext, "sex", loginBean.getResult().getUserInfo().getSex() + "");
+                    SpUtil.saveData(mcontext, "message", loginBean.getMessage());
+                    SpUtil.saveData(mcontext, "status", loginBean.getStatus());
+                    SpUtil.saveData(mcontext, "sessionId", loginBean.getResult().getSessionId());
+                    SpUtil.saveData(mcontext, "userId", loginBean.getResult().getUserId() + "");
+                    SpUtil.saveData(mcontext, "headPic", loginBean.getResult().getUserInfo().getHeadPic());
+                    SpUtil.saveData(mcontext, "nickName", loginBean.getResult().getUserInfo().getNickName());
+                    SpUtil.saveData(mcontext, "phone", "暂无手机号");
+                    SpUtil.saveData(mcontext, "birthday", "暂未设定");
+                    SpUtil.saveData(mcontext, "lastLoginTime", loginBean.getResult().getUserInfo().getLastLoginTime() + "");
+                    SpUtil.saveData(mcontext, "isLogin", true);
+                    SpUtil.saveData(mcontext, "isAuto", true);
+                    mcontext.startActivity(new Intent(mcontext, MainActivity.class));
+                    ((WXEntryActivity) mcontext).finish();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Toast.makeText(mcontext, "请求错误", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
 }

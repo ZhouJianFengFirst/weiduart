@@ -72,8 +72,9 @@ public class HttpHelper {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ob);
     }
+
     //上传头像
-    public void upLoad(Map<String,String> map,File file, Observer ob) {
+    public void upLoad(Map<String, String> map, File file, Observer ob) {
 
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Toast.makeText(mCotext, "sd卡未挂载", Toast.LENGTH_SHORT).show();
@@ -81,9 +82,9 @@ public class HttpHelper {
         }
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData("image", "head.png",requestBody);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("image", "head.png", requestBody);
         retrofit.create(BaseService.class)
-                .upload(map,part)
+                .upload(map, part)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ob);
@@ -131,6 +132,14 @@ public class HttpHelper {
     public void PostHeandOrFrom(String url, Map<String, String> hmap, Map<String, String> fmap, Observer ob) {
         BaseService baseService = retrofit.create(BaseService.class);
         baseService.HeadOrFormPost(url, hmap, fmap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ob);
+    }
+
+    public void GetFrom(String url, Map<String, String> fmap, Observer ob) {
+        BaseService baseService = retrofit.create(BaseService.class);
+        baseService.FormGet(url, fmap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ob);

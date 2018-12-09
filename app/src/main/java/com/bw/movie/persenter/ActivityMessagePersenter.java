@@ -68,7 +68,6 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     private String nickName1;
     private String phone1;
     private String birthday1;
-    private String id1;
     private String lastLoginTime1;
     private String sex1;
     private SimpleDraweeView message_sdv_head;
@@ -310,6 +309,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
             }
         }
     }
+
     //上传头像
     private void uploadImage(String path) {
         File file = new File(path);
@@ -331,7 +331,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
                 } else if (uploadBean.getMessage().equals("请先登录")) {
                     toast(context, "登录过期,请重新登录~");
                     return;
-                }else   if("网络异常,请联系管理员".equals(uploadBean.getMessage())) {
+                } else if ("网络异常,请联系管理员".equals(uploadBean.getMessage())) {
                     //吐司网络异常，请联系管理员
                     toast(context, "网络异常,请联系管理员");
                     //吐司完直接返回 不往下执行
@@ -341,7 +341,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
                 SpUtil.saveData(context, "headPic", uploadBean.getHeadPath());
                 //重新给控件赋值
                 message_sdv_head.setImageURI(Uri.parse(uploadBean.getHeadPath()));
-                 break;
+                break;
         }
     }
 
@@ -389,7 +389,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     }
 
     //获取到的值
-    public void setData(String message1, String status1, String sessionId1, String userId1, String headPic1, String nickName1, String phone1, String birthday1, String id1, String lastLoginTime1, String sex1) {
+    public void setData(String message1, String status1, String sessionId1, String userId1, String headPic1, String nickName1, String phone1, String birthday1, String lastLoginTime1, String sex1) {
         //this.名称=名称提上去
         this.message1 = message1;
         this.status1 = status1;
@@ -399,7 +399,6 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
         this.nickName1 = nickName1;
         this.phone1 = phone1;
         this.birthday1 = birthday1;
-        this.id1 = id1;
         this.lastLoginTime1 = lastLoginTime1;
         this.sex1 = sex1;
         Logger.i("头像", headPic1);
@@ -412,7 +411,11 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
             message_tv_sex.setText("女");
         }
         //出生日期
-        message_tv_date.setText(DateUtils.format(Long.parseLong(birthday1),"yyyy-MM-dd"));
+        if ("暂未设定".equals(birthday1)) {
+            message_tv_date.setText(birthday1);
+        } else {
+            message_tv_date.setText(DateUtils.format(Long.parseLong(birthday1), "yyyy-MM-dd"));
+        }
         message_tv_phone.setText(phone1);
         message_sdv_head.setImageURI(Uri.parse(headPic1));
     }

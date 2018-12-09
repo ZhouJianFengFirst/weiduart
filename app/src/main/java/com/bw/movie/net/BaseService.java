@@ -42,7 +42,7 @@ public interface BaseService {
     //上传头像
     @Multipart
     @POST("/movieApi/user/v1/verify/uploadHeadPic")
-    Observable<ResponseBody> upload(@HeaderMap Map<String,String> map,@Part MultipartBody.Part part);
+    Observable<ResponseBody> upload(@HeaderMap Map<String, String> map, @Part MultipartBody.Part part);
 
     //get 把querymap 改成headermap注解  headget
     @GET
@@ -70,5 +70,13 @@ public interface BaseService {
     @FormUrlEncoded
     @POST
     Observable<ResponseBody> HeadOrFormPost(@Url String url, @HeaderMap Map<String, String> hap, @FieldMap Map<String, String> fmap);
+
+    @Headers({
+            "ak:0110010010000",
+            "Content-Type:application/x-www-form-urlencoded"
+    })
+    @POST
+    Observable<ResponseBody> FormGet(@Url String url, @HeaderMap Map<String, String> fmap);
+
 
 }
