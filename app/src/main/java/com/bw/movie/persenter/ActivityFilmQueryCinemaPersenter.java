@@ -117,6 +117,5 @@ public class ActivityFilmQueryCinemaPersenter extends AppDelegate implements Vie
                 ((ActivityFilmQueryCinema)mcontext).finish();
                 break;
         }
-
     }
 }
