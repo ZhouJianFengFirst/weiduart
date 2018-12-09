@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,7 +36,7 @@ import java.util.HashMap;
 public class FragmentMePresenter extends AppDelegate implements View.OnClickListener {
     private Context context;
     private SimpleDraweeView me_sdv_head;
-    private SimpleDraweeView me_sdv_inform;
+    private ImageView me_sdv_inform;
     private TextView me_tv_nickname;
     private LinearLayout me_liner_message;
     private LinearLayout me_Liner_attention;
@@ -82,7 +83,7 @@ public class FragmentMePresenter extends AppDelegate implements View.OnClickList
     private void initwidget() {
         //获取控件强转提上去
         me_sdv_head = (SimpleDraweeView) getView(R.id.me_sdv_head);
-        me_sdv_inform = (SimpleDraweeView) getView(R.id.me_sdv_inform);
+        me_sdv_inform = (ImageView) getView(R.id.me_sdv_inform);
         me_tv_nickname = (TextView) getView(R.id.me_tv_nickname);
         me_liner_message = (LinearLayout) getView(R.id.me_liner_message);
         me_Liner_attention = (LinearLayout) getView(R.id.me_Liner_attention);

@@ -21,7 +21,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="178dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_24"
         android:layout_marginRight="@dimen/dp_24"
         android:background="@drawable/my_item"
@@ -118,6 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_20">
 
@@ -129,7 +130,6 @@
                 android:text="出生日期"
                 android:textColor="@color/color333333"
                 android:textSize="@dimen/sp_14"
-
                 />
 
             <TextView
