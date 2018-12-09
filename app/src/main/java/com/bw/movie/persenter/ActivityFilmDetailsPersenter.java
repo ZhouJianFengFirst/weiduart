@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.bw.movie.entity.CommentEntity;
 import com.bw.movie.entity.FilmMessageEntity;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
+import com.bw.movie.utils.DimUtil;
 import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.SimpDrawViewUtils;
 import com.bw.movie.utils.SpUtil;
@@ -224,6 +226,9 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
      * 初始化
      */
     private void initWeight() {
+        heightpixels = mContext.getResources().getDisplayMetrics().heightPixels;
+        heightpixels2 = heightpixels / 2;
+
         DisplayMetrics dm = new DisplayMetrics();
         Pwidth = dm.heightPixels;
         Pheight = dm.widthPixels;
@@ -241,6 +246,10 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
         txtBengName = (TextView) getView(R.id.txt_btnEng_name);
         txtActorName = (TextView) getView(R.id.txt_actor_name);
         layoutDetalis = (RelativeLayout) getView(R.id.layout_details);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) layoutDetalis.getLayoutParams();
+        layoutParams.height = DimUtil.pxToDip(heightpixels);
+        layoutDetalis.setLayoutParams(layoutParams);
+
         smFilmPic = (SimpleDraweeView) getView(R.id.sm_film_pic);
         txtType = (TextView) getView(R.id.txt_type);
         txtCredit = (TextView) getView(R.id.txt_credit);
@@ -328,8 +337,6 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
      * @param to
      */
     public void setAnimation(View view, int in, int to) {
-        heightpixels = mContext.getResources().getDisplayMetrics().heightPixels;
-          heightpixels2 = heightpixels / 2;
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationY", in, to);
         animator.setDuration(500);
         animator.start();
