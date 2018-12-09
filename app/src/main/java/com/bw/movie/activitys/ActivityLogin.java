@@ -10,7 +10,6 @@ import com.bw.movie.persenter.ActivityLoginPersenter;
  */
 public class ActivityLogin extends BaseActivity<ActivityLoginPersenter> {
 
-
     @Override
     public Class<ActivityLoginPersenter> getDelegateClass() {
         return ActivityLoginPersenter.class;

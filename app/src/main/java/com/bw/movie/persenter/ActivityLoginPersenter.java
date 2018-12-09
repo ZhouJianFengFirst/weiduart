@@ -125,6 +125,7 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
      *登录
      * */
     private void uselogin(final String loginphone, final String loginpass) {
+
         if (TextUtils.isEmpty(loginphone) && TextUtils.isEmpty(loginpass)) {
             toast("警告", "用户名或密码不能为空！！", 1);
             return;
