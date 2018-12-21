@@ -215,6 +215,9 @@ public class ActivityInformPersenter extends AppDelegate implements View.OnClick
                     toast(context, "登录过期,请重新登录");
                     //吐司完直接返回 不往下执行
                     return;
+                } else if (informNumBean.getCount()==0) {
+                    //给控件赋值
+                    inform_message.setText("没有未读消息");
                 } else if ("查询成功".equals(informNumBean.getMessage())) {
                     //给控件赋值
                     inform_message.setText("系统消息(" + informNumBean.getCount() + "条未读)");

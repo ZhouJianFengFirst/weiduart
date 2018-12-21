@@ -18,7 +18,6 @@
         android:id="@+id/inform_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="系统消息(0条未读)"
         android:layout_marginLeft="@dimen/dp_24"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/color333333"
