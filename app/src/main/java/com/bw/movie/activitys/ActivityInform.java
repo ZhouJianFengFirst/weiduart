@@ -18,7 +18,7 @@ public class ActivityInform extends BaseActivity<ActivityInformPersenter> {
 
     @Override
     public Class<ActivityInformPersenter> getDelegateClass() {
-        //返回本页面的Persenter
+        //返回本页面的persenter
         return ActivityInformPersenter.class;
     }
     //重写生命周期onResume 聚焦方法
