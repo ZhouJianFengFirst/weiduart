@@ -40,7 +40,7 @@ public class CinemaSessionsAdapter extends RecycleAdapter<CinemaSessionBean.Resu
         viewHolder.setText(R.id.text_seccion_te2, resultBean.getBeginTime());
         viewHolder.setText(R.id.text_seccion_te3, resultBean.getEndTime() + "   end");
         viewHolder.setText(R.id.text_seccion_te4, BigDecimal.valueOf(resultBean.getPrice()) + "");
-        viewHolder.setClick(new View.OnClickListener() {
+        viewHolder.setClick(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 listener.back(postion);
