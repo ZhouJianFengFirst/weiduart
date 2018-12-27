@@ -72,6 +72,8 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private List<CinemaFlowBean.ResultBean> flowlist = new ArrayList<>();
     private List<CinemaSessionBean.ResultBean> sessionlist = new ArrayList<>();
     private int flag;
+    private int moveid;
+    private int size;
 
     @Override
     protected int getLayoutId() {
@@ -110,18 +112,21 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
                 flag = position;
                 putLine(position);
                 Logger.d("Tagger", flowlist.get(position).getName());
-                int moveid = flowlist.get(position).getId();
+                moveid = flowlist.get(position).getId();
                 dohttpsession(moveid);
             }
         });
         rescy.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                rescy.refreshComplete();
+//                rescy.refreshComplete();
+                dohttpsession(moveid);
             }
 
             @Override
             public void onLoadMore() {
+                rescy.loadMoreComplete();
+                toast(context, "没有更多了~");
             }
         });
 
@@ -171,7 +176,12 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
             case 1:
                 CinemaFlowBean cinemaFlowBean = new Gson().fromJson(data, CinemaFlowBean.class);
                 flowlist = cinemaFlowBean.getResult();
+                Logger.i("画廊长度/2",flowlist.size()+"jj");
+                size = flowlist.size()/2;
+//                Logger.i("画廊长度/2",size+"jj");
                 cinemaFlowAdapter.setList(flowlist);
+                //默认显示位置
+                flow.smoothScrollToPosition(size);
                 dohttpsession(flowlist.get(0).getId());//请求场次
                 break;
             case 2:
@@ -316,7 +326,6 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     public void back(int postion) {
         Intent intent = new Intent(context, ActivityBuyTicket.class);
         intent.putExtra("ccid", sessionlist.get(postion).getId() + "");
-        intent.putExtra("money", sessionlist.get(postion).getPrice() + "");
         intent.putExtra("ccbegintime", sessionlist.get(postion).getBeginTime());
         intent.putExtra("ccendtime", sessionlist.get(postion).getEndTime());
         intent.putExtra("cctime", sessionlist.get(postion).getDuration());

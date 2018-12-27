@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -282,16 +283,19 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
 
     //裁剪回调方法
     public void onCode2(Intent data) {
+        Log.i("检查上传头像",data+"extras我进来了");
         //先判断data非空
         if (data != null) {
             //data 获取extras 返回值
             Bundle extras = data.getExtras();
+            Log.i("检查上传头像",data+"data"+extras+"extras我");
             //判断等于空直接返回
             if (extras == null) {
                 return;
             }
             //extras .获取p传引号data返回值head  提上去Bitmap类型
             head = extras.getParcelable("data");
+            Log.i("检查上传头像",head+"data");
             //判断判断head非空
             if (head != null) {
 //                //上面封装的固定路径+引号/+pic图片名
@@ -313,6 +317,7 @@ public class ActivityMessagePersenter extends AppDelegate implements View.OnClic
     //上传头像
     private void uploadImage(String path) {
         File file = new File(path);
+        Log.i("检查上传头像",userId1+"oo"+sessionId1+"pp"+path);
         HashMap<String, String> map = new HashMap<>();
         map.put("userId", userId1);
         map.put("sessionId", sessionId1);

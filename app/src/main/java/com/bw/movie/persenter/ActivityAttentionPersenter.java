@@ -177,6 +177,7 @@ public class ActivityAttentionPersenter extends AppDelegate implements View.OnCl
         //请求get字符串方法 传网址类型随机数0,1
         //调用head请求方法传接口的数据,传类型和map
         HeadOrQuertGet(Http.SELECTFILM_URL, 1, map, qmap);
+
         Logger.i("第二个集合id", map.get("userId") + "哈哈哈" + map.get("sessionId") + qmap.get("page") + qmap.get("count"));
         //设置停止下拉刷新
         attention_xlv.stopRefresh();

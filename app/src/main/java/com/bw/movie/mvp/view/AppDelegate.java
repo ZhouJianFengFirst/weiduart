@@ -60,7 +60,6 @@ public abstract class AppDelegate implements IDelegate {
     public void handGetString(String url, final int type, Map<String, String> map) {
 
         BaseObserver ob = new BaseObserver<ResponseBody>() {
-
             @Override
             public void onNext(ResponseBody responseBody) {
                 if (responseBody != null) {
@@ -82,7 +81,6 @@ public abstract class AppDelegate implements IDelegate {
             }
         };
         HttpHelper.getInstens().headGet(url, map, ob);
-
     }
 
     @Override

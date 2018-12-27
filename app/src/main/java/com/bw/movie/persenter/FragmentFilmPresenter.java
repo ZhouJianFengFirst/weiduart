@@ -209,6 +209,10 @@ public class FragmentFilmPresenter extends AppDelegate implements View.OnClickLi
         entity = new Gson().fromJson(data, HortMovieEntity.class);
         backGroundPageAdapter.setPage(entity.getResult().size());
         pagerAdapter3D.setList(entity.getResult());
+        //取中间值
+        int middleCode = entity.getResult().size() / 2;
+        //设置默认页数
+        viewPage3D.setCurrentItem(middleCode);
         hortShowingAdapter.setList(entity.getResult());
     }
 

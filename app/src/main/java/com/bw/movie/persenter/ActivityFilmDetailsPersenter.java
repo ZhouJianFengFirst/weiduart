@@ -228,7 +228,6 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
     private void initWeight() {
         heightpixels = mContext.getResources().getDisplayMetrics().heightPixels;
         heightpixels2 = heightpixels / 2;
-
         DisplayMetrics dm = new DisplayMetrics();
         Pwidth = dm.heightPixels;
         Pheight = dm.widthPixels;

@@ -7,9 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -20,6 +22,7 @@ import com.bw.movie.entity.DiscussBean;
 import com.bw.movie.entity.DiscussDzBean;
 import com.bw.movie.mvp.view.AppDelegate;
 import com.bw.movie.net.Http;
+import com.bw.movie.utils.DimUtil;
 import com.bw.movie.utils.Logger;
 import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -45,6 +48,7 @@ public class FragmentCinemaRightPresenter extends AppDelegate implements View.On
     private LinearLayout lin_pl;
     private TextView te_pl;
     private EditText ed_pl;
+    private RelativeLayout mCinemaRightreLayout;
 //    private static int TYPE = 0;//判断是否点赞成功
 
     @Override
@@ -150,15 +154,26 @@ public class FragmentCinemaRightPresenter extends AppDelegate implements View.On
 
     //找控件的方法
     private void initwidget() {
+        //计算屏幕高度
+        int height = context.getResources().getDisplayMetrics().heightPixels;
+        int height3 = (DimUtil.pxToDip(height / 2)-80);//px转换dp
+        Logger.i("我的下编剧",height3+"哦哦");
         recy = (XRecyclerView) getView(R.id.right_cinema_recy);
         write = (ImageView) getView(R.id.image_cinemadetails_write);
         lin_pl = (LinearLayout) getView(R.id.cinema_lin_pl);
+        mCinemaRightreLayout = (RelativeLayout) getView(R.id.cinema_right_relayout);
+//        //设置下边剧
+//        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mCinemaRightreLayout.getLayoutParams();
+//        layoutParams.bottomMargin=height3;
+//        Logger.i("我的下编剧",height3+"哦哦");
+//        mCinemaRightreLayout.setLayoutParams(layoutParams);
         te_pl = (TextView) getView(R.id.cinema_te_pl);
         ed_pl = (EditText) getView(R.id.cinema_ed_pl);
         setClick(this, R.id.image_cinemadetails_write, R.id.cinema_te_pl);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recy.setLayoutManager(linearLayoutManager);
+
     }
 
     //获取到的值
