@@ -62,8 +62,8 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sm_film_image"
-        android:layout_width="@dimen/dp_259dp"
-        android:layout_height="@dimen/dp_360dp"
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="@dimen/dp_312"
         android:layout_below="@id/txt_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_30" />
@@ -73,6 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/layou_bottom"
+        android:layout_below="@id/sm_film_image"
         android:layout_marginBottom="@dimen/dp_30"
         android:layout_marginLeft="@dimen/dp_24"
         android:layout_marginRight="@dimen/dp_24"
