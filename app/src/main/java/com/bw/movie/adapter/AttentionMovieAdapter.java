@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.entity.SelectMovieBean;
+import com.example.xlistviewlib.DateUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -70,8 +71,8 @@ public class AttentionMovieAdapter extends BaseAdapter {
         myViewHolder.attention_film_img.setImageURI(resultBeans.get(i).getImageUrl());
         myViewHolder.attention_film_name.setText(resultBeans.get(i).getName());
         myViewHolder.attention_film_desc.setText(resultBeans.get(i).getSummary());
-        //日期加个空字符串
-        myViewHolder.attention_film_date.setText(resultBeans.get(i).getReleaseTime()+"");
+        //日期转换
+        myViewHolder.attention_film_date.setText(DateUtils.format(resultBeans.get(i).getReleaseTime(), "yyyy-MM-dd HH:mm"));
         return view;
     }
 

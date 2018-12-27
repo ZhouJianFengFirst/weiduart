@@ -68,7 +68,7 @@
         </activity>
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="	6f4117ac67018b64a5f616efa4147ce8">
+            android:value="2d5762dec9c3763eaef3e752171689c5">
             <!-- 开发者申请的key -->
         </meta-data>
         <!-- 定位需要的服务 -->

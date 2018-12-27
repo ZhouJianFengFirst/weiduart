@@ -5,13 +5,13 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="@dimen/dp_200"
-        android:layout_height="@dimen/dp_330">
+        android:layout_width="@dimen/dp_255"
+        android:layout_height="@dimen/dp_370">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/iv"
-            android:layout_width="@dimen/dp_220"
-            android:layout_height="@dimen/dp_330"
+            android:layout_width="@dimen/dp_255"
+            android:layout_height="@dimen/dp_370"
             app:roundedCornerRadius="@dimen/dp_8dp" />
 
         <TextView

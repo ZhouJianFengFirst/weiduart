@@ -326,6 +326,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     public void back(int postion) {
         Intent intent = new Intent(context, ActivityBuyTicket.class);
         intent.putExtra("ccid", sessionlist.get(postion).getId() + "");
+        intent.putExtra("money", sessionlist.get(postion).getPrice()+"");
         intent.putExtra("ccbegintime", sessionlist.get(postion).getBeginTime());
         intent.putExtra("ccendtime", sessionlist.get(postion).getEndTime());
         intent.putExtra("cctime", sessionlist.get(postion).getDuration());

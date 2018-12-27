@@ -117,9 +117,11 @@
             android:id="@+id/relayout_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_300"
-            android:layout_marginTop="@dimen/dp_100"
+            android:layout_marginTop="@dimen/dp_80"
             android:clipChildren="false"
-            android:padding="@dimen/dp_20">
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20"
+            >
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/back_viewpage"
