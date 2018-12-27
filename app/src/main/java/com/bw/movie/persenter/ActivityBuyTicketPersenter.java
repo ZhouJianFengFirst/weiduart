@@ -26,6 +26,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -163,14 +165,20 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
             public void checked(int row, int column) {
                 num++;
                 double money = mPrice * num;
-                cinema_money.setText(BigDecimal.valueOf(money)+"");
+                NumberFormat nf = new DecimalFormat("##.##");
+                String str = nf.format(money);
+//                cinema_money.setText(BigDecimal.valueOf(money)+"");
+                cinema_money.setText(str);
             }
 
             @Override
             public void unCheck(int row, int column) {
                 num--;
                 double money = mPrice * num;
-                cinema_money.setText(BigDecimal.valueOf(money)+"");
+                NumberFormat nf = new DecimalFormat("##.##");
+                String str = nf.format(money);
+//                cinema_money.setText(BigDecimal.valueOf(money)+"");
+                cinema_money.setText(str);
             }
 
             @Override
