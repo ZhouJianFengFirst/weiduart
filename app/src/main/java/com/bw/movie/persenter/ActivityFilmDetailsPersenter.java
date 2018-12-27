@@ -54,9 +54,9 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
     private TextView title;
     private SimpleDraweeView smFilmPic;
     private TextView txtType, txtCredit, txtTime, txtPlace, txtFilmContent;
-    private RelativeLayout layoutDetalis;
+    private RelativeLayout layoutDetalis, layout_prevue;
     private TextView txtActorName, txtBengName;
-    private LinearLayout layout_prevue, layoutStill, layouFilm;
+    private LinearLayout layoutStill, layouFilm;
     private RecyclerView listPrevue, listStill;
     private VideoAdapter videoAdapter;
     private StillAdapter stillAdapter;
@@ -240,16 +240,14 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
         layoutStill = (LinearLayout) getView(R.id.layout_still);
         listStill = (RecyclerView) getView(R.id.list_still);
         //预告页面的控件
-        layout_prevue = (LinearLayout) getView(R.id.layout_prevue);
+        layout_prevue = (RelativeLayout) getView(R.id.layout_prevue);
         listPrevue = (RecyclerView) getView(R.id.list_prevue);
         //详情页面的控件
         txtBengName = (TextView) getView(R.id.txt_btnEng_name);
         txtActorName = (TextView) getView(R.id.txt_actor_name);
         layoutDetalis = (RelativeLayout) getView(R.id.layout_details);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) layoutDetalis.getLayoutParams();
-        layoutParams.height = DimUtil.pxToDip(heightpixels);
-        layoutDetalis.setLayoutParams(layoutParams);
-
+        //设置宽度
+        setHeight();
         smFilmPic = (SimpleDraweeView) getView(R.id.sm_film_pic);
         txtType = (TextView) getView(R.id.txt_type);
         txtCredit = (TextView) getView(R.id.txt_credit);
@@ -285,6 +283,25 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
         LinearLayoutManager linearCommentManager = new LinearLayoutManager(mContext);
         listComment.setLayoutManager(linearCommentManager);
         listComment.setAdapter(commentAdapter);
+    }
+
+    private void setHeight() {
+        //动态为详情设置高度
+        RelativeLayout.LayoutParams layoutParamsDetalis = (RelativeLayout.LayoutParams) layoutDetalis.getLayoutParams();
+        layoutParamsDetalis.height = DimUtil.pxToDip(heightpixels * 2);
+        layoutDetalis.setLayoutParams(layoutParamsDetalis);
+        //动态为预告设置详情
+        RelativeLayout.LayoutParams layoutParamsPrevue = (RelativeLayout.LayoutParams) layout_prevue.getLayoutParams();
+        layoutParamsPrevue.height = DimUtil.pxToDip(heightpixels * 2);
+        layout_prevue.setLayoutParams(layoutParamsPrevue);
+        //为剧照设置详情
+        ViewGroup.LayoutParams layoutParamsStill = layoutStill.getLayoutParams();
+        layoutParamsStill.height = DimUtil.pxToDip(heightpixels * 2);
+        layoutStill.setLayoutParams(layoutParamsStill);
+        //为影评设置详情
+        ViewGroup.LayoutParams layoutParamsFilm = layouFilm.getLayoutParams();
+        layoutParamsFilm.height = DimUtil.pxToDip(heightpixels * 2);
+        layouFilm.setLayoutParams(layoutParamsFilm);
     }
 
 
@@ -346,19 +363,19 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_details:
-                setAnimation(layoutDetalis, heightpixels, heightpixels2);
+                setAnimation(layoutDetalis, heightpixels, 0);
                 layoutDetalis.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_prevue:
-                setAnimation(layout_prevue, heightpixels, heightpixels2);
+                setAnimation(layout_prevue, heightpixels, 0);
                 layout_prevue.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_photo:
-                setAnimation(layoutStill, heightpixels, heightpixels2);
+                setAnimation(layoutStill, heightpixels, 0);
                 layoutStill.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_film:
-                setAnimation(layouFilm, heightpixels, heightpixels2);
+                setAnimation(layouFilm, heightpixels, 0);
                 layouFilm.setVisibility(View.VISIBLE);
                 break;
             case R.id.iv_down:
@@ -420,7 +437,6 @@ public class ActivityFilmDetailsPersenter extends AppDelegate implements View.On
 
     @Override
     public void backFlag(int flag, int commentId) {
-        Logger.i("ActivityFilmDetailsPersenter", commentId + "==" + flag);
         if (flag == 0) {
             Map<String, String> hmap = new HashMap<>();
             hmap.put("userId", getuserId());

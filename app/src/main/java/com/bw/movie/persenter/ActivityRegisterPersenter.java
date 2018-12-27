@@ -121,12 +121,6 @@ public class ActivityRegisterPersenter extends AppDelegate implements SexBox.Sex
         map.put("pwd2", registerpass1);
         map.put("phone", registerphone);
         map.put("sex", sex + "");
-     /* if ("男".equals(registersex)) {
-            map.put("sex", 1 + "");
-        } else if ("女".equals(registersex)) {
-            map.put("sex", 2 + "");
-        }*/
-        /*    map.put("birthday", registerdate);*/
         map.put("email", registeremil);
         HttpHelper.getInstens().PostForm("/movieApi/user/v1/registerUser", map, new BaseObserver<ResponseBody>() {
 

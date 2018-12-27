@@ -25,6 +25,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,8 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
     private boolean pay = false;
     private PlaceEntity placeEntity;
     private IWXAPI api;
+    private int heightpixels;
+    private double mPrice;
 
     @Override
     protected int getLayoutId() {
@@ -67,7 +70,7 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
 
     //找控件
     private void initwidget() {
-
+        heightpixels = context.getResources().getDisplayMetrics().heightPixels;
         cinema_name1 = (TextView) getView(R.id.cinema_text_name1);
         cinema_name2 = (TextView) getView(R.id.cinema_text_name2);
         cinema_dz1 = (TextView) getView(R.id.cinema_text_dz1);
@@ -110,6 +113,8 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
     //初始化本页面数据
     private void initdata() {
         Intent intent = ((ActivityBuyTicket) context).getIntent();
+        String money = intent.getStringExtra("money");
+        mPrice = Double.parseDouble(money);
         ccid = intent.getStringExtra("ccid");
         ccbegintime = intent.getStringExtra("ccbegintime");
         ccendtime = intent.getStringExtra("ccendtime");
@@ -157,11 +162,15 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
             @Override
             public void checked(int row, int column) {
                 num++;
+                double money = mPrice * num;
+                cinema_money.setText(BigDecimal.valueOf(money)+"");
             }
 
             @Override
             public void unCheck(int row, int column) {
                 num--;
+                double money = mPrice * num;
+                cinema_money.setText(BigDecimal.valueOf(money)+"");
             }
 
             @Override
@@ -179,7 +188,7 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
         switch (view.getId()) {
             case R.id.cinema_simp_buy:
                 if (pay) {
-                    setAnimation(linearBuy, 500, 0);
+                    setAnimation(linearBuy, heightpixels, 0);
                 } else {
                     isPlace();
                 }
@@ -189,7 +198,7 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
                 ((ActivityBuyTicket) context).finish();
                 break;
             case R.id.iv_deom:
-                setAnimation(linearBuy, 0, 500);
+                setAnimation(linearBuy, 0, heightpixels);
                 break;
             case R.id.btn_pay:
                 goPayMyMovie();
@@ -202,13 +211,17 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
      * 去支付
      */
     private void goPayMyMovie() {
-        Map<String, String> hmap = new HashMap<>();
-        hmap.put("userId", getUserId());
-        hmap.put("sessionId", getUserSession());
-        Map<String, String> fmap = new HashMap<>();
-        fmap.put("payType", flag + "");
-        fmap.put("orderId", placeEntity.getOrderId() + "");
-        HeadOrFormPost(Http.PAY_RUL, PAY_URL, hmap, fmap);
+        if (flag == 1) {
+            Map<String, String> hmap = new HashMap<>();
+            hmap.put("userId", getUserId());
+            hmap.put("sessionId", getUserSession());
+            Map<String, String> fmap = new HashMap<>();
+            fmap.put("payType", flag + "");
+            fmap.put("orderId", placeEntity.getOrderId() + "");
+            HeadOrFormPost(Http.PAY_RUL, PAY_URL, hmap, fmap);
+        } else {
+            toast(context, "暂未开通");
+        }
     }
 
     /**
@@ -286,12 +299,13 @@ public class ActivityBuyTicketPersenter extends AppDelegate implements View.OnCl
      */
 
     private void setPlace(String data) {
+
         placeEntity = new Gson().fromJson(data, PlaceEntity.class);
         if ("0000".equals(placeEntity.getStatus())) {
             toast(context, "下单成功");
             pay = true;
             linearBuy.setVisibility(View.VISIBLE);
-            setAnimation(linearBuy, 500, 0);
+            setAnimation(linearBuy, heightpixels / 2, 0);
         } else {
             toast(context, "下单失败");
             pay = false;

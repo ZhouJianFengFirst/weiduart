@@ -11,6 +11,8 @@ import com.bw.movie.base.viewholder.ViewHolder;
 import com.bw.movie.entity.CinemaFlowBean;
 import com.bw.movie.entity.CinemaSessionBean;
 
+import java.math.BigDecimal;
+
 /**
  * 作者：gaojiabao
  * 时间：2018/11/30 9:10
@@ -37,7 +39,7 @@ public class CinemaSessionsAdapter extends RecycleAdapter<CinemaSessionBean.Resu
         viewHolder.setText(R.id.text_seccion_te1, resultBean.getScreeningHall());
         viewHolder.setText(R.id.text_seccion_te2, resultBean.getBeginTime());
         viewHolder.setText(R.id.text_seccion_te3, resultBean.getEndTime() + "   end");
-        viewHolder.setText(R.id.text_seccion_te4, num + ".9");
+        viewHolder.setText(R.id.text_seccion_te4, BigDecimal.valueOf(resultBean.getPrice()) + "");
         viewHolder.setClick(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

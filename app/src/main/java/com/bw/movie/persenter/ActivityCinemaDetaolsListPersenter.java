@@ -154,7 +154,8 @@ public class ActivityCinemaDetaolsListPersenter extends AppDelegate implements C
     @Override
     public void back(int postion) {
         Intent intent = new Intent(mContext, ActivityBuyTicket.class);
-        intent.putExtra("ccid", sessionBean.getResult().get(postion).getId()+"");
+        intent.putExtra("money", sessionBean.getResult().get(postion).getPrice() + "");
+        intent.putExtra("ccid", sessionBean.getResult().get(postion).getId() + "");
         intent.putExtra("ccbegintime", sessionBean.getResult().get(postion).getBeginTime());
         intent.putExtra("ccendtime", sessionBean.getResult().get(postion).getEndTime());
         intent.putExtra("cctime", sessionBean.getResult().get(postion).getDuration());

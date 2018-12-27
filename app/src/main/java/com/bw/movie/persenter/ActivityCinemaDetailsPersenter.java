@@ -38,6 +38,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,9 +55,9 @@ import recycler.coverflow.RecyclerCoverFlow;
 public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.OnClickListener, CinemaSessionsAdapter.BackClickListener {
     private Context context;
     private SimpleDraweeView simp;
-    private TextView name, teseat,rescy_text;
+    private TextView name, teseat, rescy_text;
     private XRecyclerView rescy;
-    private LinearLayout tan, xq, pl,line;
+    private LinearLayout tan, xq, pl, line;
     private FrameLayout fram;
     private View left, right;
     private FragmentManager supportFragmentManager;
@@ -67,7 +68,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     private CinemaSessionsAdapter cinemaSessionsAdapter;
     private ImageView seat;
     private Bitmap head;
-    private String message1,status1,sessionId1,userId1,headPic1,nickName1,phone1,birthday1,id1,lastLoginTime1,sex1,id;
+    private String message1, status1, sessionId1, userId1, headPic1, nickName1, phone1, birthday1, id1, lastLoginTime1, sex1, id;
     private List<CinemaFlowBean.ResultBean> flowlist = new ArrayList<>();
     private List<CinemaSessionBean.ResultBean> sessionlist = new ArrayList<>();
     private int flag;
@@ -106,7 +107,7 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
         flow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
-                flag=position;
+                flag = position;
                 putLine(position);
                 Logger.d("Tagger", flowlist.get(position).getName());
                 int moveid = flowlist.get(position).getId();
@@ -314,7 +315,8 @@ public class ActivityCinemaDetailsPersenter extends AppDelegate implements View.
     @Override
     public void back(int postion) {
         Intent intent = new Intent(context, ActivityBuyTicket.class);
-        intent.putExtra("ccid", sessionlist.get(postion).getId()+"");
+        intent.putExtra("ccid", sessionlist.get(postion).getId() + "");
+        intent.putExtra("money", sessionlist.get(postion).getPrice() + "");
         intent.putExtra("ccbegintime", sessionlist.get(postion).getBeginTime());
         intent.putExtra("ccendtime", sessionlist.get(postion).getEndTime());
         intent.putExtra("cctime", sessionlist.get(postion).getDuration());

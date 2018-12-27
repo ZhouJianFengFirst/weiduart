@@ -27,6 +27,7 @@ import com.bw.movie.utils.EncryptUtil;
 import com.bw.movie.utils.Logger;
 import com.bw.movie.utils.SharedUtil;
 import com.bw.movie.utils.SpUtil;
+import com.bw.movie.utils.Validator;
 import com.bw.movie.utils.WXUtils;
 import com.google.gson.Gson;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -128,6 +129,10 @@ public class ActivityLoginPersenter extends AppDelegate implements View.OnClickL
 
         if (TextUtils.isEmpty(loginphone) && TextUtils.isEmpty(loginpass)) {
             toast("警告", "用户名或密码不能为空！！", 1);
+            return;
+        }
+        if (!Validator.isMobile(loginphone)) {
+            toast("警告", "请输入正确手机号哦", 1);
             return;
         }
         String encrypt = EncryptUtil.encrypt(loginpass);

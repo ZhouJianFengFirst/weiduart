@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:background="@drawable/film_yuan"
-    android:orientation="vertical">
-
+    android:background="@drawable/film_yuan">
 
     <RelativeLayout
         android:id="@+id/layout_top1"
@@ -40,4 +38,4 @@
         android:layout_below="@id/layout_top1"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20" />
-</LinearLayout>
+</RelativeLayout>
